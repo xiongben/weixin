@@ -1,0 +1,40 @@
+/* pages/audioPlayer/audioPlay.wxss */
+
+.musicInfo{
+  height:600rpx;
+  /*background:red;*/
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items:center;
+}
+.musicCover{
+   display:block;
+   width:300rpx;
+   height:300rpx;
+   background:green;
+   border-radius: 150rpx;
+}
+
+.musicInfoTitle{
+  height:50rpx;
+  line-height:50rpx;
+  color:blue;
+}
+.musicInfoAuthor{
+  height:50rpx;
+  font-size: 26rpx;
+}
+.musicLyric{
+  background:red;
+  height:200rpx;
+  width:700rpx;
+}
+.controlBtn{
+  width:100rpx;
+  height:50rpx;
+  background:blue;
+  font-size:20rpx;
+  float:left;
+  margin:5rpx 10rpx;
+}

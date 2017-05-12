@@ -1,0 +1,41 @@
+{
+  "pages":[
+    "pages/audioPlayer/audioPlay",
+    "pages/logs/logs",
+    "pages/index/index"
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "position": "bottom",
+    "backgroundColor": "#fff",
+    "borderStyle": "#f8f8f8",
+    "color": "#333333",
+    "selectedColor": "#f33f40",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "票务",
+        "iconPath": "static/images/tabBar_ticket.png",
+        "selectedIconPath": "static/images/tabBar_ticket_selected.png"
+      },
+      {
+        "pagePath": "pages/transferTicket/index",
+        "text": "转票",
+        "iconPath": "static/images/tabBar_ticket_transfer.png",
+        "selectedIconPath": "static/images/tabBar_ticket_transfer_selected.png"
+      },
+      {
+        "pagePath": "pages/user/mine",
+        "text": "我的",
+        "iconPath": "static/images/tabBar_mine.png",
+        "selectedIconPath": "static/images/tabBar_mine_selected.png"
+      }
+    ]
+  }
+}
