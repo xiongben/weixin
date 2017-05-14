@@ -11,7 +11,12 @@ Page({
     author: '许巍',
     // src: 'http://res.heyhou.com/av/2017/01/06/b1a2fcd14ab8331942048c51c6bf58a4.mp3',
     src: 'http://xiongsanniu.com/music/0.mp3',
-    lrcsrc:'http://res.heyhou.com/file/2017/01/06/51c19a06e2412f8e4f9d3f1d4c6225db.lrc'
+    lrcsrc: 'http://xiongsanniu.com/music/data.json',
+    lyricArr: [],
+    timeArr: [],
+    showArr: [],
+    lrcHighIndex: 0,
+    currentPosition:0,
   },
 
   /**
@@ -19,6 +24,7 @@ Page({
    */
   onLoad: function (options) {
     this.getlyric();
+    this.timeUpData();
   },
 
   /**
@@ -27,14 +33,15 @@ Page({
   onReady: function (e) {
     this.audioCtx = wx.createAudioContext('myAudio');
     // this.audioCtx.setSrc('../');
-    this.audioCtx.play()
+    this.audioCtx.play();
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+      
   },
 
   /**
@@ -100,8 +107,10 @@ Page({
   getlyric: function () {
     util.request(this.data.lrcsrc, {
       success: function (res) {
-        let lyric = this.createArrMap(res.data);
+        console.log(res);
+        let lyric = this.createArrMap(res.data[0].lyric);
         console.log(lyric);
+        this.renderLyric(lyric);
       }.bind(this)
     })
   },
@@ -111,7 +120,7 @@ Page({
     var tempArr = lyric.split("\n");
     tempArr.splice(-1, 1);
     var tempStr = "";
-    for(let i=0;i<tempArr.length;i++){
+    for (let i = 0; i < tempArr.length; i++) {
       tempStr = tempArr[i];
       if (tempStr.charAt(9).match(/\d/) !== null) {
         tempStr = tempStr.substring(0, 9) + tempStr.substring(10);
@@ -119,10 +128,54 @@ Page({
       timeArr.push(tempStr.substring(0, 10));
       lyricArr.push(tempStr.substring(10));
     }
-    
     return {
       timeArr: timeArr,
       lyricArr: lyricArr
     };
+  },
+  renderLyric: function (obj) {
+    this.setData({
+      lyricArr: obj.lyricArr,
+      timeArr: obj.timeArr
+    });
+
+  },
+  formatLyricTime: function (timeArr) {
+    var result = [];
+    var time = 0;
+    var m = 0;
+    var s = 0;
+    for (let i = 0; i < timeArr.length; i++) {
+      time = timeArr[i].replace(/[\[]|]|\s|:/ig, "");
+      m = +time.substring(0, 2);
+      s = +time.substring(2);
+      result.push(Math.floor(m * 60 + s));
+    }
+    return result;
+  },
+  syncLyric: function (curS, formatTimeArr) {
+    if (Math.floor(curS) >= formatTimeArr[IrcHighIndex]) {
+      let showArr = this.data.showArr;
+      showArr[IrcHighIndex] = true;
+      this.setData({
+        showArr: showArr
+      });
+    }
+    IrcHighIndex++;
+  },
+  timeUpData: function () {
+    // wx.playBackgroundAudio({
+    //   dataUrl: this.data.src,
+    //   success: function (res){
+    //     // console.log(res);
+    //    }
+    // });
+    // wx.onBackgroundAudioPlay(
+    //   function (res) {
+    //     console.log(res);
+        
+    //   }
+    // );
+    
   },
 });

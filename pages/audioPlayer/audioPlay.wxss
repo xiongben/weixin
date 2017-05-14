@@ -1,7 +1,7 @@
 /* pages/audioPlayer/audioPlay.wxss */
 
 .musicInfo{
-  height:600rpx;
+  /*height:600rpx;*/
   /*background:red;*/
   display:flex;
   flex-direction: column;
@@ -27,8 +27,19 @@
 }
 .musicLyric{
   background:red;
-  height:200rpx;
+  /*height:200rpx;*/
   width:700rpx;
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items:center;
+}
+.lyricBox{
+  background:blue;
+  height:40rpx;
+  line-height:40rpx;
+  font-size:26rpx;
+  color:yellow;
 }
 .controlBtn{
   width:100rpx;
