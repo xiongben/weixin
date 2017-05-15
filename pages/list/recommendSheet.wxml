@@ -1,0 +1,13 @@
+<!--pages/list/recommendSheet.wxml-->
+<view class="container">
+  <view class="recommendList">
+    <view class="musicSheetLi">
+      <image class="recommendImg"></image>
+      <view class="recommendNasme">高地我的心飞向哪里你在哪里我在哪里</view>
+    </view>
+    <view class="musicSheetLi"></view>
+    <view class="musicSheetLi"></view>
+    <view class="musicSheetLi"></view>
+    <view class="musicSheetLi"></view>
+  </view>
+</view>

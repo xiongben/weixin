@@ -10,7 +10,7 @@
 } */
 
 page {
-  background-color: #f8f8f8;
+  background-color: #3c372f;
 }
 
 button::after {
@@ -19,7 +19,7 @@ button::after {
 
 .container {
   height: 100%;
-  color: #333;
+  color: #3c372f;
 }
 
 .m_wrap {

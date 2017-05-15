@@ -1,0 +1,101 @@
+/* pages/mine/myPage.wxss */
+.myInfo{
+  height:200rpx;
+  width:720rpx;
+  border-bottom: 1rpx solid #635f59;
+  margin-left:30rpx;
+}
+.userImg{
+  width:160rpx;
+  height:160rpx;
+  border-radius: 80rpx;
+  border:2rpx solid #e5d1a1;
+  background:#fff;
+  margin-top:20rpx;
+  float:left;
+}
+.userName{
+  height:200rpx;
+  line-height:200rpx;
+  color:#e5d1a1;
+  float:left;
+  margin-left:24rpx;
+  font-size:30rpx;
+}
+.recentlyPlayed,.favoriteMusic,.shareMusic{
+  height:110rpx;
+  width:720rpx;
+  margin-left:30rpx;
+}
+.theicon{
+  width:48rpx;
+  height:48rpx;
+  margin-top:31rpx;
+  float:left;
+}
+.recentlyMenu{
+  float:right;
+  width:648rpx;
+  height:109rpx;
+  line-height:109rpx;
+  border-bottom: 1rpx solid #635f59;
+  color:#e5d1a1;
+  font-size:30rpx;
+}
+.recentlyMenuRight{
+  float:right;
+  font-size:28rpx;
+  color:#8a8782;
+}
+.iconMore{
+  float:right;
+  width:15rpx;
+  height:25rpx;
+  margin:45rpx 30rpx 0 24rpx;
+  
+}
+.songSheetList{
+  background:#48443c;
+}
+.myCreat,.myCollection,.buildNew,.management{
+  width:720rpx;
+  height:64rpx;
+  line-height:64rpx;
+  margin-left:30rpx;
+  border-bottom: 1rpx solid #635f59;
+  font-size:28rpx;
+  color:#8a8782;
+}
+.iconDown{
+  float:right;
+  width:25rpx;
+  height:15rpx;
+  margin:25rpx 30rpx 0 0;
+}
+.songSheetSecondList{
+  background:#3c372f;
+}
+.songSheetPic{
+  width:140rpx;
+  height:140rpx;
+  background:#fff;
+  margin:20rpx 24rpx 0 30rpx;
+}
+.songSheetInfo{
+  width:556rpx;
+  height:159rpx;
+  border-bottom: 1rpx solid #635f59;
+  float:right;
+}
+.songSheetName{
+  height:68rpx;
+  line-height:68rpx;
+  margin-top:20rpx;
+  font-size: 28rpx;
+  color:#e5d1a1;
+}
+.songSheetNum{
+  height:30rpx;
+  font-size:24rpx;
+  color:#8a8782;
+}

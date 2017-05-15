@@ -9,7 +9,7 @@
       <view class="lyricBox" wx:for="{{lyricArr}}" wx:key="idx" data-point="{{timeArr[index]}}" wx:if="{{showArr[index]}}">{{item}}</view>
     </view>
   </view>
-  <audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>
+  <!--<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>-->
   
   <button type="primary" class="controlBtn" bindtap="audioPlay">播放</button>
   <button type="primary" class="controlBtn" bindtap="audioPause">暂停</button>

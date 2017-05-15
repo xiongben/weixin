@@ -1,0 +1,35 @@
+/* pages/list/recommendSheet.wxss */
+
+.recommendList{
+  width:720rpx;
+  margin-left:30rpx;
+  display:flex;
+  flex-direction: row;
+  justify-content:flex-start;
+  flex-wrap:wrap;
+}
+.musicSheetLi{
+  width:330rpx;
+  height:390rpx;
+  /*background:red;*/
+  float:left;
+  margin:25rpx 30rpx 0 0;
+}
+.recommendImg{
+  width:330rpx;
+  height:330rpx;
+  background:#fff;
+  border-radius: 15rpx;
+  float:left;
+}
+.recommendNasme{
+  float:left;
+  height:60rpx;
+  line-height:60rpx;
+  font-size:30rpx;
+  color:#e5d1a1;
+  text-overflow:ellipsis;
+  overflow: hidden;
+  width:330rpx;
+  white-space:nowrap;
+}

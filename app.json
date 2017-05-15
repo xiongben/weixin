@@ -1,5 +1,9 @@
 {
   "pages":[
+    "pages/list/monthWeekList",
+    "pages/list/recommendSheet",
+    "pages/index/selectPage",
+    "pages/mine/myPage",
     "pages/audioPlayer/audioPlay",
     "pages/logs/logs",
     "pages/index/index"

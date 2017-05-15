@@ -167,15 +167,17 @@ Page({
     // wx.playBackgroundAudio({
     //   dataUrl: this.data.src,
     //   success: function (res){
-    //     // console.log(res);
+    //     console.log("正在播放音乐");
     //    }
     // });
-    // wx.onBackgroundAudioPlay(
-    //   function (res) {
-    //     console.log(res);
-        
-    //   }
-    // );
+    // wx.onBackgroundAudioPlay(function(){
+    //   wx.getBackgroundAudioPlayerState({
+    //     success: function (res) {
+    //       console.log(res);
+    //     }
+    //   })
+    // })
+   
     
   },
 });

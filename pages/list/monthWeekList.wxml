@@ -1,0 +1,11 @@
+<!--pages/list/monthWeekList.wxml-->
+<view class="container">
+  <view class="listTop">
+    <view class="listType">
+      <view class="xihaList listActive">嘻哈周榜</view>
+      <view class="denonList">电音周榜</view>
+    </view>
+  </view>
+  <view class="listRule"></view>
+  <view class="musicList"></view>
+</view>

@@ -1,0 +1,25 @@
+<!--pages/index/selectPage.wxml-->
+<view class="container">
+  <view class="searchArea">
+   <input type="text" class="searchMusic"/>
+   <view class="cancelSearch">取消</view>
+  </view>
+  <view class="hotSearch">
+    <view class="hotSearchTitle">热门搜索</view>
+    <view class="hotSearchList">周杰伦</view>
+    <view class="hotSearchList">周杰伦</view>
+    <view class="hotSearchList">周杰伦</view>
+    <view class="hotSearchList">周杰伦规范规定和</view>
+    <view class="hotSearchList">周杰伦</view>
+    <view class="hotSearchList">周杰伦阿卡卡卡卡卡卡</view>
+    <view class="hotSearchList">周大大大大大</view>
+        
+  </view>
+  <view class="searchHistory">
+    <view class="historyTitle">搜索历史 <image src="../../static/images/btn_Clear_pre.png" class="clearIcon"></image></view>
+    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
+    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
+    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
+    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
+  </view>
+</view>
