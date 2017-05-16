@@ -1,14 +1,9 @@
-<!--pages/list/monthWeekList.wxml-->
+<!--pages/list/recommendSongs.wxml-->
 <view class="container">
-  <view class="listTop">
-    <view class="listType">
-      <view class="xihaList listActive">嘻哈周榜</view>
-      <view class="denonList listNotActive">电音周榜</view>
-    </view>
+  <view class="playAll">全部播放 
+    <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
   </view>
-  <view class="listRule">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分 
-    <image src="../../static/images/icon_more2.png" class="moreicon"></image>
-  </view>
+  
   <view class="musicList">
    <view class="audioLi">
      <view class="liNum">1</view>
@@ -49,3 +44,5 @@
    
   </view>
 </view>
+
+

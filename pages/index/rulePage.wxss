@@ -1,0 +1,29 @@
+/* pages/index/rulePage.wxss */
+.ruleTitle{
+  height:88rpx;
+  line-height:88rpx;
+  width:750rpx;
+  background:#4b473f;
+  font-size:28rpx;
+  color:#8a8782;
+  text-indent: 30rpx;
+}
+.ruleTextArea{
+  width:750rpx;
+  padding:30rpx;
+}
+.ruleText{
+  width:690rpx;
+  line-height:34rpx;
+  font-size:28rpx;
+  color:#e5d1a1;
+  
+  /*background:red;*/
+}
+.ruleText2{
+  width:690rpx;
+  line-height:34rpx;
+  font-size:28rpx;
+  color:#e5d1a1;
+  margin-top:30rpx;
+}

@@ -1,0 +1,76 @@
+/* pages/musician/musicianRankingList.wxss */
+
+.listTitle{
+  height:80rpx;
+  line-height:80rpx;
+  width:720rpx;
+  margin-left:30rpx;
+  border-bottom: 1px solid #e5d1a1;
+  font-size:30rpx;
+  color:#e5d1a1;
+}
+
+
+.listRule{
+  height:50rpx;
+  line-height:50rpx;
+  text-indent: 30rpx;
+  font-size:24rpx;
+  color:#8a8782;
+  background:#4b473f;
+}
+.moreicon{
+  height:28rpx;
+  width:28rpx;
+  float:right;
+  margin-right:30rpx;
+  margin-top:11rpx;
+}
+.audioLi{
+  height:120rpx;
+  width:100%;
+}
+.liNum{
+  width:68rpx;
+  height:120rpx;
+  line-height:120rpx;
+  text-align:center;
+  font-size:30rpx;
+  color:#e5d1a1;
+  float:left;
+}
+.audioInfo{
+  width:682rpx;
+  height:119rpx;
+  float:left;
+  border-bottom: 1px solid #e5d1a1;
+  position:relative;
+}
+.infoImg{
+  background:#fff;
+  width:80rpx;
+  height:80rpx;
+  margin-top:20rpx;
+  border-radius: 40rpx;
+}
+.audioName{
+  /*background:red;*/
+  position:absolute;
+  left:104rpx;
+  top:20rpx;
+  width:450rpx;
+  height:48rpx;
+  font-size:28rpx;
+  color:#e5d1a1;
+}
+.authorScore{
+  /*background:green;*/
+  position:absolute;
+  left:104rpx;
+  top:68rpx;
+  width:450rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:24rpx;
+  color:#8a8782;
+}

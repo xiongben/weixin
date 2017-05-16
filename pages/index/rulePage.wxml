@@ -1,0 +1,27 @@
+<!--pages/index/rulePage.wxml-->
+<view class="container">
+  <view class="ruleTitle">榜单介绍</view>
+  <view class="ruleTextArea">
+    <view class="ruleText">榜单是面向推荐歌曲和新歌的联合打榜，通过播放和转发分享，综合反映歌曲的传播热度和歌手的影响力。</view>
+  </view>
+  <view class="ruleTitle">榜单构成</view>
+  <view class="ruleTextArea">
+    <view class="ruleText">分为嘻哈周榜TOP50，电音周榜TOP50。</view>
+  </view>
+  <view class="ruleTitle">积分规则</view>
+  <view class="ruleTextArea">
+    <view class="ruleText">打榜规则：有效播放一次+1分，有效分享一次+10分，每个用户每首歌每日播放和分享累计总分不超过200分。</view>
+  </view>
+   <view class="ruleTitle">统计规则</view>
+  <view class="ruleTextArea">
+    <view class="ruleText">嘻哈周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+     
+    <view class="ruleText2">电音周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+  </view>
+   <view class="ruleTitle">联系我们</view>
+  <view class="ruleTextArea">
+    <view class="ruleText">客服电话：4000-88-2626</view>
+    <view class="ruleText2">电子邮箱：sales@heihou.com</view>
+  </view>
+  
+</view>

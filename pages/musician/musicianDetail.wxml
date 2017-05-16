@@ -1,18 +1,22 @@
-<!--pages/list/monthWeekList.wxml-->
+<!--pages/musician/musicianDetail.wxml-->
 <view class="container">
-  <view class="listTop">
-    <view class="listType">
-      <view class="xihaList listActive">嘻哈周榜</view>
-      <view class="denonList listNotActive">电音周榜</view>
-    </view>
+  <view class="sheetDetailsInfo">
+    <view class="backImgArea"></view>
+    <view class="filterBg"></view>
+    <view class="sheetName">kakaxi</view>
+    <image class="musicianPic"></image>
+    <view class="musicianName">kkkkkk</view>
+    <view class="musicianRank">音乐排行榜第一名</view>
+    <view class="musicianScore">总积分：50000名</view>
   </view>
-  <view class="listRule">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分 
-    <image src="../../static/images/icon_more2.png" class="moreicon"></image>
+  <view class="playAll">全部播放 
+    <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
   </view>
+  
   <view class="musicList">
    <view class="audioLi">
-     <view class="liNum">1</view>
      <view class="audioInfo">
+       <view class="bottom-border"></view>
        <image class="infoImg"></image>
        <view class="audioName">i want rocks</view>
        <view class="audioAuthor">kakaxi</view>
@@ -23,8 +27,8 @@
      </view>
    </view>
    <view class="audioLi">
-     <view class="liNum">1</view>
      <view class="audioInfo">
+       <view class="bottom-border"></view>
        <image class="infoImg"></image>
        <view class="audioName">i want rocks</view>
        <view class="audioAuthor">kakaxi</view>
@@ -35,8 +39,8 @@
      </view>
    </view>
    <view class="audioLi">
-     <view class="liNum">1</view>
      <view class="audioInfo">
+       <view class="bottom-border"></view>
        <image class="infoImg"></image>
        <view class="audioName">i want rocks</view>
        <view class="audioAuthor">kakaxi</view>
@@ -47,5 +51,7 @@
      </view>
    </view>
    
+   
   </view>
 </view>
+

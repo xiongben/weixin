@@ -1,0 +1,62 @@
+/* pages/index/addToSheet.wxss */
+
+.songSheetLi{
+  width:720rpx;
+  height:148rpx;
+  margin-left:30rpx;
+}
+.songSheetPic{
+  width:110rpx;
+  height:110rpx;
+  background:#fff;
+  margin:20rpx 24rpx 0 0;
+  float:left;
+}
+.songSheetInfo{
+  width:586rpx;
+  height:147rpx;
+  border-bottom: 1px solid #e5d1a1;
+  float:left;
+  position:relative;
+}
+.audioName{
+  /*background:red;*/
+  position:absolute;
+  left:0;
+  top:20rpx;
+  width:450rpx;
+  height:48rpx;
+  font-size:28rpx;
+  color:#e5d1a1;
+  z-index:3;
+}
+.audioAuthor{
+  /*background:green;*/
+  position:absolute;
+  left:0;
+  top:68rpx;
+  width:450rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:24rpx;
+  color:#8a8782;
+  z-index:3;
+}
+.btnArea{
+  width:750rpx;
+  height:90rpx;
+  margin-top:60rpx;
+  display:flex;
+  justify-content: center;
+}
+.creatSheet{
+  height:88rpx;
+  line-height:88rpx;
+  text-align:center;
+  width:630rpx;
+  border:1px solid #e5d1a1;
+  border-radius: 44rpx;
+  font-size: 34rpx;
+  color:#e5d1a1;
+  font-weight: 700;
+}

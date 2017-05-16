@@ -1,0 +1,30 @@
+<!--pages/mine/shareSongs.wxml-->
+<view class="container">
+<view class="musicList">
+   <view class="audioLi">
+     <view class="audioInfo">
+       <image class="infoImg"></image>
+       <view class="audioName">i want rocks</view>
+       <view class="audioAuthor">kakaxi 1000分</view>
+       <view class="shareIconArea">
+        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+        <view class="shareText">打榜</view>
+       </view>
+     </view>
+   </view>
+   <view class="audioLi">
+     <view class="audioInfo">
+       <image class="infoImg"></image>
+       <view class="audioName">i want rocks</view>
+       <view class="audioAuthor">kakaxi 1000分</view>
+       <view class="shareIconArea">
+        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+        <view class="shareText">打榜</view>
+       </view>
+     </view>
+   </view>
+   
+ 
+   
+  </view>
+</view>

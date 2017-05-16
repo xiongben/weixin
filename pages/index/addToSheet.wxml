@@ -1,0 +1,13 @@
+<!--pages/index/addToSheet.wxml-->
+<view class="container">
+    <view class="songSheetLi">
+       <image class="songSheetPic"></image>
+       <view class="songSheetInfo">
+         <view class="audioName">歌单歌单</view>
+         <view class="audioAuthor">活鱼ID回到家含税单价</view>
+       </view>
+    </view>
+    <view class="btnArea">
+       <view class="creatSheet">创建歌单</view>
+    </view>
+</view>
