@@ -1,10 +1,55 @@
 <!--index.wxml-->
 <view class="container">
-  <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+  <view class="searchArea">
+    <input type="text" class="searchMusic" />
+    <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
+    <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="banner">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+      <block wx:for="{{imgUrls}}">
+        <swiper-item>
+          <image src="{{item}}" class="slide-image" />
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <view class="recommendSong">
+    <view class="modelTitle">推荐歌曲
+      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+    </view>
+    <view class="musicList">
+      <view class="audioLi">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg"></image>
+          <view class="audioName">i want rocks</view>
+          <view class="audioAuthor">kakaxi</view>
+          <view class="shareIconArea">
+            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+            <view class="shareText">打榜</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="newSong">
+    <view class="modelTitle">新歌发布
+      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+    </view>
+    <view class="section section_gap">
+      <scroll-view scroll-x="true" style=" white-space: nowrap; display: flex;width:750rpx;">
+        <!--  display: inline-block-->
+        <view style="background: red; width: 200px; height: 100px; display: inline-block"></view>
+        <view style="background: green; width: 200px; height: 100px; display: inline-block"></view>
+        <view style="background: blue; width: 200px; height: 100px; display: inline-block"></view>
+        <view style="background: yellow; width: 200px; height: 100px; display: inline-block"></view>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="recommendSheet">
+    <view class="modelTitle">推荐歌单
+      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+    </view>
   </view>
 </view>

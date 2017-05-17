@@ -1,0 +1,14 @@
+<!--pages/index/createSheetName.wxml-->
+<view class="container">
+  <input type="text" class="sheetName" placeholder="输入歌单名" />
+  <view class="sheetSet">
+    <checkbox-group bindchange="checkboxChange">
+      <label class="checkbox">
+        <checkbox value="" checked="" color="#e5d1a1"/>设置为隐私歌单
+      </label>
+    </checkbox-group>
+  </view>
+  <view class="btnArea">
+    <view class="creatSheet">创建歌单</view>
+  </view>
+</view>

@@ -1,4 +1,4 @@
-/**index.wxss**/
+/* pages/index/selectResult.wxss */
 
 .searchArea {
   height: 60rpx;
@@ -42,29 +42,45 @@
   float: right;
   margin: 25rpx 20rpx 0 0;
 }
-.banner{
-  width:750rpx;
-  height:248rpx;
+
+.typeTab{
+  margin-top:20rpx;
+}
+.swiper-tab {
+  width: 100%;
+  border-bottom: 2rpx solid #4b473f;
+  text-align: center;
+  line-height: 80rpx;
+  background:#4b473f;
+}
+
+.swiper-tab-list {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 33%;
+  color: #999;
+  /*background:#fff;*/
+}
+
+.on {
+  color: #e5d1a1;
+  border-bottom: 5rpx solid #e5d1a1;
+}
+
+.swiper-box {
+  display: block;
+  height: 300rpx;
+  width: 100%;
   overflow: hidden;
-  margin-top:10rpx;
 }
-.banner image{
-  width:750rpx;
-  height:248rpx;
-}
-.playAll{
-  height:80rpx;
-  line-height:80rpx;
-  width:720rpx;
-  margin-left:30rpx;
-  border-bottom: 1px solid #e5d1a1;
-  font-size:30rpx;
-  text-indent: 30rpx;
-  color:#e5d1a1;
-}
+
+
+
+
 .audioLi{
   height:120rpx;
   width:100%;
+  
 }
 .liNum{
   width:68rpx;
@@ -83,6 +99,7 @@
   /*border-bottom: 1px solid #e5d1a1;*/
   position:relative;
   overflow: hidden;
+  
 }
 .bottom-border{
   width:615rpx;
@@ -100,6 +117,25 @@
   height:80rpx;
   margin-top:20rpx;
   border-radius: 10rpx;
+  
+}
+.musicianImg{
+   background:#fff;
+  width:80rpx;
+  height:80rpx;
+  margin-top:20rpx;
+  border-radius: 40rpx;
+}
+.musicianName{
+  position:absolute;
+  left:104rpx;
+  top:35rpx;
+  width:450rpx;
+  height:48rpx;
+  font-size:32rpx;
+  color:#96a9cb;
+  z-index:3;
+  font-weight:700;
 }
 .audioName{
   /*background:red;*/
@@ -124,45 +160,10 @@
   color:#8a8782;
   z-index:3;
 }
-.shareIconArea{
-  /*background:blue;*/
-  position:absolute;
-  right:30rpx;
-  top:20rpx;
-  width:60rpx;
-  height:90rpx;
-  z-index:3;
-}
-.shareIcon{
-  width:44rpx;
-  height:44rpx;
-  margin-left:8rpx;
-}
-.shareText{
-  height:48rpx;
-  line-height:40rpx;
-  font-size:24rpx;
-  color:#8a8782;
-  text-align:center;
-}
-.modelTitle{
-  width:750rpx;
-  height:88rpx;
-  line-height:88rpx;
-  text-indent: 30rpx;
-  font-size:30rpx;
-  color:#e5d1a1;
-  font-weight:700;
-  position: relative;
-}
 .moreIcon{
-  width:30rpx;
-  height:30rpx;
+  width: 30rpx;
+  height: 30rpx;
   position: absolute;
-  right:30rpx;
-  top:29rpx;
-}
-.section{
-  width:750rpx;
-  overflow: hidden;
+  top: 45rpx;
+  right: 30rpx;
 }

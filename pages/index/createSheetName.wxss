@@ -1,0 +1,37 @@
+/* pages/index/createSheetName.wxss */
+.sheetName{
+  width:750rpx;
+  height:100rpx;
+  font-size:30rpx;
+  color:#8a8782;
+  background:#4b473f;
+  text-indent: 30rpx;
+  margin-top:20rpx;
+}
+.sheetSet{
+  width:720rpx;
+  height:70rpx;
+  margin: 20rpx 0 0 30rpx;
+}
+.checkbox{
+  color:#8a8782;
+  font-size:24rpx;
+}
+.btnArea{
+  width:750rpx;
+  height:90rpx;
+  margin-top:60rpx;
+  display:flex;
+  justify-content: center;
+}
+.creatSheet{
+  height:88rpx;
+  line-height:88rpx;
+  text-align:center;
+  width:630rpx;
+  border:1px solid #e5d1a1;
+  border-radius: 44rpx;
+  font-size: 34rpx;
+  color:#e5d1a1;
+  font-weight: 700;
+}

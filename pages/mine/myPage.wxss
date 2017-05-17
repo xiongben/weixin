@@ -1,8 +1,8 @@
 /* pages/mine/myPage.wxss */
 .myInfo{
-  height:200rpx;
+  height:198rpx;
   width:720rpx;
-  border-bottom: 1rpx solid #635f59;
+  border-bottom: 1px solid #635f59;
   margin-left:30rpx;
 }
 .userImg{
@@ -36,9 +36,9 @@
 .recentlyMenu{
   float:right;
   width:648rpx;
-  height:109rpx;
-  line-height:109rpx;
-  border-bottom: 1rpx solid #635f59;
+  height:107rpx;
+  line-height:107rpx;
+  border-bottom: 1px solid #635f59;
   color:#e5d1a1;
   font-size:30rpx;
 }
@@ -49,9 +49,16 @@
 }
 .iconMore{
   float:right;
-  width:15rpx;
-  height:25rpx;
-  margin:45rpx 30rpx 0 24rpx;
+  width:30rpx;
+  height:30rpx;
+  margin:40rpx 30rpx 0 20rpx;
+  
+}
+.iconMore2{
+  float:right;
+  width:30rpx;
+  height:30rpx;
+  margin:17rpx 30rpx 0 0;
   
 }
 .songSheetList{
@@ -62,15 +69,18 @@
   height:64rpx;
   line-height:64rpx;
   margin-left:30rpx;
-  border-bottom: 1rpx solid #635f59;
+  border-bottom: 1px solid #635f59;
   font-size:28rpx;
   color:#8a8782;
 }
+/*.myCreat{
+  margin-top:10rpx;
+}*/
 .iconDown{
   float:right;
-  width:25rpx;
-  height:15rpx;
-  margin:25rpx 30rpx 0 0;
+  width:30rpx;
+  height:30rpx;
+  margin:17rpx 30rpx 0 0;
 }
 .songSheetSecondList{
   background:#3c372f;
@@ -83,8 +93,8 @@
 }
 .songSheetInfo{
   width:556rpx;
-  height:159rpx;
-  border-bottom: 1rpx solid #635f59;
+  height:158rpx;
+  border-bottom: 1px solid #635f59;
   float:right;
 }
 .songSheetName{

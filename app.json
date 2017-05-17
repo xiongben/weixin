@@ -1,5 +1,9 @@
 {
   "pages":[
+    
+    "pages/index/index",
+    "pages/index/selectResult",
+    "pages/index/createSheetName",
     "pages/index/addToSheet",
     "pages/musician/musicianDetail",
     "pages/list/songDetails",
@@ -12,8 +16,7 @@
     "pages/index/selectPage",
     "pages/mine/myPage",
     "pages/audioPlayer/audioPlay",
-    "pages/logs/logs",
-    "pages/index/index"
+    "pages/logs/logs"
     
   ],
   "window":{
@@ -24,28 +27,34 @@
   },
   "tabBar": {
     "position": "bottom",
-    "backgroundColor": "#fff",
+    "backgroundColor": "#000",
     "borderStyle": "#f8f8f8",
-    "color": "#333333",
-    "selectedColor": "#f33f40",
+    "color": "#fff",
+    "selectedColor": "#e5d1a1",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "票务",
-        "iconPath": "static/images/tabBar_ticket.png",
-        "selectedIconPath": "static/images/tabBar_ticket_selected.png"
+        "text": "发现",
+        "iconPath": "static/images/btn_find_nor.png",
+        "selectedIconPath": "static/images/btn_find_hl.png"
       },
       {
-        "pagePath": "pages/transferTicket/index",
-        "text": "转票",
-        "iconPath": "static/images/tabBar_ticket_transfer.png",
-        "selectedIconPath": "static/images/tabBar_ticket_transfer_selected.png"
+        "pagePath": "pages/list/monthWeekList",
+        "text": "榜单",
+        "iconPath": "static/images/btn_lv_nor.png",
+        "selectedIconPath": "static/images/btn_lv_hl.png"
       },
       {
-        "pagePath": "pages/user/mine",
+        "pagePath": "pages/list/monthWeekList",
+        "text": "音乐人",
+        "iconPath": "static/images/btn_musician_nor.png",
+        "selectedIconPath": "static/images/btn_musician_hl.png"
+      },
+      {
+        "pagePath": "pages/mine/myPage",
         "text": "我的",
-        "iconPath": "static/images/tabBar_mine.png",
-        "selectedIconPath": "static/images/tabBar_mine_selected.png"
+        "iconPath": "static/images/btn_me_nor.png",
+        "selectedIconPath": "static/images/btn_me_hl.png"
       }
     ]
   }
