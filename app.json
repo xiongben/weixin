@@ -1,6 +1,7 @@
 {
   "pages":[
-    
+    "pages/audioPlayer/audioPlay",
+    "pages/audioPlayer/audioLyric",
     "pages/index/index",
     "pages/index/selectResult",
     "pages/index/createSheetName",
@@ -15,7 +16,7 @@
     "pages/list/recommendSheet",
     "pages/index/selectPage",
     "pages/mine/myPage",
-    "pages/audioPlayer/audioPlay",
+    
     "pages/logs/logs"
     
   ],

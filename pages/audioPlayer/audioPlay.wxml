@@ -1,19 +1,23 @@
 <!--pages/audioPlayer/audioPlay.wxml-->
 <view class="container">
-
-  <view class="musicInfo">
-    <text class="musicInfoTitle">{{name}}</text>
-    <text class="musicInfoAuthor">{{author}}</text>
-    <image class="musicCover" src="{{poster}}"></image>
-    <view class="musicLyric">
-      <view class="lyricBox" wx:for="{{lyricArr}}" wx:key="idx" data-point="{{timeArr[index]}}" wx:if="{{showArr[index]}}">{{item}}</view>
-    </view>
-  </view>
-  <!--<audio poster="{{poster}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop></audio>-->
-  
-  <button type="primary" class="controlBtn" bindtap="audioPlay">播放</button>
-  <button type="primary" class="controlBtn" bindtap="audioPause">暂停</button>
-  <button type="primary" class="controlBtn" bindtap="audio14">设置当前播放时间为14秒</button>
-  <button type="primary" class="controlBtn" bindtap="audioStart">回到开头</button>
-  <view class="classname">333{{currentPosition}}</view>
+ <view class="backImg"></view>
+ <view class="songPic">
+   <image src="../../static/images/cm2_play_disc.png" class="discBack"></image>
+   <image src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" class="cover coverActive"></image>
+ </view>
+ <view class="songshare">
+   <image src="../../static/images/btn_collect_hl_nor.png" class="menuIcon"></image>
+    <image src="../../static/images/icon_share_me.png" class="menuIcon"></image>
+    <image src="../../static/images/icon_love_me.png" class="menuIcon"></image>
+ </view>
+ <view class="songContrl">
+   <slider bindchange="slider4change" min="0" max="100"  class="playProgress"  activeColor="#e5d1a1" backgroundColor="#fff" value="50+"/>
+   <view class="controlBtnArea">
+     <image src="../../static/images/btn_reverse_pre.png" class="controlIcon" bindtap="testfun"></image>
+     <image src="../../static/images/btn_pause_room_pre.png" class="controlPauseIcon"></image>
+     <image src="../../static/images/btn_next_pre.png" class="controlIcon"></image>
+   </view>
+   
+ </view>
+ <!--<audio src="{{src}}"></audio>-->
 </view>

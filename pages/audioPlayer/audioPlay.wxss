@@ -1,51 +1,107 @@
 /* pages/audioPlayer/audioPlay.wxss */
-
-.musicInfo{
-  /*height:600rpx;*/
-  /*background:red;*/
-  display:flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items:center;
-}
-.musicCover{
-   display:block;
-   width:300rpx;
-   height:300rpx;
-   background:green;
-   border-radius: 150rpx;
-}
-
-.musicInfoTitle{
-  height:50rpx;
-  line-height:50rpx;
-  color:blue;
-}
-.musicInfoAuthor{
-  height:50rpx;
-  font-size: 26rpx;
-}
-.musicLyric{
+#container{
+  
   background:red;
-  /*height:200rpx;*/
-  width:700rpx;
-  display:flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items:center;
 }
-.lyricBox{
-  background:blue;
+.backImg{
+  background: url("http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg");
+  width:100%;
+  height:100vh;
+  position: absolute;
+  left:0;
+  top:0;
+  z-index: 2;
+  filter: blur(10px);
+}
+.songPic{
+  position: absolute;
+  z-index: 3;
+  width:600rpx;
+  height:600rpx;
+  left:75rpx;
+  top:160rpx;
+}
+.discBack{
+  position: absolute;
+  width:600rpx;
+  height:600rpx;
+  left:0;
+  top:0;
+  z-index:4;
+}
+.cover{
+  position: absolute;
+  z-index: 4;
+  width:400rpx;
+  height:400rpx;
+  left:100rpx;
+  top:100rpx;
+  border-radius: 200rpx;
+  
+}
+.coverActive{
+  animation: rotation 12s linear infinite;
+}
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+
+.songshare{
+  position: absolute;
+  z-index: 3;
+  width:750rpx;
+  height:110rpx;
+  /*background:blue;*/
+  left:0;
+  top:850rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.menuIcon{
+  width:48rpx;
+  height:48rpx;
+  margin:31rpx 35rpx;
+}
+.songContrl{
+  width:750rpx;
+  height:230rpx;
+  position: absolute;
+  z-index: 3;
+  left:0;
+  bottom: 0;
+  
+}
+.playProgress{
+  width:600rpx;
   height:40rpx;
-  line-height:40rpx;
-  font-size:26rpx;
-  color:yellow;
+  /*background: green;*/
+  position: absolute;
+  left:50rpx;
+  top:20rpx;
+   /*backgroundColor:#e5d1a1;*/
+  /*color:#e5d1a1;*/
+  /*margin-top: 20rpx;*/
 }
-.controlBtn{
-  width:100rpx;
-  height:50rpx;
-  background:blue;
-  font-size:20rpx;
-  float:left;
-  margin:5rpx 10rpx;
+.controlBtnArea{
+  width:750rpx;
+  height:140rpx;
+  /*background:red;*/
+  position: absolute;
+  left:0;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.controlIcon{
+  width:38rpx;
+  height:40rpx;
+  margin:35rpx 60rpx;
+}
+.controlPauseIcon{
+  width:72rpx;
+  height:72rpx;
+  margin:10rpx 60rpx;
 }

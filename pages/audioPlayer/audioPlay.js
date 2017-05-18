@@ -17,6 +17,7 @@ Page({
     showArr: [],
     lrcHighIndex: 0,
     currentPosition:0,
+    status:0,
   },
 
   /**
@@ -166,10 +167,26 @@ Page({
   timeUpData: function () {
     // wx.playBackgroundAudio({
     //   dataUrl: this.data.src,
-    //   success: function (res){
+    //   success: function (res) {
     //     console.log("正在播放音乐");
-    //    }
+    //   }
     // });
+    // wx.stopBackgroundAudio();
+
+    var that = this;
+    var time=setTimeout(function(){
+      wx.seekBackgroundAudio({
+        position:20
+      });
+      wx.onBackgroundAudioPlay(function(){
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    })
+    },1000);
+    
     // wx.onBackgroundAudioPlay(function(){
     //   wx.getBackgroundAudioPlayerState({
     //     success: function (res) {
@@ -180,4 +197,7 @@ Page({
    
     
   },
+  testfun:function(){
+    console.log("test is test.")
+  }
 });

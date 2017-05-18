@@ -162,7 +162,15 @@
   right:30rpx;
   top:29rpx;
 }
-.section{
-  width:750rpx;
-  overflow: hidden;
+.scrollView{
+  /*width:750rpx;*/
+  /*overflow: hidden;*/
+  height:200rpx;
+  white-space: nowrap;
+  display: flex;
+}
+.scrollView view{
+  width:400rpx;
+  height:200rpx;
+  display:inline-block;
 }
