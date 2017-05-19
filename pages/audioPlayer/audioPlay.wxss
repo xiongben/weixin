@@ -11,7 +11,7 @@
   left:0;
   top:0;
   z-index: 2;
-  filter: blur(10px);
+  filter: blur(50px);
 }
 .songPic{
   position: absolute;
@@ -74,15 +74,12 @@ to {-webkit-transform: rotate(360deg);}
   
 }
 .playProgress{
-  width:600rpx;
+  width:530rpx;
   height:40rpx;
-  /*background: green;*/
   position: absolute;
-  left:50rpx;
+  left:80rpx;
   top:20rpx;
-   /*backgroundColor:#e5d1a1;*/
-  /*color:#e5d1a1;*/
-  /*margin-top: 20rpx;*/
+
 }
 .controlBtnArea{
   width:750rpx;
@@ -104,4 +101,29 @@ to {-webkit-transform: rotate(360deg);}
   width:72rpx;
   height:72rpx;
   margin:10rpx 60rpx;
+}
+audio{
+  position:absolute;
+  z-index: 3;
+  left:0;
+  top:0;
+}
+.cur_time,.total_time{
+  /*background:red;*/
+  position: absolute;
+  z-index: 5;
+  display: block;
+  width:70rpx;
+  height:40rpx;
+  line-height:40rpx;
+  font-size: 24rpx;
+  color:#fff;
+  top:40rpx;
+  text-align: center;
+}
+.cur_time{
+  left:5rpx;
+}
+.total_time{
+   right:5rpx;
 }

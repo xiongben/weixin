@@ -16,33 +16,39 @@ Page({
     timeArr: [],
     showArr: [],
     lrcHighIndex: 0,
-    currentPosition:0,
-    status:0,
+    currentPosition: 0,
+    status: 0,
+
+    isPlaying: false,
+    song_lyr: [],
+    cur_time: "0:00",
+    total_time: "0:00",
+    duration: 0,
+    current: 0,
+    angle: 0,
+    top: 0,
+    textActive: 0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getlyric();
-    this.timeUpData();
+    loadPage(this);
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    this.audioCtx = wx.createAudioContext('myAudio');
-    // this.audioCtx.setSrc('../');
-    this.audioCtx.play();
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-      
+
   },
 
   /**
@@ -108,9 +114,9 @@ Page({
   getlyric: function () {
     util.request(this.data.lrcsrc, {
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         let lyric = this.createArrMap(res.data[0].lyric);
-        console.log(lyric);
+        // console.log(lyric);
         this.renderLyric(lyric);
       }.bind(this)
     })
@@ -168,36 +174,114 @@ Page({
     // wx.playBackgroundAudio({
     //   dataUrl: this.data.src,
     //   success: function (res) {
-    //     console.log("正在播放音乐");
+    //     console.log(res);
+    //     wx.seekBackgroundAudio({
+    //       position: 0
+    //     });
+        
     //   }
     // });
     // wx.stopBackgroundAudio();
 
     var that = this;
-    var time=setTimeout(function(){
-      wx.seekBackgroundAudio({
-        position:20
-      });
-      wx.onBackgroundAudioPlay(function(){
-      wx.getBackgroundAudioPlayerState({
-        success: function (res) {
-          console.log(res);
-        }
-      })
-    })
-    },1000);
-    
-    // wx.onBackgroundAudioPlay(function(){
+    // var time=setTimeout(function(){
+    //   wx.seekBackgroundAudio({
+    //     position:20
+    //   });
+    //   wx.onBackgroundAudioPlay(function(){
     //   wx.getBackgroundAudioPlayerState({
     //     success: function (res) {
     //       console.log(res);
     //     }
     //   })
     // })
-   
-    
+    // },1000);
+
+    wx.onBackgroundAudioPlay(function(){
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      })
+    });
   },
-  testfun:function(){
-    console.log("test is test.")
-  }
+  //播放暂停
+  playSong: function () {
+    if (!this.data.isPlaying) {
+      play(this);
+    } else {
+      wx.pauseBackgroundAudio({})
+      this.setData({
+        isPlaying: false
+      })
+    }
+  },
+  //拖动滚动条
+  changeSongPross: function (e) {
+    this.setData({
+      current: e.detail.value,
+      cur_time:util.formate(e.detail.value)
+    })
+    play(this)
+  },
 });
+
+function play(page){
+  wx.playBackgroundAudio({
+    dataUrl: page.data.src,
+    success: function (res) {
+      wx.seekBackgroundAudio({
+        position: page.data.current
+      })
+    }
+  })
+  page.setData({
+    isPlaying: true
+  })
+}
+
+//播放中
+function playing(page) {
+  wx.getBackgroundAudioPlayerState({
+    success: function (res) {
+      if (!page.data.duration) {
+        page.setData({
+          duration: parseInt(res.duration),
+          total_time: util.formate(res.duration)
+        })
+      }
+      if (res.status == 1) {
+        page.setData({
+          current: res.currentPosition,
+          cur_time: util.formate(res.currentPosition)
+        })
+        // scrollLyr(page)
+      }
+      //循环播放,这里存在bug，差值可能为1
+      if (page.data.duration - page.data.current <= 1) {
+        page.setData({
+          current: 0,
+          cur_time: '0:00'
+        })
+        play(page)
+      }
+    }
+  })
+}
+
+function loadPage(page) {
+  //播放
+  play(page);
+  // loadLyr(page);
+  //记录播放状态
+  playing(page);
+  setInterval(function () {
+    playing(page)
+  }, 1000);
+  //动画头像
+  // setInterval(function () {
+  //   if (page.data.isPlaying) {
+  //     animation(page)
+  //   }
+  // }, 100)
+}

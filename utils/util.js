@@ -499,6 +499,20 @@ String.prototype.printf = function () {
   });
 };
 
+//格式化时间，将秒数转为0:00格式
+var formate = n => {
+  var minute = Math.floor(n / 60);
+  var seconds = Math.ceil(n % 60);
+  seconds = seconds.toString();
+  seconds = seconds[1] ? seconds : '0' + seconds;
+  return minute + ':' + seconds;
+}
+//将时间字符串转为秒数
+var timeToSeconds = time => {
+  var arr = time.split(':');
+  return parseInt(arr[0]) * 60 + parseFloat(arr[1])
+}
+
 module.exports = {
   request: request,
   trim: trim,
@@ -516,5 +530,7 @@ module.exports = {
   objectSearch: objectSearch,
   formatTime: formatTime,
   getParam: getParam,
-  WXPay: WXPay
+  WXPay: WXPay,
+  formate: formate,
+  timeToSeconds: timeToSeconds
 }
