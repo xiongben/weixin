@@ -28,6 +28,20 @@ Page({
     angle: 0,
     top: 0,
     textActive: 0,
+    height: 220,
+    played_list: [],
+    is_show_lyr: false,
+    is_show_played: false,
+    item: {
+      id: '0',
+      songName: "下完这场雨",
+      singer: "后弦",
+      poster: {
+        origin:''
+      },
+      songSrc: "http://yinyueshiting.baidu.com/data2/music/5583b4d475d522a487f16d39b799a67e/272954076/272954076.mp3?xcode=c98405eb18453184b59adc403ebeee44",
+      lyric: "[00:22.990]看昨天的我们 走远了↵[00:27.669]在命运广场中央 等待↵[00:32.976]那模糊的 肩膀↵"
+    }
   },
 
   /**
@@ -35,13 +49,16 @@ Page({
    */
   onLoad: function (options) {
     loadPage(this);
+    this.getlyric();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-
+    wx.setNavigationBarTitle({
+      title:this.data.item.songName,
+    })
   },
 
   /**
@@ -111,12 +128,49 @@ Page({
   audioStart: function () {
     this.audioCtx.seek(0)
   },
+  //展示播放过的列表
+  showPlayed: function () {
+    var flag = this.data.is_show_played;
+    this.setData({
+      is_show_played: !flag
+    })
+  },
+  //切换歌曲
+  changeSong: function (e) {
+    var id = e.currentTarget.dataset.id;
+    this.data.played_list.forEach(ele => {
+      this.data = Object.assign(this.data)
+      if (ele.id == id) {
+        this.setData({
+          item: ele,
+          is_show_played: false
+        })
+        loadPage(this)
+
+      }
+    })
+  },
+  showLyr: function () {
+    if (!this.data.is_show_lyr) {
+      this.setData({
+        is_show_lyr: true,
+        height: 640
+      })
+    } else {
+      this.setData({
+        is_show_lyr: false,
+        height: 220
+      })
+    }
+  },
   getlyric: function () {
     util.request(this.data.lrcsrc, {
       success: function (res) {
-        // console.log(res);
+        console.log(res);
+        this.setData({
+          played_list: res.data
+        });
         let lyric = this.createArrMap(res.data[0].lyric);
-        // console.log(lyric);
         this.renderLyric(lyric);
       }.bind(this)
     })
@@ -170,41 +224,7 @@ Page({
     }
     IrcHighIndex++;
   },
-  timeUpData: function () {
-    // wx.playBackgroundAudio({
-    //   dataUrl: this.data.src,
-    //   success: function (res) {
-    //     console.log(res);
-    //     wx.seekBackgroundAudio({
-    //       position: 0
-    //     });
-        
-    //   }
-    // });
-    // wx.stopBackgroundAudio();
-
-    var that = this;
-    // var time=setTimeout(function(){
-    //   wx.seekBackgroundAudio({
-    //     position:20
-    //   });
-    //   wx.onBackgroundAudioPlay(function(){
-    //   wx.getBackgroundAudioPlayerState({
-    //     success: function (res) {
-    //       console.log(res);
-    //     }
-    //   })
-    // })
-    // },1000);
-
-    wx.onBackgroundAudioPlay(function(){
-      wx.getBackgroundAudioPlayerState({
-        success: function (res) {
-          console.log(res);
-        }
-      })
-    });
-  },
+ 
   //播放暂停
   playSong: function () {
     if (!this.data.isPlaying) {
@@ -212,7 +232,7 @@ Page({
     } else {
       wx.pauseBackgroundAudio({})
       this.setData({
-        isPlaying: false
+        isPlaying: false,
       })
     }
   },
@@ -220,13 +240,47 @@ Page({
   changeSongPross: function (e) {
     this.setData({
       current: e.detail.value,
-      cur_time:util.formate(e.detail.value)
+      cur_time: util.formate(e.detail.value)
     })
     play(this)
   },
+  //前一首歌曲
+  prevSong: function () {
+    var ele;
+    for (var i = 0; i < this.data.played_list.length; i++) {
+      if (this.data.played_list[i].id == this.data.item.id) {
+        if (i != 0) {
+          // this.data = Object.assign(this.data, initData)
+           ele = this.data.played_list[i - 1];
+        }
+      }
+    }
+    this.setData({
+      item: ele
+    })
+    loadPage(this);
+  },
+  //下一首歌曲
+  nextSong: function () {
+    var l = this.data.played_list.length;
+    var ele;
+    for (let i = 0; i < l; i++) {
+      if (this.data.played_list[i].id == this.data.item.id) {
+        if (i != l - 1) {
+          // this.data = Object.assign(this.data)
+           ele = this.data.played_list[i + 1];
+        }
+      }
+    }
+    this.setData({
+      item: ele
+    })
+    console.log(this.data.item);
+    loadPage(this)
+  },
 });
 
-function play(page){
+function play(page) {
   wx.playBackgroundAudio({
     dataUrl: page.data.src,
     success: function (res) {
@@ -236,7 +290,7 @@ function play(page){
     }
   })
   page.setData({
-    isPlaying: true
+    isPlaying: true,
   })
 }
 
@@ -272,16 +326,53 @@ function playing(page) {
 function loadPage(page) {
   //播放
   play(page);
-  // loadLyr(page);
+  loadLyr(page);
   //记录播放状态
   playing(page);
   setInterval(function () {
     playing(page)
   }, 1000);
   //动画头像
-  // setInterval(function () {
+  //  let time = setInterval(function () {
   //   if (page.data.isPlaying) {
   //     animation(page)
   //   }
-  // }, 100)
+  // }, 20);
+  wx.setNavigationBarTitle({
+    title: page.data.item.songName,
+  })
 }
+
+function animation(page) {
+  var angle = page.data.angle + 0.5;
+  page.setData({
+    angle: angle
+  })
+}
+
+//加载歌词
+function loadLyr(page) {
+  let lyric = page.data.item.lyric;
+  var timeArr = [],
+    lyricArr = [];
+  var tempArr = lyric.split("\n");
+  tempArr.splice(-1, 1);
+  var tempStr = "";
+  for (let i = 0; i < tempArr.length; i++) {
+    tempStr = tempArr[i];
+    if (tempStr.charAt(9).match(/\d/) !== null) {
+      tempStr = tempStr.substring(0, 9) + tempStr.substring(10);
+    }
+    timeArr.push(tempStr.substring(0, 10));
+    lyricArr.push(tempStr.substring(10));
+  }
+  // return {
+  //   timeArr: timeArr,
+  //   lyricArr: lyricArr
+  // };
+  page.setData({
+    lyricArr: lyricArr
+  })
+  
+}
+

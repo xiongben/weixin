@@ -1,23 +1,50 @@
 <!--pages/audioPlayer/audioPlay.wxml-->
 <view class="container">
- <view class="backImg"></view>
- <view class="songPic">
-   <image src="../../static/images/cm2_play_disc.png" class="discBack"></image>
-   <image src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" class="cover coverActive"></image>
- </view>
- <view class="songshare">
-   <image src="../../static/images/btn_collect_hl_nor.png" class="menuIcon"></image>
+  <view class="backImg"></view>
+  <view class="songPic {{!is_show_lyr?'':'hide' }}" bindtap="showLyr">
+    <image src="../../static/images/cm2_play_disc.png" class="discBack"></image>
+    <image src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" class="cover coverActive" ></image>
+  </view>
+  <view class="songshare {{!is_show_lyr?'':'hide' }}">
+    <image src="../../static/images/btn_collect_hl_nor.png" class="menuIcon"></image>
     <image src="../../static/images/icon_share_me.png" class="menuIcon"></image>
-    <image src="../../static/images/btn_collect_add_nor_song.png" class="menuIcon"></image>
- </view>
- <view class="songContrl">
-   <view class="cur_time">{{cur_time}}</view>
-   <view class="total_time">{{total_time}}</view>
-   <slider bindchange="slider4change" min="0" max="{{duration}}"  class="playProgress"  selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" />
-   <view class="controlBtnArea">
-     <image src="../../static/images/btn_reverse_pre.png" class="controlIcon" bindtap="prevSong"></image>
-     <image src="../../static/images/btn_{{isPlaying?'pause':'play'}}_room_nor.png" class="controlPauseIcon" bindtap="playSong"></image>
-     <image src="../../static/images/btn_next_pre.png" class="controlIcon" bindtap="nextSong"></image>
-   </view>
- </view>
+    <image src="../../static/images/btn_collect_add_nor_song.png" class="menuIcon" bindtap="showPlayed"></image>
+  </view>
+  <view class="songContrl">
+    <view class="cur_time">{{cur_time}}</view>
+    <view class="total_time">{{total_time}}</view>
+    <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" />
+    <view class="controlBtnArea">
+      <image src="../../static/images/btn_reverse_pre.png" class="controlIcon" bindtap="prevSong"></image>
+      <image src="../../static/images/btn_{{isPlaying?'pause':'play'}}_room_nor.png" class="controlPauseIcon" bindtap="playSong"></image>
+      <image src="../../static/images/btn_next_pre.png" class="controlIcon" bindtap="nextSong"></image>
+    </view>
+  </view>
+
+  <view class="played_list {{is_show_played?'':'hide' }}">
+    <scroll-view scroll-y="true">
+      <view class="played_tt">
+        播放列表
+        <text bindtap="delAllSong">del</text>
+      </view>
+      <block wx:for="{{played_list}}" wx:for-item="ceil" wx:key="{{index}}">
+        <view bindtap="changeSong" class="played_item {{ceil.id==item.id?'active':''}}" data-id="{{ceil.id}}">
+          <text class="played_id">{{index+1}}</text>
+          <view class="played_core">
+            <text class="played_name">{{ceil.songName}}</text>
+            <text class="played_author">{{ceil.singer}}</text>
+          </view>
+          <view catchtap="delOneSong" data-id="{{ceil.id}}" class="played_del"></view>
+        </view>
+      </block>
+    </scroll-view>
+  </view>
+
+  <view class="lyricBox {{is_show_lyr?'':'hide' }}" bindtap="showLyr">
+    <view class="lyricList" wx:for="{{lyricArr}}">
+      <view class="lyricLi">{{item}}</view>
+    </view>
+  </view>
+
+
 </view>

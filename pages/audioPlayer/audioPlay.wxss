@@ -127,3 +127,95 @@ audio{
 .total_time{
    right:5rpx;
 }
+
+.lyricBox{
+  width:750rpx;
+  height:900rpx;
+  position: absolute;
+  z-index: 5;
+  left:0;
+  top:50rpx;
+  /*border:1px solid #e5d1a1;*/
+  overflow: scroll;
+  /*background: red;*/
+}
+.lyricList{
+  /*background:yellow;*/
+}
+.lyricLi{
+  height:44rpx;
+  line-height:44rpx;
+  font-size: 28rpx;
+  text-align: center;
+}
+
+/*copy*/
+.played_list{
+    position: absolute;
+    bottom: 218rpx;
+    left: 15%;
+    height: 600rpx;
+    width: 80%;
+    border: 1px solid #e5d1a1;
+    background: #fff;
+    overflow: hidden;
+    z-index: 6;
+}
+.played_list scroll-view{
+    height: 100%;
+}
+.played_item{
+    display: flex;
+    height: 100rpx;
+    align-items: center;
+    border-bottom: 2rpx solid #ccc;
+}
+.played_item.active{
+    color: red;
+}
+.played_tt{
+    position: relative;
+    height: 50rpx;
+    padding-left: 20rpx;
+    font-size: 30rpx;
+    line-height: 50rpx;
+    border-bottom: 2rpx solid pink;
+    background: #e5d1a1;
+    color: #fff;
+}
+.played_tt text{
+    position: absolute;
+    right: 40rpx;
+    text-decoration: underline;
+}
+.played_item text{
+    display: block;
+}
+.played_id{
+    display: inline-block;
+    width: 15%;
+    font-size: 30rpx;
+    text-align: center;
+}
+.played_del{
+    display: inline-block;
+    width: 15%;
+    height: 50rpx;
+    /*background: url(../../images/del.png) no-repeat;*/
+    background-size: contain;
+
+}
+.played_core{
+    width: 70%;
+    text-align: center;
+}
+.played_name{
+    font-size: 32rpx;
+}
+.played_author{
+    padding-top: 10rpx;
+    font-size: 24rpx;
+}
+.hide{
+    display: none;
+}
