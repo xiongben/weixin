@@ -6,9 +6,9 @@
     <image src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" class="cover coverActive" ></image>
   </view>
   <view class="songshare {{!is_show_lyr?'':'hide' }}">
-    <image src="../../static/images/btn_collect_hl_nor.png" class="menuIcon"></image>
-    <image src="../../static/images/icon_share_me.png" class="menuIcon"></image>
-    <image src="../../static/images/btn_collect_add_nor_song.png" class="menuIcon" bindtap="showPlayed"></image>
+    <image src="../../static/images/btn_love_nor_play.png" class="menuIcon"></image>
+    <image src="../../static/images/btn_share_nor_play.png" class="menuIcon"></image>
+    <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" bindtap="showPlayed"></image>
   </view>
   <view class="songContrl">
     <view class="cur_time">{{cur_time}}</view>

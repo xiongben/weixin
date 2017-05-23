@@ -25,5 +25,9 @@ Page({
     //     userInfo:userInfo
     //   })
     // })
+  },
+  recommendSheet:function(){
+    let id="1";
+    wx.navigateTo({ url: '/pages/musician/musicianDetail?id=' + id });
   }
 })

@@ -7,21 +7,21 @@
    <view class="musicHistory">
     <view class="recentlyPlayed">
       <image src="../../static/images/icon_time_me.png" class="theicon"></image>
-      <view class="recentlyMenu">最近播放<view class="recentlyMenuRight">100
+      <view class="recentlyMenu" bindtap="recentlyList" data-type="recentlyList">最近播放<view class="recentlyMenuRight">100
          <image src="../../static/images/icon_more2.png" class="iconMore"></image>
          </view>
       </view>
     </view>
     <view class="favoriteMusic">
       <image src="../../static/images/icon_love_me.png" class="theicon"></image>
-      <view class="recentlyMenu">我喜欢<view class="recentlyMenuRight">10000000000000000
+      <view class="recentlyMenu" bindtap="recentlyList" data-type="favoriteList">我喜欢<view class="recentlyMenuRight">10000000000000000
          <image src="../../static/images/icon_more2.png" class="iconMore"></image>
          </view>
       </view>
     </view>
     <view class="shareMusic">
       <image src="../../static/images/icon_share_me.png" class="theicon"></image>
-      <view class="recentlyMenu">分享<view class="recentlyMenuRight">100
+      <view class="recentlyMenu" bindtap="recentlyList" data-type="shareList">分享<view class="recentlyMenuRight">100
          <image src="../../static/images/icon_more2.png" class="iconMore"></image>
          </view>
       </view>

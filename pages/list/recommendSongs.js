@@ -1,18 +1,27 @@
 // pages/list/recommendSongs.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    lrcsrc: 'http://xiongsanniu.com/music/data.json',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    if(options){
+      let id = options.id;
+      console.log(id);
+      wx.setNavigationBarTitle({
+        title:id
+      });
+      this.getSongList();
+    }
+     
   },
 
   /**
@@ -76,5 +85,16 @@ Page({
    */
   onPullDownRefresh: function () {
   
+  },
+  getSongList:function(){
+    util.request(this.data.lrcsrc, {
+      success: function (res) {
+        console.log(res);
+        this.setData({
+          songList: res.data
+        });
+        
+      }.bind(this)
+    })
   }
 })

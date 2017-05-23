@@ -5,42 +5,19 @@
   </view>
   
   <view class="musicList">
-   <view class="audioLi">
-     <view class="liNum">1</view>
+   <view class="audioLi" wx:for="{{songList}}" wx:key="idx">
+     <view class="liNum">{{index+1}}</view>
      <view class="audioInfo">
        <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
+       <view class="audioName">{{item.songName}}</view>
+       <view class="audioAuthor">{{item.singer}}</view>
        <view class="shareIconArea">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>
      </view>
    </view>
-   <view class="audioLi">
-     <view class="liNum">1</view>
-     <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   <view class="audioLi">
-     <view class="liNum">1</view>
-     <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
+   
    
   </view>
 </view>

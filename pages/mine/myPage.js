@@ -1,4 +1,5 @@
 // pages/mine/myPage.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -76,5 +77,15 @@ Page({
    */
   onPullDownRefresh: function () {
   
+  },
+  recentlyList:function(e){
+    let type = e.currentTarget.dataset.type;
+    let data={
+      'recentlyList':'最近播放',
+      'favoriteList':'我喜欢',
+      'shareList':'我的分享'
+    };
+    let id=data[type];
+    wx.navigateTo({ url: '/pages/list/recommendSongs?id='+id }) ;
   }
 })

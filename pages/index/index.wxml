@@ -38,15 +38,63 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
     </view>
       <scroll-view scroll-x="true" class="scrollView">
-        <view style="background: red;"></view>
-        <view style="background: green;"></view>
-        <view style="background: blue;"></view>
-        <view style="background: yellow;"></view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动gdfhdhdhdjdjhdhdhdfhdfh</view>
+          <view class="newSongPlayer">三个火枪手dfgdgdsghsergser</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
       </scroll-view>
   </view>
   <view class="recommendSheet">
     <view class="modelTitle">推荐歌单
       <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
     </view>
+    <scroll-view scroll-x="true" class="scrollView">
+        <view class="newSongArea" bindtap="recommendSheet">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+        <view class="newSongArea">
+          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
+          <view class="newSongName">市场花园行动</view>
+          <view class="newSongPlayer">三个火枪手</view>
+        </view>
+      </scroll-view>
   </view>
 </view>

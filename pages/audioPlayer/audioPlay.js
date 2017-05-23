@@ -252,6 +252,13 @@ Page({
         if (i != 0) {
           // this.data = Object.assign(this.data, initData)
            ele = this.data.played_list[i - 1];
+        }else{
+          ele = this.data.played_list[i];
+          wx.showToast({
+            title: '已是第一首',
+            icon: 'success',
+            duration: 2000
+          });
         }
       }
     }
@@ -269,6 +276,13 @@ Page({
         if (i != l - 1) {
           // this.data = Object.assign(this.data)
            ele = this.data.played_list[i + 1];
+        }else{
+          ele = this.data.played_list[i];
+          wx.showToast({
+            title: '已是最后一首',
+            icon: 'success',
+            duration: 2000
+          });
         }
       }
     }

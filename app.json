@@ -1,8 +1,8 @@
 {
   "pages":[
+    "pages/index/index",
     "pages/audioPlayer/audioPlay",
     "pages/audioPlayer/audioLyric",
-    "pages/index/index",
     "pages/index/selectResult",
     "pages/index/createSheetName",
     "pages/index/addToSheet",
