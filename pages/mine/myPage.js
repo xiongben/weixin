@@ -87,5 +87,9 @@ Page({
     };
     let id=data[type];
     wx.navigateTo({ url: '/pages/list/recommendSongs?id='+id }) ;
-  }
+  },
+  creatSheet:function(){
+    let id="1";
+    wx.navigateTo({ url: '/pages/index/createSheetName?id=' + id });
+  },
 })

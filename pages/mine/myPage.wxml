@@ -39,7 +39,7 @@
        </view>
      </view>
      <view class="myCollection">我收藏的歌单<image src="../../static/images/icon_more2.png" class="iconMore2"></image></view>
-     <view class="buildNew">新建歌单</view>
+     <view class="buildNew" bindtap="creatSheet">新建歌单</view>
      <view class="management">管理歌单</view>
    </view>
 </view>

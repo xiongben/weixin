@@ -28,6 +28,10 @@ Page({
   },
   recommendSheet:function(){
     let id="1";
-    wx.navigateTo({ url: '/pages/musician/musicianDetail?id=' + id });
+    wx.navigateTo({ url: '/pages/list/songDetails?id=' + id });
+  },
+  searchMusic:function(){
+    let id = "1";
+    wx.navigateTo({ url: '/pages/index/selectPage?id=' + id });
   }
 })

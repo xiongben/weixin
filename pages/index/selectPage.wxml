@@ -1,8 +1,9 @@
 <!--pages/index/selectPage.wxml-->
 <view class="container">
   <view class="searchArea">
-   <input type="text" class="searchMusic"/>
-   <view class="cancelSearch">取消</view>
+    <input type="text" class="searchMusic" bindtap="searchMusic"/>
+    <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
+    <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>
   <view class="hotSearch">
     <view class="hotSearchTitle">热门搜索</view>

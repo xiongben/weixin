@@ -1,10 +1,14 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/index/createSheetName",
+    "pages/musician/musicianWeekList",
+    "pages/list/monthWeekList",
+    
     "pages/audioPlayer/audioPlay",
     "pages/audioPlayer/audioLyric",
     "pages/index/selectResult",
-    "pages/index/createSheetName",
+    
     "pages/index/addToSheet",
     "pages/musician/musicianDetail",
     "pages/list/songDetails",
@@ -12,7 +16,7 @@
     "pages/list/recommendSongs",
     "pages/index/rulePage",
     "pages/musician/musicianRankingList",
-    "pages/list/monthWeekList",
+   
     "pages/list/recommendSheet",
     "pages/index/selectPage",
     "pages/mine/myPage",
@@ -46,7 +50,7 @@
         "selectedIconPath": "static/images/btn_lv_hl.png"
       },
       {
-        "pagePath": "pages/list/monthWeekList",
+        "pagePath": "pages/musician/musicianWeekList",
         "text": "音乐人",
         "iconPath": "static/images/btn_musician_nor.png",
         "selectedIconPath": "static/images/btn_musician_hl.png"

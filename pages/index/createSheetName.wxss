@@ -1,12 +1,18 @@
 /* pages/index/createSheetName.wxss */
-.sheetName{
+.sheetNameArea{
   width:750rpx;
+  height:100rpx;
+  background:#4b473f;
+  margin-top:20rpx;
+}
+
+
+.sheetName{
+  width:650rpx;
   height:100rpx;
   font-size:30rpx;
   color:#8a8782;
-  background:#4b473f;
-  text-indent: 30rpx;
-  margin-top:20rpx;
+  margin-left:50rpx;
 }
 .sheetSet{
   width:720rpx;

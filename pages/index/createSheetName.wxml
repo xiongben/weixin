@@ -1,6 +1,8 @@
 <!--pages/index/createSheetName.wxml-->
 <view class="container">
-  <input type="text" class="sheetName" placeholder="输入歌单名" />
+  <view class="sheetNameArea">
+    <input type="text" class="sheetName" placeholder="输入歌单名" />
+  </view>
   <view class="sheetSet">
     <checkbox-group bindchange="checkboxChange">
       <label class="checkbox">

@@ -1,4 +1,5 @@
-/* pages/list/monthWeekList.wxss */
+/* pages/musician/musicianWeekList.wxss */
+
 
 .listTop {
   height: 80rpx;
@@ -82,6 +83,7 @@
   width: 80rpx;
   height: 80rpx;
   margin-top: 20rpx;
+  border-radius: 40rpx;
 }
 
 .audioName {

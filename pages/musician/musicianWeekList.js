@@ -1,4 +1,4 @@
-// pages/list/monthWeekList.js
+// pages/musician/musicianWeekList.js
 Page({
 
   /**
@@ -91,7 +91,7 @@ Page({
       })
     }
   },
-  rulePage:function(){
+  rulePage: function () {
     wx.navigateTo({ url: '/pages/index/rulePage' });
   } 
 })
