@@ -1,8 +1,9 @@
 {
   "pages":[
+    "pages/musician/musicianWeekList",
     "pages/index/index",
     "pages/index/createSheetName",
-    "pages/musician/musicianWeekList",
+    
     "pages/list/monthWeekList",
     
     "pages/audioPlayer/audioPlay",
@@ -10,7 +11,7 @@
     "pages/index/selectResult",
     
     "pages/index/addToSheet",
-    "pages/musician/musicianDetail",
+   
     "pages/list/songDetails",
     "pages/mine/shareSongs",
     "pages/list/recommendSongs",

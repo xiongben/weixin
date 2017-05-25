@@ -1,47 +1,44 @@
 <!--pages/musician/musicianWeekList.wxml-->
 <view class="container">
-  <view class="listTop">
-
-    <!--<view class="xihaList listActive">嘻哈周榜</view>
-      <view class="denonList listNotActive">电音周榜</view>-->
-    <view class="listType">
-      <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">音乐人周榜</view>
-      <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">音乐人月榜</view>
-
-    </view>
-
-  </view>
   <view class="listRule" bindtap="rulePage">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange">
-    <swiper-item>
-      <view class="audioLi">
-        <view class="liNum">1</view>
-        <view class="audioInfo">
-          <image class="infoImg"></image>
-          <view class="audioName">我的团长我的团-缅甸战役-幻想中飞灰湮灭</view>
-          <view class="audioAuthor">龙文章</view>
-          <view class="shareIconArea">
-            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-            <view class="shareText">打榜</view>
-          </view>
-        </view>
+  <view class="weekRanking">
+    <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="rankingPic"></image>
+    <image src="../../static/images/week.png" class="rankingType"></image>
+    <view class="maskImg"></view>
+    <view class="rankingOneInfo">
+      <image src="../../static/images/toplist_lv1.png" class="numPic"></image>
+      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
+      <view class="songerName">ddddddd</view>
+      <view class="songerScore">1000分</view>
+    </view>
+    <view class="rankingTwoInfo">
+      <image src="../../static/images/toplist_lv2.png" class="numPic"></image>
+      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
+      <view class="songerName">ddddddd</view>
+      <view class="songerScore">1000分</view>
+    </view>
+    <view class="rankingThreeInfo">
+      <image src="../../static/images/toplist_lv3.png" class="numPic"></image>
+      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
+      <view class="songerName">ddddddd</view>
+      <view class="songerScore">1000分</view>
+    </view>
+  </view>
+  
+  <view class="audioLi">
+    <view class="liNum">1</view>
+    <view class="audioInfo">
+      <image class="infoImg"></image>
+      <view class="audioName">我的团长我的团-缅甸战役-幻想中飞灰湮灭</view>
+      <view class="audioAuthor">龙文章</view>
+      <view class="shareIconArea">
+        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+        <view class="shareText">打榜</view>
       </view>
-    </swiper-item>
-    <swiper-item>
-      <view class="audioLi">
-        <view class="liNum">1</view>
-        <view class="audioInfo">
-          <image class="infoImg"></image>
-          <view class="audioName">一脸沧桑去望北，我的心伤给了谁，远去的时光往哪里飞</view>
-          <view class="audioAuthor">孟烦了</view>
-          <view class="shareIconArea">
-            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-            <view class="shareText">打榜</view>
-          </view>
-        </view>
-      </view>
-    </swiper-item>
-  </swiper>
+    </view>
+  </view>
+
+
 </view>

@@ -1,4 +1,4 @@
-<!--pages/list/songDetails.wxml-->
+ <!--pages/list/songDetails.wxml-->
 <view class="container">
   <view class="sheetDetailsInfo">
     <view class="backImgArea"></view>

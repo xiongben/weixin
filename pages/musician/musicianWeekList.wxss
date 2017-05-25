@@ -1,6 +1,5 @@
 /* pages/musician/musicianWeekList.wxss */
 
-
 .listTop {
   height: 80rpx;
   width: 100%;
@@ -8,43 +7,113 @@
   justify-content: center;
 }
 
-.listType {
-  width: 688rpx;
-  height: 60rpx;
-  margin: 20rpx;
+.weekRanking {
+  width: 720rpx;
+  height: 306rpx;
+  margin-left: 30rpx;
+  border-bottom: 1px solid #635f59;
   position: relative;
-  border-radius: 30rpx;
-  border: 1px solid #e5d1a1;
 }
 
-
-
-.swiper-tab-list {
-  font-size: 30rpx;
-  display: inline-block;
-  width: 50%;
-  color: #999;
-  text-align: center;
-  line-height: 60rpx;
-  /*background:#fff;*/
-  border-radius: 30rpx;
+.rankingPic {
+  position: absolute;
+  left: 0;
+  top: 24rpx;
+  width: 196rpx;
+  height: 258rpx;
+  background: yellow;
+}
+.rankingType{
+  position: absolute;
+  left: 0;
+  top: 24rpx;
+  width: 196rpx;
+  height: 258rpx;
+}
+.maskImg{
+  position: absolute;
+  left: 0;
+  top: 24rpx;
+  width: 196rpx;
+  height: 258rpx;
+  background: #000;
+  opacity: 0.4;
+}
+.rankingOneInfo {
+  width: 495rpx;
+  height: 66rpx;
+  position: absolute;
+  right: 0;
+  top: 32rpx;
+}
+.rankingTwoInfo {
+  width: 495rpx;
+  height: 66rpx;
+  position: absolute;
+  right: 0;
+  top: 120rpx;
+}
+.rankingThreeInfo {
+  width: 495rpx;
+  height: 66rpx;
+  position: absolute;
+  right: 0;
+  top: 204rpx;
 }
 
-.on {
-  color: #222;
-  background: #e5d1a1;
+.numPic {
+  position: absolute;
+  left: 0;
+  top: 5rpx;
+  width: 44rpx;
+  height: 56rpx;
 }
 
-.listNotActive {
+.songerPic {
+  position: absolute;
+  width: 66rpx;
+  height: 66rpx;
+  border-radius: 33rpx;
+  left: 70rpx;
+  top: 0;
+}
+
+.songerName {
+  height: 38rpx;
+  line-height: 38rpx;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 345rpx;
   color: #e5d1a1;
+  font-size: 26rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.songerScore {
+  width: 345rpx;
+  height: 28rpx;
+  line-height: 28rpx;
+  position: absolute;
+  right: 0;
+  top: 38rpx;
+  font-size: 22rpx;
+  color: #8a8782;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .listRule {
-  height: 50rpx;
-  line-height: 50rpx;
+  height: 64rpx;
+  line-height: 64rpx;
   text-indent: 30rpx;
   font-size: 24rpx;
   color: #8a8782;
+  margin-top: 10rpx;
+  background: #4b473f;
 }
 
 .moreicon {
@@ -52,7 +121,7 @@
   width: 28rpx;
   float: right;
   margin-right: 30rpx;
-  margin-top: 11rpx;
+  margin-top: 18rpx;
 }
 
 .audioLi {
@@ -74,7 +143,7 @@
   width: 682rpx;
   height: 119rpx;
   float: left;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   position: relative;
 }
 

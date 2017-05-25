@@ -44,6 +44,8 @@
   text-indent: 30rpx;
   font-size: 24rpx;
   color: #8a8782;
+  margin-top:10rpx;
+  /*background:blue;*/
 }
 
 .moreicon {
@@ -73,7 +75,7 @@
   width: 682rpx;
   height: 119rpx;
   float: left;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   position: relative;
 }
 
