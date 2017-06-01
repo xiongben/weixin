@@ -10,7 +10,7 @@
   height:119rpx;
   float:left;
   margin-left:30rpx;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   position:relative;
 }
 .infoImg{

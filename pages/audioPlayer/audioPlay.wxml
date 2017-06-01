@@ -1,6 +1,7 @@
 <!--pages/audioPlayer/audioPlay.wxml-->
 <view class="container">
   <view class="backImg"></view>
+  <image src="../../static/images/btn_playlist_nor.png" class="songListBtn" bindtap="showPlayed"></image>
   <view class="songPic {{!is_show_lyr?'':'hide' }}" bindtap="showLyr">
     <image src="../../static/images/cm2_play_disc.png" class="discBack"></image>
     <image src="http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg" class="cover coverActive" ></image>
@@ -8,7 +9,7 @@
   <view class="songshare {{!is_show_lyr?'':'hide' }}">
     <image src="../../static/images/btn_love_nor_play.png" class="menuIcon"></image>
     <image src="../../static/images/btn_share_nor_play.png" class="menuIcon"></image>
-    <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" bindtap="showPlayed"></image>
+    <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" ></image>
   </view>
   <view class="songContrl">
     <view class="cur_time">{{cur_time}}</view>

@@ -4,28 +4,29 @@
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
   <view class="weekRanking">
-    <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="rankingPic"></image>
+    <image src="{{weekrankInfo[0].singer.cover}}" class="rankingPic"></image>
     <image src="../../static/images/week.png" class="rankingType"></image>
     <view class="maskImg"></view>
-    <view class="rankingOneInfo">
-      <image src="../../static/images/toplist_lv1.png" class="numPic"></image>
-      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
-      <view class="songerName">ddddddd</view>
-      <view class="songerScore">1000分</view>
-    </view>
-    <view class="rankingTwoInfo">
-      <image src="../../static/images/toplist_lv2.png" class="numPic"></image>
-      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
-      <view class="songerName">ddddddd</view>
-      <view class="songerScore">1000分</view>
-    </view>
-    <view class="rankingThreeInfo">
-      <image src="../../static/images/toplist_lv3.png" class="numPic"></image>
-      <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="songerPic"></image>
-      <view class="songerName">ddddddd</view>
-      <view class="songerScore">1000分</view>
+    <view class="rankingInfo{{index+1}}" wx:for="{{weekrankInfo}}">
+      <image src="../../static/images/toplist_lv{{index+1}}.png" class="numPic"></image>
+      <image src="{{item.singer.cover}}" class="songerPic"></image>
+      <view class="songerName">{{item.singer.chineseName}}</view>
+      <view class="songerScore">{{item.total}}分</view>
     </view>
   </view>
+
+  <view class="weekRanking">
+    <image src="{{monthrankInfo[0].singer.cover}}" class="rankingPic"></image>
+    <image src="../../static/images/month.png" class="rankingType"></image>
+    <view class="maskImg"></view>
+    <view class="rankingInfo{{index+1}}" wx:for="{{monthrankInfo}}">
+      <image src="../../static/images/toplist_lv{{index+1}}.png" class="numPic"></image>
+      <image src="{{item.singer.cover}}" class="songerPic"></image>
+      <view class="songerName">{{item.singer.chineseName}}</view>
+      <view class="songerScore">{{item.total}}分</view>
+    </view>
+  </view>
+ 
   
   <view class="audioLi">
     <view class="liNum">1</view>

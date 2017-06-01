@@ -147,6 +147,7 @@ audio{
   line-height:44rpx;
   font-size: 28rpx;
   text-align: center;
+  color:#fff;
 }
 
 /*copy*/
@@ -218,4 +219,12 @@ audio{
 }
 .hide{
     display: none;
+}
+.songListBtn{
+  width:50rpx;
+  height:50rpx;
+  position: absolute;
+  z-index: 7;
+  right:30rpx;
+  bottom: 60rpx;
 }

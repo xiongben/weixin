@@ -1,19 +1,18 @@
 {
   "pages":[
+    "pages/mine/shareSongs",
     "pages/musician/musicianWeekList",
+    "pages/musician/musicianDetail",
     "pages/index/index",
-    "pages/index/createSheetName",
-    
-    "pages/list/monthWeekList",
-    
     "pages/audioPlayer/audioPlay",
+    "pages/list/songDetails",
+    "pages/index/createSheetName",
+    "pages/list/monthWeekList",
     "pages/audioPlayer/audioLyric",
     "pages/index/selectResult",
     
     "pages/index/addToSheet",
-   
-    "pages/list/songDetails",
-    "pages/mine/shareSongs",
+    
     "pages/list/recommendSongs",
     "pages/index/rulePage",
     "pages/musician/musicianRankingList",

@@ -9,8 +9,8 @@
 .backImgArea{
   width:100%;
   height:100%;
-  background:greenyellow;
-  filter: blur(5px);
+  /*background:greenyellow;*/
+  filter: blur(10px);
   position: absolute;
   left:0;
   top:0;
@@ -76,7 +76,7 @@
   line-height:80rpx;
   width:720rpx;
   margin-left:30rpx;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   font-size:30rpx;
   text-indent: 30rpx;
   color:#e5d1a1;
@@ -123,7 +123,7 @@
   right:0;
   top:0;
   z-index:2;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   /*background: red;*/
 }
 .infoImg{

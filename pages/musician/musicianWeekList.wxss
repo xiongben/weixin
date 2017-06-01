@@ -25,10 +25,11 @@
 }
 .rankingType{
   position: absolute;
-  left: 0;
-  top: 24rpx;
-  width: 196rpx;
-  height: 258rpx;
+  left:18rpx;
+  top: 53rpx;
+  width: 160rpx;
+  height: 200rpx;
+  z-index:5;
 }
 .maskImg{
   position: absolute;
@@ -37,23 +38,24 @@
   width: 196rpx;
   height: 258rpx;
   background: #000;
-  opacity: 0.4;
+  opacity: 0.7;
+  z-index:3;
 }
-.rankingOneInfo {
+.rankingInfo1 {
   width: 495rpx;
   height: 66rpx;
   position: absolute;
   right: 0;
   top: 32rpx;
 }
-.rankingTwoInfo {
+.rankingInfo2 {
   width: 495rpx;
   height: 66rpx;
   position: absolute;
   right: 0;
   top: 120rpx;
 }
-.rankingThreeInfo {
+.rankingInfo3 {
   width: 495rpx;
   height: 66rpx;
   position: absolute;

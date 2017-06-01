@@ -213,7 +213,7 @@
   font-size: 24rpx;
   color: #e5d1a1;
   /*margin-top:15rpx;*/
-  text-align: center;
+  text-align: left;
   width: 200rpx;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -225,7 +225,7 @@
   line-height: 34rpx;
   font-size: 22rpx;
   color: #8a8782;
-  text-align: center;
+  text-align: left;
   margin-bottom: 10rpx;
   width: 200rpx;
   overflow: hidden;

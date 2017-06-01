@@ -1,12 +1,12 @@
 <!--pages/musician/musicianDetail.wxml-->
 <view class="container">
   <view class="sheetDetailsInfo">
-    <view class="backImgArea"></view>
+    <image src="" class="backImgArea"></image>
     <view class="filterBg"></view>
     <view class="sheetName">kakaxi</view>
-    <image class="musicianPic"></image>
-    <view class="musicianName">kkkkkk</view>
-    <view class="musicianRank">音乐排行榜第一名</view>
+    <!--<image class="musicianPic"></image>-->
+    <view class="musicianName">{{songerInfo.chineseName}}</view>
+    <!--<view class="musicianRank">音乐排行榜第一名</view>-->
     <view class="musicianScore">总积分：50000名</view>
   </view>
   <view class="playAll">全部播放 
@@ -14,42 +14,19 @@
   </view>
   
   <view class="musicList">
-   <view class="audioLi">
+   <view class="audioLi" wx:for="{{songList}}" wx:key="idx">
      <view class="audioInfo">
        <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
+       <image class="infoImg" src=""></image>
+       <view class="audioName">{{item.name}}</view>
+       <view class="audioAuthor">{{item.singerName}}</view>
        <view class="shareIconArea">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>
      </view>
    </view>
-   <view class="audioLi">
-     <view class="audioInfo">
-       <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   <view class="audioLi">
-     <view class="audioInfo">
-       <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
+ 
    
    
   </view>
