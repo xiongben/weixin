@@ -1,13 +1,17 @@
 {
   "pages":[
+    "pages/list/monthWeekList",
+    "pages/audioPlayer/audioPlay",
+
+    "pages/index/index",
     "pages/mine/shareSongs",
     "pages/musician/musicianWeekList",
     "pages/musician/musicianDetail",
-    "pages/index/index",
-    "pages/audioPlayer/audioPlay",
+    
+  
     "pages/list/songDetails",
     "pages/index/createSheetName",
-    "pages/list/monthWeekList",
+    
     "pages/audioPlayer/audioLyric",
     "pages/index/selectResult",
     
@@ -28,7 +32,8 @@
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#000",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"#fff"
+    "navigationBarTextStyle":"#fff",
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "position": "bottom",

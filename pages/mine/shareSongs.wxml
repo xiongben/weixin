@@ -1,30 +1,46 @@
 <!--pages/mine/shareSongs.wxml-->
 <view class="container">
-<view class="musicList">
-   <view class="audioLi">
-     <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi 1000分</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   <view class="audioLi">
-     <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi 1000分</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   
- 
-   
+  <view class="musicList">
+    <view class="audioLi" wx:for="{{list}}">
+      <view class="audioInfo">
+        <image class="infoImg"></image>
+        <view class="audioName">{{item.name}}</view>
+        <view class="audioAuthor">kakaxi 1000分</view>
+        <view class="shareIconArea">
+          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+          <view class="shareText">打榜</view>
+        </view>
+      </view>
+    </view>
   </view>
+  
+  <!--<scroll-view scroll-y="true" style="height: 100%;" bindscrolltolower="loadMore" bindscrolltoupper="refesh">
+    <view wx:if="{{hasRefesh}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
+      <icon type="waiting" size="45" />
+      <text>刷新中...</text>
+    </view>
+    <view wx:else style="display:none">
+      <text></text>
+    </view>
+    <view class="audioLi" wx:for="{{list}}">
+      <view class="audioInfo">
+        <image class="infoImg"></image>
+        <view class="audioName">{{item.name}}</view>
+        <view class="audioAuthor">kakaxi 1000分</view>
+        <view class="shareIconArea">
+          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+          <view class="shareText">打榜</view>
+        </view>
+      </view>
+    </view>
+    <view class="tips1">
+      <view wx:if="{{hasMore}}" style="display: flex;flex-direction: row;align-items: center;align-self: center;justify-content: center;">
+        <icon type="waiting" size="45" />
+        <text>玩命的加载中...</text>
+      </view>
+      <view wx:else>
+        <text>没有更多内容了</text>
+      </view>
+    </view>
+  </scroll-view>-->
 </view>

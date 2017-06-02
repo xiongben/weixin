@@ -29,6 +29,9 @@
   height:48rpx;
   font-size:28rpx;
   color:#e5d1a1;
+  overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
 }
 .audioAuthor{
   /*background:green;*/
@@ -40,6 +43,9 @@
   line-height: 40rpx;
   font-size:24rpx;
   color:#8a8782;
+  overflow: hidden;
+text-overflow:ellipsis;
+white-space: nowrap;
 }
 .shareIconArea{
   /*background:blue;*/

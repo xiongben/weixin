@@ -1,4 +1,5 @@
 // pages/list/monthWeekList.js
+var util = require('../../utils/util.js');
 Page({
 
   /**
@@ -6,13 +7,17 @@ Page({
    */
   data: {
     currentTab: 0,
+    titleName:'',
+    start:0,
+    limit:10,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getTypeInfo();
+    
   },
 
   /**
@@ -93,5 +98,53 @@ Page({
   },
   rulePage:function(){
     wx.navigateTo({ url: '/pages/index/rulePage' });
-  } 
+  },
+  getTypeInfo:function(){
+    util.request('/program/pro_category/get_all', {
+      withToken: false,
+      method: 'GET',
+      data: {
+        type:3
+      },
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          let data=res.data.list;
+          this.setData({
+            titleName:data
+          });
+          let id = this.data.titleName[0].id;
+          this.getListInfo(id);
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  getListInfo:function(id){
+    util.request('/program/pro_list/song_info_list', {
+      withToken: false,
+      method: 'GET',
+      data: {
+        categoryId:id,
+        start:this.data.start,
+        limit:this.data.limit,
+      },
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          let data=res.data.list;
+          this.setData({
+            listInfoOne:data,
+          })
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
 })

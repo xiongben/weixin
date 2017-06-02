@@ -5,8 +5,8 @@
     <!--<view class="xihaList listActive">嘻哈周榜</view>
       <view class="denonList listNotActive">电音周榜</view>-->
     <view class="listType">
-      <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">嘻哈周榜</view>
-      <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">电音周榜</view>
+      <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">{{titleName[0].name}}周榜</view>
+      <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">{{titleName[1].name}}周榜</view>
 
     </view>
 
@@ -32,12 +32,12 @@
   </view>-->
   <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange">
     <swiper-item>
-      <view class="audioLi">
-        <view class="liNum">1</view>
+      <view class="audioLi" wx:for="{[listInfoOne}}">
+        <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
-          <image class="infoImg"></image>
-          <view class="audioName">我的团长我的团-缅甸战役-幻想中飞灰湮灭</view>
-          <view class="audioAuthor">龙文章</view>
+          <image class="infoImg" src="{{item.songinfo.cover}}"></image>
+          <view class="audioName">{{item.songinfo.name}}</view>
+          <view class="audioAuthor">{{item.songinfo.singerName}}</view>
           <view class="shareIconArea">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
