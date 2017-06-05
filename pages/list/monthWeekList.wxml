@@ -30,15 +30,15 @@
     
 
   </view>-->
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange">
+  <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="height:{{swiperHeight}}rpx">
     <swiper-item>
-      <view class="audioLi" wx:for="{[listInfoOne}}">
+      <view class="audioLi" wx:for="{{listInfoOne}}" wx:key="idx">
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.songinfo.cover}}"></image>
           <view class="audioName">{{item.songinfo.name}}</view>
           <view class="audioAuthor">{{item.songinfo.singerName}}</view>
-          <view class="shareIconArea">
+          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.songinfo.id}}">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
           </view>
@@ -46,13 +46,13 @@
       </view>
     </swiper-item>
     <swiper-item>
-      <view class="audioLi">
-        <view class="liNum">1</view>
+      <view class="audioLi" wx:for="{{listInfoTwo}}" wx:key="idx">
+        <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
-          <image class="infoImg"></image>
-          <view class="audioName">一脸沧桑去望北，我的心伤给了谁，远去的时光往哪里飞</view>
-          <view class="audioAuthor">孟烦了</view>
-          <view class="shareIconArea">
+          <image class="infoImg" src="{{item.songinfo.cover}}"></image>
+          <view class="audioName">{{item.songinfo.name}}</view>
+          <view class="audioAuthor">{{item.songinfo.singerName}}</view>
+          <view class="shareIconArea"  bindtap="shareSong" data-songid="{{item.songinfo.id}}">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
           </view>
@@ -60,4 +60,7 @@
       </view>
     </swiper-item>
   </swiper>
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
+  </view>
 </view>

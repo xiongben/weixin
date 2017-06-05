@@ -1,19 +1,15 @@
 <!--pages/index/selectPage.wxml-->
 <view class="container">
   <view class="searchArea">
-    <input type="text" class="searchMusic" bindtap="searchMusic"/>
-    <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
+    <input type="text" class="searchMusic" name="keyword"/>
+    <image src="../../static/images/Icon_Search.png" class="searchIcon" ></image>
     <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>
+
   <view class="hotSearch">
     <view class="hotSearchTitle">热门搜索</view>
-    <view class="hotSearchList">周杰伦</view>
-    <view class="hotSearchList">周杰伦</view>
-    <view class="hotSearchList">周杰伦</view>
-    <view class="hotSearchList">周杰伦规范规定和</view>
-    <view class="hotSearchList">周杰伦</view>
-    <view class="hotSearchList">周杰伦阿卡卡卡卡卡卡</view>
-    <view class="hotSearchList">周大大大大大</view>
+    <view class="hotSearchList" wx:for="{{hotSearchList}}" wx:key="idx">{{item.name}}</view>
+  
         
   </view>
   <view class="searchHistory">
@@ -23,4 +19,16 @@
     <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
     <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
   </view>
+
+  <form bindsubmit="formSubmit" bindreset="formReset">
+  <view >
+    <input type="text" name="keyword" class="testinput"/>
+  </view>
+  
+  <view class="btn-area">
+    <button formType="submit">Submit</button>
+    <button formType="reset">Reset</button>
+  </view>
+</form>
+
 </view>

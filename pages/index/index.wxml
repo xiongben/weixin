@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="searchArea">
-    <input type="text" class="searchMusic" bindtap="searchMusic"/>
+  <view class="searchArea" bindtap="searchMusic">
+    <input type="text" class="searchMusic"  disabled/>
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
     <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>

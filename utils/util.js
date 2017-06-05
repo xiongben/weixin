@@ -532,5 +532,6 @@ module.exports = {
   getParam: getParam,
   WXPay: WXPay,
   formate: formate,
-  timeToSeconds: timeToSeconds
+  timeToSeconds: timeToSeconds,
+
 }

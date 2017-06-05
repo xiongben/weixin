@@ -84,3 +84,8 @@
   color:#c1af87;
   overflow: hidden;
 }
+.testinput{
+  width:750rpx;
+  height:50rpx;
+  background:green;
+}

@@ -1,32 +1,24 @@
 {
   "pages":[
+    "pages/index/selectPage",
+    "pages/mine/myPage",
     "pages/list/monthWeekList",
     "pages/audioPlayer/audioPlay",
-
     "pages/index/index",
     "pages/mine/shareSongs",
     "pages/musician/musicianWeekList",
     "pages/musician/musicianDetail",
-    
-  
     "pages/list/songDetails",
     "pages/index/createSheetName",
-    
     "pages/audioPlayer/audioLyric",
     "pages/index/selectResult",
-    
     "pages/index/addToSheet",
-    
     "pages/list/recommendSongs",
     "pages/index/rulePage",
     "pages/musician/musicianRankingList",
-   
     "pages/list/recommendSheet",
-    "pages/index/selectPage",
-    "pages/mine/myPage",
     
     "pages/logs/logs"
-    
   ],
   "window":{
     "backgroundTextStyle":"light",
