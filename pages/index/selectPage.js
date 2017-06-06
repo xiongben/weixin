@@ -14,6 +14,7 @@ Page({
    */
   onLoad: function (options) {
     this.getHotSearch();
+    this.getHistory();
   },
 
   /**
@@ -109,9 +110,53 @@ Page({
 
   },
   formSubmit: function (e) {
-    console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    console.log( e.detail.value);
+    let keyword = e.detail.value.keyword;
+    if(keyword != ""){
+      this.jumpPage(keyword);
+    }else{
+      wx.showToast({
+        title: '关键词不能为空',
+        icon: 'warn',
+        duration: 2000
+      })
+    }
+   
   },
   formReset: function () {
     console.log('form发生了reset事件')
-  }
+  },
+  getHistory:function(){
+    util.request('/program/search/record_list', {
+      withToken: false,
+      method: 'GET',
+      data: {
+        start: 0,
+        limit: 10
+      },
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          let data = res.data;
+          this.setData({
+            historyList: data,
+          })
+
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  jumpPage:function(id){
+    wx.navigateTo({
+      url: '/pages/index/selectResult?id='+id,
+    })
+  },
+  hotSearchkeyword:function(e){
+    let keyword = e.currentTarget.dataset.keyword;
+    this.jumpPage(keyword);
+  },
 })

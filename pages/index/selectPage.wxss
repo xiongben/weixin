@@ -25,7 +25,7 @@
   height: 30rpx;
   position: absolute;
   top: 15rpx;
-  left: 30rpx;
+  left: 15rpx;
 }
 
 .closeIcon {
@@ -33,7 +33,7 @@
   height: 30rpx;
   position: absolute;
   top: 15rpx;
-  right: 30rpx;
+  right: 15rpx;
 }
 .hotSearch{
   width:720rpx;
@@ -78,7 +78,7 @@
   width:720rpx;
   height:88rpx;
   line-height:88rpx;
-  border-bottom: 1px solid #e5d1a1;
+  border-bottom: 1px solid #635f59;
   margin-left:30rpx;
   font-size:28rpx;
   color:#c1af87;
@@ -88,4 +88,20 @@
   width:750rpx;
   height:50rpx;
   background:green;
+}
+.submitBtn{
+  width:60rpx;
+  height:60rpx;
+  background: rgba(255,200,0, 0);
+  /*background:red;*/
+  position: absolute;
+  left:15rpx;
+}
+.closeBtn{
+  width:60rpx;
+  height:60rpx;
+  background: rgba(255,200,0, 0);
+  /*background:red;*/
+  position: absolute;
+  right:15rpx;
 }

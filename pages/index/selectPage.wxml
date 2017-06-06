@@ -1,34 +1,24 @@
 <!--pages/index/selectPage.wxml-->
 <view class="container">
-  <view class="searchArea">
-    <input type="text" class="searchMusic" name="keyword"/>
-    <image src="../../static/images/Icon_Search.png" class="searchIcon" ></image>
-    <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
-  </view>
-
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="searchArea">
+      <input type="text" class="searchMusic" name="keyword" />
+      <button formType="submit" class="submitBtn">
+        <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
+      </button>
+      <button formType="reset" class="closeBtn">
+        <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
+      </button>
+    </view>
+  </form>
   <view class="hotSearch">
     <view class="hotSearchTitle">热门搜索</view>
-    <view class="hotSearchList" wx:for="{{hotSearchList}}" wx:key="idx">{{item.name}}</view>
-  
-        
+    <view class="hotSearchList" wx:for="{{hotSearchList}}" wx:key="idx" bindtap="hotSearchkeyword" data-keyword="{{item.name}}">{{item.name}}</view>
   </view>
   <view class="searchHistory">
-    <view class="historyTitle">搜索历史 <image src="../../static/images/btn_Clear_pre.png" class="clearIcon"></image></view>
-    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
-    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
-    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
-    <view class="historyList">我的心飞翔哪里，你在哪里我在那里</view>
+    <view class="historyTitle">搜索历史
+      <image src="../../static/images/btn_Clear_pre.png" class="clearIcon"></image>
+    </view>
+    <view class="historyList" wx:for="{{historyList}}" wx:key="idx" data-keyword="{{item.keyword}}" bindtap="hotSearchkeyword">{{item.keyword}}</view>
   </view>
-
-  <form bindsubmit="formSubmit" bindreset="formReset">
-  <view >
-    <input type="text" name="keyword" class="testinput"/>
-  </view>
-  
-  <view class="btn-area">
-    <button formType="submit">Submit</button>
-    <button formType="reset">Reset</button>
-  </view>
-</form>
-
 </view>

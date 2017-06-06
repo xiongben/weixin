@@ -1,54 +1,59 @@
 <!--pages/index/selectResult.wxml-->
 <view class="container">
-  <view class="searchArea">
-    <input type="text" class="searchMusic" />
-    <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
-    <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
-  </view>
+  <form bindsubmit="formSubmit" bindreset="formReset">
+    <view class="searchArea">
+      <input type="text" class="searchMusic" name="keyword" value="{{inputKeyword}}"/>
+      <button formType="submit" class="submitBtn">
+        <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
+      </button>
+      <button formType="reset" class="closeBtn">
+        <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
+      </button>
+    </view>
+  </form>
   <view class="typeTab">
     <view class="swiper-tab">
       <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">单曲</view>
       <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">歌手</view>
       <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">歌单</view>
     </view>
-
-    <swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange">
-      <swiper-item>
-        <view class="musicList">
-          <view class="audioLi">
-            <view class="audioInfo">
-              <view class="bottom-border"></view>
-              <image class="infoImg"></image>
-              <view class="audioName">i want rocks</view>
-              <view class="audioAuthor">kakaxi</view>
-            </view>
-          </view>
-        </view>
-      </swiper-item>
-      <swiper-item>
-        <view class="musicList">
-          <view class="audioLi">
-            <view class="audioInfo">
-              <view class="bottom-border"></view>
-              <image class="musicianImg"></image>
-              <view class="musicianName">周杰伦</view>
-              <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
-            </view>
-          </view>
-        </view>
-      </swiper-item>
-      <swiper-item>
-        <view class="musicList">
-          <view class="audioLi">
-            <view class="audioInfo">
-              <view class="bottom-border"></view>
-              <image class="infoImg"></image>
-              <view class="audioName">i want rocks</view>
-              <view class="audioAuthor">kakaxi</view>
-            </view>
-          </view>
-        </view>
-      </swiper-item>
-    </swiper>
   </view>
+
+  <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.singerName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="musicianImg" src="{{item.cover}}"></image>
+          <view class="musicianName">{{item.chineseName}}</view>
+          <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="typePage {{currentTab==2 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[2]}}" wx:key="idx">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.total}}首音乐</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
 </view>
