@@ -1,40 +1,43 @@
 {
   "pages":[
     "pages/index/index",
+    "pages/list/recommendSheet",
+    "pages/list/recommendSongs",
+    "pages/list/songDetails",
+    "pages/musician/musicianWeekList",
+    "pages/musician/musicianRankingList",
+    "pages/musician/musicianRankingDetail",
+    "pages/list/monthWeekList",
+    
     "pages/index/selectPage",
     "pages/index/selectResult",
-    
     "pages/mine/myPage",
-    "pages/list/monthWeekList",
+    
     "pages/audioPlayer/audioPlay",
-    
     "pages/mine/shareSongs",
-    "pages/musician/musicianWeekList",
+    
     "pages/musician/musicianDetail",
-    "pages/list/songDetails",
+   
     "pages/index/createSheetName",
-    "pages/audioPlayer/audioLyric",
-    
     "pages/index/addToSheet",
-    "pages/list/recommendSongs",
-    "pages/index/rulePage",
-    "pages/musician/musicianRankingList",
-    "pages/list/recommendSheet",
     
-    "pages/logs/logs"
+    "pages/index/rulePage"
+    
+    
+   
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#000",
+    "navigationBarBackgroundColor": "#222",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"#fff",
     "enablePullDownRefresh": true
   },
   "tabBar": {
     "position": "bottom",
-    "backgroundColor": "#000",
+    "backgroundColor": "#222",
     "borderStyle": "#f8f8f8",
-    "color": "#fff",
+    "color": "#a99b79",
     "selectedColor": "#e5d1a1",
     "list": [
       {

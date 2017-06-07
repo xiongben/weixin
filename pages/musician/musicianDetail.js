@@ -6,10 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
     songlist:[],
-    songId:'',
-    limit:10,
+    limit:5,
     start:0,
   },
 
@@ -17,6 +15,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    if(options){
+      console.log(options);
+      this.setData({
+        singerId:options.singerid
+      });
+    }
     wx.showLoading();
     this.getMusicianInfo();
   },
@@ -74,7 +78,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+     wx.showLoading({
+       title: '加载更多',
+     });
+     this.getMusicianInfo("more");
   },
 
   /**
@@ -83,26 +90,44 @@ Page({
   onPullDownRefresh: function () {
   
   },
-  getMusicianInfo:function(){
+  getMusicianInfo:function(more){
+    if(!!more){
+       this.setData({
+         start:this.data.start+5,
+       })
+    }
     util.request('/program/pro_list/singer_index_view', {
       withToken: false,
       method: 'GET',
       data: {
-        singerId:'3',
-        start:0,
-        limit:10
+        singerId:this.data.singerId,
+        start:this.data.start,
+        limit:this.data.limit
       },
       success: function (res) {
         wx.hideLoading();
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-          this.setData({
-            songerInfo:res.data.singer,
-            songList:res.data.list,
-            
-          })
-         
+          if(!!more){
+            wx.hideLoading();
+            if (res.data.list == ""){
+              wx.showToast({
+                title: '没有更多了',
+                icon: 'success',
+                duration: 2000
+              })
+            }
+            let moreSongList = this.data.songList.concat(res.data.list);
+            this.setData({
+              songList: moreSongList,
+            })
+          }else{
+            this.setData({
+              songerInfo: res.data.singer,
+              songList: res.data.list,
+            })
+          }
         }
         else {
           util.showError(res.msg);

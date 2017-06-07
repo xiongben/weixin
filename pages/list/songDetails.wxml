@@ -1,57 +1,31 @@
  <!--pages/list/songDetails.wxml-->
 <view class="container">
   <view class="sheetDetailsInfo">
-    <view class="backImgArea"></view>
+    <image class="backImgArea" src="{{sheetInfo.cover}}"></image>
     <view class="filterBg"></view>
-    <view class="sheetName">kakaxi</view>
-    <image class="sheetPic"></image>
+    <view class="sheetName">{{sheetInfo.name}}</view>
+    <image class="sheetPic" src="{{sheetInfo.cover}}"></image>
     <image src="../../static/images/icon_love_me.png" class="loveSongIcon"></image>
-    <view class="loveSongNum">333</view>
+    <view class="loveSongNum">{{sheetInfo.collectionNum}}</view>
     <image src="../../static/images/icon_share_me.png" class="shareSongIcon"></image>
-    <view class="shareSongNum">555</view>
+    <view class="shareSongNum">{{sheetInfo.shareNum}}</view>
   </view>
   <view class="playAll">全部播放 
     <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
   </view>
   
   <view class="musicList">
-   <view class="audioLi">
+   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx">
      <view class="audioInfo">
        <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
+       <image class="infoImg" src="{{item.cover}}"></image>
+       <view class="audioName">{{item.name}}</view>
+       <view class="audioAuthor">{{item.singerName}}</view>
        <view class="shareIconArea">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>
      </view>
    </view>
-   <view class="audioLi">
-     <view class="audioInfo">
-       <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   <view class="audioLi">
-     <view class="audioInfo">
-       <view class="bottom-border"></view>
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="audioAuthor">kakaxi</view>
-       <view class="shareIconArea">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   
-   
   </view>
 </view>

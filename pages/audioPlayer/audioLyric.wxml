@@ -1,5 +1,0 @@
-<!--pages/audioPlayer/audioLyric.wxml-->
-<view class="container">
-  <view class="audioLyric"></view>
-  <view class="test">eeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</view>
-</view>

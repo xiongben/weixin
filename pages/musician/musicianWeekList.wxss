@@ -161,9 +161,10 @@
   /*background:red;*/
   position: absolute;
   left: 104rpx;
-  top: 20rpx;
+  top: 0rpx;
   width: 450rpx;
-  height: 48rpx;
+  height: 120rpx;
+  line-height:120rpx;
   font-size: 28rpx;
   color: #e5d1a1;
   overflow: hidden;

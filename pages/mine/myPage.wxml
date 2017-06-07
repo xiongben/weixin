@@ -1,45 +1,42 @@
 <!--pages/mine/myPage.wxml-->
 <view class="container">
-   <view class="myInfo">
-     <image class="userImg"></image>
-     <view class="userName">kakak</view>
-   </view>
-   <view class="musicHistory">
+  <view class="myInfo">
+    <image class="userImg" src="{{userInfo.user.avatarUrl}}"></image>
+    <view class="userName">{{userInfo.user.nickName}}</view>
+  </view>
+  <view class="musicHistory">
     <view class="recentlyPlayed">
       <image src="../../static/images/icon_time_me.png" class="theicon"></image>
-      <view class="recentlyMenu" bindtap="recentlyList" data-type="recentlyList">最近播放<view class="recentlyMenuRight">100
-         <image src="../../static/images/icon_more2.png" class="iconMore"></image>
-         </view>
+      <view class="recentlyMenu" bindtap="recentlyList" data-type="recentlyList">最近播放
+        <view class="recentlyMenuRight">{{userInfo.PlayCount}}
+          <image src="../../static/images/icon_more2.png" class="iconMore"></image>
+        </view>
       </view>
     </view>
     <view class="favoriteMusic">
       <image src="../../static/images/icon_love_me.png" class="theicon"></image>
-      <view class="recentlyMenu" bindtap="recentlyList" data-type="favoriteList">我喜欢<view class="recentlyMenuRight">10000000000000000
-         <image src="../../static/images/icon_more2.png" class="iconMore"></image>
-         </view>
+      <view class="recentlyMenu" bindtap="recentlyList" data-type="favoriteList">我喜欢
+        <view class="recentlyMenuRight">{{userInfo.LikeCount}}
+          <image src="../../static/images/icon_more2.png" class="iconMore"></image>
+        </view>
       </view>
     </view>
-    <view class="shareMusic">
-      <image src="../../static/images/icon_share_me.png" class="theicon"></image>
-      <view class="recentlyMenu" bindtap="recentlyList" data-type="shareList">分享<view class="recentlyMenuRight">100
-         <image src="../../static/images/icon_more2.png" class="iconMore"></image>
-         </view>
+  </view>
+  <view class="songSheetList">
+    <view class="myCreat">我创建的歌单({{userInfo.MySongCount}})
+      <image src="../../static/images/icon_down.png" class="iconDown"></image>
+    </view>
+    <view class="songSheetSecondList">
+      <image class="songSheetPic"></image>
+      <view class="songSheetInfo">
+        <view class="songSheetName">冷冷的看着你</view>
+        <view class="songSheetNum">20首</view>
       </view>
     </view>
-   </view>
-   <view class="songSheetList">
-     <view class="myCreat">我创建的歌单
-        <image src="../../static/images/icon_down.png" class="iconDown"></image>
-     </view>
-     <view class="songSheetSecondList">
-       <image class="songSheetPic"></image>
-       <view class="songSheetInfo">
-         <view class="songSheetName">冷冷的看着你</view>
-         <view class="songSheetNum">20首</view>
-       </view>
-     </view>
-     <view class="myCollection">我收藏的歌单<image src="../../static/images/icon_more2.png" class="iconMore2"></image></view>
-     <view class="buildNew" bindtap="creatSheet">新建歌单</view>
-     <view class="management">管理歌单</view>
-   </view>
+    <view class="myCollection">我收藏的歌单({{userInfo.CollectCount}})
+      <image src="../../static/images/icon_more2.png" class="iconMore2"></image>
+    </view>
+    <view class="buildNew" bindtap="creatSheet">新建歌单</view>
+    <view class="management">管理歌单</view>
+  </view>
 </view>

@@ -1,20 +1,27 @@
-// pages/list/recommendSheet.js
+// pages/musician/musicianRankingDetail.js
 var util = require('../../utils/util.js');
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
+    songlist: [],
+    limit: 5,
     start: 0,
-    limit: 6,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getListInfo();
+    if (options) {
+      console.log(options);
+      this.setData({
+        singerId: options.singerid,
+      });
+    }
+    wx.showLoading();
+    this.getMusicianInfo();
   },
 
   /**
@@ -52,7 +59,12 @@ Page({
 
   },
 
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
 
+  },
 
   /**
    * 用户点击右上角分享
@@ -68,7 +80,7 @@ Page({
     wx.showLoading({
       title: '加载更多',
     });
-    this.getListInfo("more");
+    this.getMusicianInfo("more");
   },
 
   /**
@@ -77,54 +89,51 @@ Page({
   onPullDownRefresh: function () {
 
   },
-  getListInfo: function (more) {
+  getMusicianInfo: function (more) {
     if (!!more) {
       this.setData({
-        start: this.data.start + 6,
+        start: this.data.start + 5,
       })
     }
-    util.request('/program/pro_song/recommend_song_list', {
+
+    util.request('/program/pro_list/singer_list_view', {
       withToken: false,
       method: 'GET',
       data: {
+        singerId: this.data.singerId,
         start: this.data.start,
         limit: this.data.limit
       },
       success: function (res) {
+        wx.hideLoading();
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
           if (!!more) {
             wx.hideLoading();
-            if (res.data == "") {
+            if (res.data.list == "") {
               wx.showToast({
                 title: '没有更多了',
                 icon: 'success',
                 duration: 2000
               })
-            } else {
-              let moreMusicianList = this.data.musicianList.concat(res.data);
-              this.setData({
-                sheetList: moreMusicianList,
-              });
             }
+            let moreSongList = this.data.songList.concat(res.data.list);
+            this.setData({
+              songList: moreSongList,
+            })
           } else {
             this.setData({
-              sheetList: res.data,
-            });
-
+              songerInfo: res.data.singer,
+              songList: res.data.list,
+            })
           }
+
         }
         else {
           util.showError(res.msg);
         }
       }.bind(this)
     })
-  },
-  toSheetDetail:function(e){
-    let sheetid = e.currentTarget.dataset.sheetid;
-    wx.navigateTo({
-      url: '/pages/list/songDetails?id=' + sheetid,
-    });
   },
 })

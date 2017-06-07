@@ -162,3 +162,16 @@
   top:0;
   z-index:12rpx;
 }
+.hide{
+  display:none;
+}
+.typePageArea{
+  width:750rpx;
+  height:auto;
+  position: relative;
+}
+.typePage{
+  position: absolute;
+  left:0;
+  top:0;
+}

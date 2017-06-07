@@ -19,12 +19,12 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
     </view>
     <view class="musicList">
-      <view class="audioLi">
+      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx">
         <view class="audioInfo">
           <view class="bottom-border"></view>
-          <image class="infoImg"></image>
-          <view class="audioName">i want rocks</view>
-          <view class="audioAuthor">kakaxi</view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.singerName}}</view>
           <view class="shareIconArea">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
@@ -38,31 +38,12 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
     </view>
       <scroll-view scroll-x="true" class="scrollView">
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动gdfhdhdhdjdjhdhdhdfhdfh</view>
-          <view class="newSongPlayer">三个火枪手dfgdgdsghsergser</view>
+        <view class="newSongArea" wx:for="{{resultArr.newSong}}" wx:key="idx">
+          <image src="{{item.cover}}" class="newSongPic"></image>
+          <view class="newSongName">{{item.name}}</view>
+          <view class="newSongPlayer">{{item.singerName}}</view>
         </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
+        
       </scroll-view>
   </view>
   <view class="recommendSheet">
@@ -70,30 +51,10 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
     </view>
     <scroll-view scroll-x="true" class="scrollView">
-        <view class="newSongArea" bindtap="recommendSheet">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
-        </view>
-        <view class="newSongArea">
-          <image src="http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg" class="newSongPic"></image>
-          <view class="newSongName">市场花园行动</view>
-          <view class="newSongPlayer">三个火枪手</view>
+        <view class="newSongArea" bindtap="recommendSheet" wx:for="{{resultArr.recommendList}}" wx:key="idx">
+          <image src="{{item.cover}}" class="newSongPic"></image>
+          <view class="newSongName">{{item.name}}</view>
+          <view class="newSongPlayer">{{item.singerName}}</view>
         </view>
       </scroll-view>
   </view>

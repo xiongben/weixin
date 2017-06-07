@@ -4,25 +4,15 @@
   <view class="listRule">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分 
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
-  <view class="listTitle">第一周榜</view>
+  <view class="listTitle">{{headerTitle}}</view>
   <view class="musicList">
-   <view class="audioLi">
-     <view class="liNum">1</view>
+   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" bindtap="ToMusicianDetail" data-singerid="{{item.singerId}}">
+     <view class="liNum">{{index+1}}</view>
      <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="authorScore">2000分</view>
+       <image class="infoImg" src="{{item.singer.cover}}"></image>
+       <view class="audioName">{{item.singer.chineseName}}</view>
+       <view class="authorScore">{{item.total}}分</view>
      </view>
    </view>
-   <view class="audioLi">
-     <view class="liNum">2</view>
-     <view class="audioInfo">
-       <image class="infoImg"></image>
-       <view class="audioName">i want rocks</view>
-       <view class="authorScore">2000分</view>
-     </view>
-   </view>
- 
-   
   </view>
 </view>

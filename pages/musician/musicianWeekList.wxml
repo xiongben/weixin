@@ -3,11 +3,11 @@
   <view class="listRule" bindtap="rulePage">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
-  <view class="weekRanking">
+  <view class="weekRanking" bindtap="jumpToList" data-type="week">
     <image src="{{weekrankInfo[0].singer.cover}}" class="rankingPic"></image>
     <image src="../../static/images/week.png" class="rankingType"></image>
     <view class="maskImg"></view>
-    <view class="rankingInfo{{index+1}}" wx:for="{{weekrankInfo}}">
+    <view class="rankingInfo{{index+1}}" wx:for="{{weekrankInfo}}" wx:key="idx">
       <image src="../../static/images/toplist_lv{{index+1}}.png" class="numPic"></image>
       <image src="{{item.singer.cover}}" class="songerPic"></image>
       <view class="songerName">{{item.singer.chineseName}}</view>
@@ -15,11 +15,11 @@
     </view>
   </view>
 
-  <view class="weekRanking">
+  <view class="weekRanking" bindtap="jumpToList" data-type="month">
     <image src="{{monthrankInfo[0].singer.cover}}" class="rankingPic"></image>
     <image src="../../static/images/month.png" class="rankingType"></image>
     <view class="maskImg"></view>
-    <view class="rankingInfo{{index+1}}" wx:for="{{monthrankInfo}}">
+    <view class="rankingInfo{{index+1}}" wx:for="{{monthrankInfo}}" wx:key="idx">
       <image src="../../static/images/toplist_lv{{index+1}}.png" class="numPic"></image>
       <image src="{{item.singer.cover}}" class="songerPic"></image>
       <view class="songerName">{{item.singer.chineseName}}</view>
@@ -28,12 +28,12 @@
   </view>
  
   
-  <view class="audioLi">
-    <view class="liNum">1</view>
+  <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" bindtap="ToMusicianDetail" data-singerid="{{item.singerId}}">
+    <view class="liNum">{{index+1}}</view>
     <view class="audioInfo">
-      <image class="infoImg"></image>
-      <view class="audioName">我的团长我的团-缅甸战役-幻想中飞灰湮灭</view>
-      <view class="audioAuthor">龙文章</view>
+      <image class="infoImg" src="{{item.singer.cover}}"></image>
+      <view class="audioName">{{item.singer.chineseName}}</view>
+      <!--<view class="audioAuthor">龙文章</view>-->
       <view class="shareIconArea">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>

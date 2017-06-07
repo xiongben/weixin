@@ -6,10 +6,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    rankInfo:[],
+    rankInfo: [],
     currentTab: 0,
-    limit:3,
-    start:0,
+    limit: 5,
+    start: 0,
   },
 
   /**
@@ -21,94 +21,120 @@ Page({
     });
     this.getRankingInfo('week');
     this.getRankingInfo('month');
+    this.getMusicianList();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    wx.showLoading({
+      title: "加载更多"
+    });
+    this.getMusicianList("more");
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
   bindChange: function (e) {
     var that = this;
     that.setData({ currentTab: e.detail.current });
   },
-  // swichNav: function (e) {
-  //   var that = this;
-  //   if (this.data.currentTab === e.target.dataset.current) {
-  //     return false;
-  //   } else {
-  //     that.setData({
-  //       currentTab: e.target.dataset.current
-  //     })
-  //   }
-  // },
-  // rulePage: function () {
-  //   wx.navigateTo({ url: '/pages/index/rulePage' });
-  // },
+
   getRankingInfo: function (param) {
-    let type=param;
+    let type = param;
     util.request('/program/pro_list/singer_list', {
       withToken: false,
       method: 'GET',
       data: {
-        type:type,
+        type: type,
+        start: 0,
+        limit: 3
+      },
+      success: function (res) {
+        wx.hideLoading();
+        res = res.data;
+        if (res.ret == 0) {
+          if (param == "week") {
+            this.setData({
+              weekrankInfo: res.data.list
+            })
+          } else if (param == "month") {
+            this.setData({
+              monthrankInfo: res.data.list
+            })
+          }
+
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  getMusicianList: function (more) {
+    if (!!more) {
+      this.setData({
+        start: this.data.start + 5,
+      })
+    }
+    util.request('/program/pro_list/singer_index', {
+      withToken: false,
+      method: 'GET',
+      data: {
         start: this.data.start,
         limit: this.data.limit
       },
@@ -117,22 +143,42 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-          if(param=="week"){
+          if (!!more) {
+            wx.hideLoading();
+            if (res.data == "") {
+              wx.showToast({
+                title: '没有更多了',
+                icon: 'success',
+                duration: 2000
+              })
+            }
+            let moreMusicianList = this.data.musicianList.concat(res.data);
             this.setData({
-              weekrankInfo: res.data.list
-            })
-          }else if(param == "month"){
+              musicianList: moreMusicianList,
+            });
+          } else {
             this.setData({
-              monthrankInfo: res.data.list
-            })
+              musicianList: res.data,
+            });
           }
-          
-          
+
         }
         else {
           util.showError(res.msg);
         }
       }.bind(this)
     })
+  },
+  jumpToList: function (e) {
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({
+      url: '/pages/musician/musicianRankingList?id='+type
+    })
+  },
+  ToMusicianDetail: function (e) {
+    let singerId = e.currentTarget.dataset.singerid;
+    wx.navigateTo({
+      url: '/pages/musician/musicianDetail?singerid=' + singerId,
+    });
   },
 })

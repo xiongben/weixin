@@ -12,7 +12,8 @@ Page({
     indicatorDots: false,
     autoplay: false,
     interval: 5000,
-    duration: 1000
+    duration: 1000,
+    resultArr:{},
   },
   //事件处理函数
 
@@ -26,7 +27,9 @@ Page({
     //     userInfo:userInfo
     //   })
     // })
+    this.getRecommendInfo("newSong");
     this.getRecommendInfo("recommendSong");
+    this.getRecommendInfo("recommendList");
   },
   recommendSheet:function(){
     let id="1";
@@ -38,11 +41,11 @@ Page({
   },
   getRecommendInfo:function(type){
     let typeArr={
-      recommendSong:"recommend_song_list",
-      newSong:"new_start_song_list",
-      recommendList:"recommend_song_list"
+      recommendSong:"pro_song_info/recommend_song_list",
+      newSong:"pro_song_info/new_start_song_list",
+      recommendList:"pro_song/recommend_song_list"
     };
-    let url ='/program/pro_song/'+typeArr[type];
+    let url ='/program/'+typeArr[type];
     util.request(url, {
       withToken: false,
       method: 'GET',
@@ -55,8 +58,12 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-          
-          
+          let resArr=this.data.resultArr;
+          resArr[type]=res.data;
+          this.setData({
+            resultArr:resArr,
+          })
+          console.log(this.data.resultArr);
         }
         else {
           util.showError(res.msg);
