@@ -5,8 +5,10 @@ module.exports = {
   //tapi: 'http://192.168.1.130',
   tapi: 'http://ttjh.f3322.net:82',
   //tapi: 'http://heyhou.me',
-  appID: 'wx625e5106ecf2cd1e',
+  // appID: 'wx625e5106ecf2cd1e',
   // appID: 'wx398f9d4ef8357a15',
+  appID: 'wx28e0ab1bc7f0e636',
+  secret: '91afaf3dc23009ad066646898fa8c43f',
   debug: true,
   storageKeys: {
     userInfo: 'HH_USER_INFO',

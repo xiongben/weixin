@@ -325,8 +325,55 @@ function chooseCity(callbackurl) {
   });
 }
 
+// function getUserInfo() {
+//   return wx.getStorageSync(config.storageKeys.userInfo);
+// }
+
 function getUserInfo() {
-  return wx.getStorageSync(config.storageKeys.userInfo);
+  wx.login({
+    success: function (res) {
+      if (res.code) {
+        request('/program/pro_user/get_open_id', {
+          method: 'POST',
+          data: {
+            code: res.code,
+          },
+          success: function (res) {
+            res = res.data;
+            console.log(res);
+            let openid=res.data.openid;
+            if (res.ret == 0) {
+              wx.getUserInfo({
+                success: function (res) {
+                  request('/program/pro_user/login', {
+                    method: 'POST',
+                    data: {
+                      encryptedData: res.encryptedData,
+                      iv:res.iv,
+                      openid:openid
+                    },
+                    success: function (res) {
+                      console.log(res);
+                      res = res.data;
+                      if (res.ret == 0) {
+                      
+                      }
+                      else {
+
+                      }
+                    }.bind(this),
+                    fail: function () {
+
+                    }
+                  })
+                }
+              })
+            }
+          }.bind(this),
+        })
+      }
+    }
+  });
 }
 
 function getUserDetailInfo() {

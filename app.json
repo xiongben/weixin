@@ -1,5 +1,6 @@
 {
   "pages":[
+    "pages/mine/myPage",
     "pages/index/index",
     "pages/list/recommendSheet",
     "pages/list/recommendSongs",
@@ -11,7 +12,7 @@
     
     "pages/index/selectPage",
     "pages/index/selectResult",
-    "pages/mine/myPage",
+    
     
     "pages/audioPlayer/audioPlay",
     "pages/mine/shareSongs",
