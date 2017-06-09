@@ -1,7 +1,11 @@
 {
   "pages":[
-    "pages/mine/myPage",
+   
     "pages/index/index",
+    "pages/mine/myCreatSheet",
+    "pages/index/createSheetName",
+    "pages/mine/myPage",
+    "pages/audioPlayer/audioPlay",
     "pages/list/recommendSheet",
     "pages/list/recommendSongs",
     "pages/list/songDetails",
@@ -14,12 +18,12 @@
     "pages/index/selectResult",
     
     
-    "pages/audioPlayer/audioPlay",
+    
     "pages/mine/shareSongs",
     
     "pages/musician/musicianDetail",
    
-    "pages/index/createSheetName",
+    
     "pages/index/addToSheet",
     
     "pages/index/rulePage"

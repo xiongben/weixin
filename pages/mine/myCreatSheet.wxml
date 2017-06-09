@@ -1,0 +1,29 @@
+<!--pages/mine/myCreatSheet.wxml-->
+<view class="container">
+  <view class="musicHistory">
+    <view class="recentlyPlayed">
+      <!--<image src="../../static/images/icon_time_me.png" class="theicon"></image>-->
+      <view class="recentlyMenu" data-type="recentlyList">{{sheetTotal}}个歌单
+        <view class="recentlyMenuRight">{{userInfo.PlayCount}}
+          <view class="btnArea" bindtap="manageSheet">
+            <text class="iconText">管理</text>
+            <image src="../../static/images/btn_manage_pre.png" class="iconMore"></image>
+          </view>
+          <view class="btnArea" bindtap="addSheet">
+            <text class="iconText">添加</text>
+            <image src="../../static/images/btn_add_pre.png" class="iconMore"></image>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="songSheetSecondList" wx:for="{{sheetList}}" wx:key="idx">
+    <image class="songSheetPic" src="http://res.heyhou.com/image/2017/06/01/092e5aa7ffc10c3442a22212ee9661b4.jpg"></image>
+    <view class="songSheetInfo">
+      <view class="songSheetName">{{item.name}}</view>
+      <view class="songSheetNum">{{item.total}}首</view>
+      <image src="../../static/images/btn_Clear_pre.png" class="deleteIcon" wx:if="{{showDelet}}" bindtap="deleteSheet" data-id="{{item.id}}"></image>
+    </view>
+  </view>
+</view>

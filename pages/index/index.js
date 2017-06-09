@@ -71,5 +71,17 @@ Page({
       }.bind(this)
     })
   },
+  moreInfo:function(e){
+     let type=e.currentTarget.dataset.type;
+     console.log(type);
+     let typeArr={
+       recommendSong:'/pages/list/recommendSongs',
+       newSong:'',
+       recommendSheet:''
+     };
+     wx.navigateTo({
+       url: typeArr[type],
+     });
+  },
 
 })

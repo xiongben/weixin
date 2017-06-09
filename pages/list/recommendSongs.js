@@ -22,6 +22,7 @@ Page({
       let data = {
         'recentlyList': '最近播放',
         'favoriteList': '我喜欢',
+        'recommendSong':'推荐歌曲'
       };
       wx.setNavigationBarTitle({
         title: data[id]
@@ -99,6 +100,7 @@ Page({
     let urlArr={
       'recentlyList': 'pro_song_info/get_play_song_list',
       'favoriteList': 'pro_song_info/get_like_song_list',
+      'recommendSong':''
     };
     let url ='/program/'+urlArr[type];
     util.request(url, {

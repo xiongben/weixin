@@ -1,0 +1,115 @@
+/* pages/mine/myCreatSheet.wxss */
+
+
+.recentlyMenu {
+  width: 720rpx;
+  height: 107rpx;
+  line-height: 107rpx;
+  border-bottom: 1px solid #635f59;
+  color: #e5d1a1;
+  font-size: 30rpx;
+  margin-left:30rpx;
+}
+
+.recentlyMenuRight {
+  float: right;
+  font-size: 28rpx;
+  color: #8a8782;
+}
+
+.iconMore {
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+  margin: 40rpx 30rpx 0 20rpx;
+}
+
+.iconMore2 {
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+  margin: 17rpx 30rpx 0 0;
+}
+
+.songSheetList {
+  background: #48443c;
+}
+
+.myCreat, .myCollection, .buildNew, .management {
+  width: 720rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  margin-left: 30rpx;
+  border-bottom: 1px solid #635f59;
+  font-size: 28rpx;
+  color: #8a8782;
+}
+
+/*.myCreat{
+  margin-top:10rpx;
+}*/
+
+.iconDown {
+  float: right;
+  width: 30rpx;
+  height: 30rpx;
+  margin: 17rpx 30rpx 0 0;
+}
+
+.songSheetSecondList {
+  background: #3c372f;
+}
+
+.songSheetPic {
+  width: 140rpx;
+  height: 140rpx;
+  background: #fff;
+  margin: 20rpx 24rpx 0 30rpx;
+  border-radius: 15rpx;
+}
+
+.songSheetInfo {
+  width: 556rpx;
+  height: 158rpx;
+  border-bottom: 1px solid #635f59;
+  float: right;
+  position: relative;
+}
+
+.songSheetName {
+  height: 68rpx;
+  line-height: 68rpx;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #e5d1a1;
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.songSheetNum {
+  height: 30rpx;
+  font-size: 24rpx;
+  color: #8a8782;
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.iconText{
+  float:right;
+  color:#e5d1a1;
+  font-size:30rpx;
+  margin:0 20rpx;
+}
+.btnArea{
+  float:right;
+}
+.deleteIcon{
+  width:30rpx;
+  height:30rpx;
+  position: absolute;
+  right:30rpx;
+  top:64rpx;
+}

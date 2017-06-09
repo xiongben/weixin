@@ -103,9 +103,17 @@
   margin-top:20rpx;
   font-size: 28rpx;
   color:#e5d1a1;
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .songSheetNum{
   height:30rpx;
   font-size:24rpx;
   color:#8a8782;
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

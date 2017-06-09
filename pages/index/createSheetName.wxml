@@ -1,16 +1,18 @@
 <!--pages/index/createSheetName.wxml-->
 <view class="container">
-  <view class="sheetNameArea">
-    <input type="text" class="sheetName" placeholder="输入歌单名" />
+  <form bindsubmit="formSubmit">
+   <view class="sheetNameArea">
+    <input type="text" class="sheetName" placeholder="输入歌单名" name="sheetName"/>
   </view>
-  <view class="sheetSet">
-    <checkbox-group bindchange="checkboxChange">
-      <label class="checkbox">
-        <checkbox value="" checked="" color="#e5d1a1"/>设置为隐私歌单
-      </label>
+ 
+  <!--<view class="section section_gap sheetSet">
+    <view class="section__title">checkbox</view>
+    <checkbox-group name="checkbox">
+      <label><checkbox value="ok" checked="" color="#e5d1a1"/><text class="checkText">设置为隐私歌单</text></label>
     </checkbox-group>
-  </view>
+  </view>-->
   <view class="btnArea">
-    <view class="creatSheet">创建歌单</view>
+    <button formType="submit" class="creatSheet">创建歌单</button>
   </view>
+</form>
 </view>

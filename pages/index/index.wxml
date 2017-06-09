@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class="searchArea" bindtap="searchMusic">
-    <input type="text" class="searchMusic"  disabled/>
+    <!--<input type="text" class="searchMusic"  disabled/>-->
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
     <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>
@@ -16,7 +16,7 @@
   </view>
   <view class="recommendSong">
     <view class="modelTitle">推荐歌曲
-      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSong"></image>
     </view>
     <view class="musicList">
       <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx">
@@ -35,7 +35,7 @@
   </view>
   <view class="newSong">
     <view class="modelTitle">新歌发布
-      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="newSong"></image>
     </view>
       <scroll-view scroll-x="true" class="scrollView">
         <view class="newSongArea" wx:for="{{resultArr.newSong}}" wx:key="idx">
@@ -48,7 +48,7 @@
   </view>
   <view class="recommendSheet">
     <view class="modelTitle">推荐歌单
-      <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSheet"></image>
     </view>
     <scroll-view scroll-x="true" class="scrollView">
         <view class="newSongArea" bindtap="recommendSheet" wx:for="{{resultArr.recommendList}}" wx:key="idx">

@@ -40,4 +40,9 @@
   font-size: 34rpx;
   color:#e5d1a1;
   font-weight: 700;
+  background:rgba(0, 0, 0, 0);
+}
+.checkText{
+  color:#635f59;
+  font-size:24rpx;
 }

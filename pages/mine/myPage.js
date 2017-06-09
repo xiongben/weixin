@@ -118,6 +118,9 @@ Page({
   showSheetList: function (e) {
     let type = e.currentTarget.dataset.type;
     console.log(type);
+    wx.navigateTo({
+      url: '/pages/mine/myCreatSheet',
+    })
     
   },
   getSheetList: function (type) {
