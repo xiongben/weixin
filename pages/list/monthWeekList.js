@@ -79,7 +79,9 @@ Page({
         console.log("分享成功");
       },
       fail: function (res) {
-        // 转发失败
+        wx.showToast({
+          title: '打榜失败',
+        });
       }
     }
   },
@@ -146,19 +148,19 @@ Page({
  
   getListInfo: function (id,currentTab,more){
     if(!!more){
-      let newStart=[];
-      newStart[currentTab] = this.data.start[currentTab]+10;
+      let newStartArr=[];
+      newStartArr[currentTab] = this.data.startArr[currentTab]+10;
       this.setData({
-        start:newStart
+        startArr:newStartArr
       })
-      console.log(this.data.start);
     }
+    console.log(this.data.startArr[currentTab]);
     util.request('/program/pro_list/song_info_list', {
       withToken: false,
       method: 'GET',
       data: {
         categoryId: id,
-        start: this.data.start[currentTab],
+        start: this.data.startArr[currentTab],
         limit: this.data.limit,
       },
       success: function (res) {
@@ -186,7 +188,6 @@ Page({
               title: '没有更多了',
             });
           }
-          
           console.log(this.data.list);
         }
         else {
@@ -207,5 +208,9 @@ Page({
     this.setData({
       shareIcon:!this.data.shareIcon,
     })
+  },
+  toAudioPlay: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({ url: '/pages/audioPlayer/audioPlay?id=' + id });
   },
 })

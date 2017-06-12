@@ -13,7 +13,7 @@
   <!--<swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="height:{{swiperHeight}}rpx">-->
   <view class="typePageArea">
     <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
-      <view class="audioLi" wx:for="{{list[0]}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{list[0]}}" wx:key="idx" data-id="{{item.songinfo.id}}" bindtap="toAudioPlay">
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.songinfo.cover}}"></image>
@@ -27,13 +27,13 @@
       </view>
     </view>
     <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
-      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx" data-id="{{item.songinfo.id}}" bindtap="toAudioPlay">
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.songinfo.cover}}"></image>
           <view class="audioName">{{item.songinfo.name}}</view>
           <view class="audioAuthor">{{item.songinfo.singerName}}</view>
-          <view class="shareIconArea"  bindtap="shareSong" data-songid="{{item.songinfo.id}}">
+          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.songinfo.id}}">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
           </view>

@@ -6,6 +6,8 @@ Page({
    * 页面的初始数据
    */
   data: {
+    shareIcon: false,
+    shareSongId: "",
     rankInfo: [],
     currentTab: 0,
     limit: 5,
@@ -70,7 +72,21 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    this.setData({
+      shareIcon: false,
+    })
+    return {
+      title: '打榜歌曲',
+      path: '/pages/list/monthWeekList?id=' + this.data.shareSongId,
+      success: function (res) {
+        console.log("分享成功");
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '打榜失败',
+        });
+      }
+    }
   },
 
   /**
@@ -180,5 +196,21 @@ Page({
     wx.navigateTo({
       url: '/pages/musician/musicianDetail?singerid=' + singerId,
     });
+  },
+  rulePage: function () {
+    wx.navigateTo({ url: '/pages/index/rulePage' });
+  },
+  shareSong: function (e) {
+    let id = e.currentTarget.dataset.songid;
+    this.setData({
+      shareSongId: id,
+      shareIcon: true,
+    });
+
+  },
+  hideShareBack: function () {
+    this.setData({
+      shareIcon: !this.data.shareIcon,
+    })
   },
 })

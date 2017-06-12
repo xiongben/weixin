@@ -12,18 +12,22 @@
   <view class="playAll">打榜歌曲</view>
   
   <view class="musicList">
-   <view class="audioLi" wx:for="{{songList}}" wx:key="idx">
+   <view class="audioLi" wx:for="{{songList}}" wx:key="idx" data-id="{{item.songInfo.id}}" bindtap="toAudioPlay">
      <view class="audioInfo">
        <view class="bottom-border"></view>
        <image class="infoImg" src="{{item.songInfo.cover}}"></image>
        <view class="audioName">{{item.songInfo.name}}</view>
        <view class="audioAuthor">{{item.songInfo.singerName}} {{item.total}}分</view>
-       <view class="shareIconArea" data-songid="{{item.singerId}}">
+       <view class="shareIconArea" data-songid="{{item.singerId}}" catchtap="shareSong">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>
      </view>
    </view>
+  </view>
+
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
 </view>
 

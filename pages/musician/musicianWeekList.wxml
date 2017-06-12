@@ -26,20 +26,23 @@
       <view class="songerScore">{{item.total}}分</view>
     </view>
   </view>
- 
-  
+
+
   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" bindtap="ToMusicianDetail" data-singerid="{{item.singerId}}">
     <view class="liNum">{{index+1}}</view>
     <view class="audioInfo">
       <image class="infoImg" src="{{item.singer.cover}}"></image>
       <view class="audioName">{{item.singer.chineseName}}</view>
       <!--<view class="audioAuthor">龙文章</view>-->
-      <view class="shareIconArea">
+      <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.singerId}}">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
       </view>
     </view>
   </view>
 
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
+  </view>
 
 </view>

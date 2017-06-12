@@ -1,7 +1,7 @@
 <!--pages/musician/musicianRankingList.wxml-->
 <view class="container">
   
-  <view class="listRule">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分 
+  <view class="listRule" bindtap="rulePage">打榜规则：每十分钟更新，播放一次+1分，分享一次+10分 
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
   <view class="listTitle">{{headerTitle}}</view>

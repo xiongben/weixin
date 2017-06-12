@@ -151,4 +151,7 @@ Page({
       url: '/pages/musician/musicianRankingDetail?singerid=' + singerId,
     });
   },
+  rulePage: function () {
+    wx.navigateTo({ url: '/pages/index/rulePage' });
+  },
 })
