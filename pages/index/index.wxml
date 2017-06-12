@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<view class="container">
+<view class="container" wx:if="{{hideLoding}}">
   <view class="searchArea" bindtap="searchMusic">
     <!--<input type="text" class="searchMusic"  disabled/>-->
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
@@ -9,7 +9,7 @@
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="{{idx}}">
         <swiper-item>
-          <image src="{{item}}" class="slide-image" />
+          <image src="{{item.photo}}" class="slide-image" />
         </swiper-item>
       </block>
     </swiper>
@@ -19,13 +19,13 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSong"></image>
     </view>
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx" data-id="{{item.id}}" bindtap="toRecommendSong">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
           <view class="audioName">{{item.name}}</view>
           <view class="audioAuthor">{{item.singerName}}</view>
-          <view class="shareIconArea">
+          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.id}}">
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
           </view>
@@ -38,7 +38,7 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="newSong"></image>
     </view>
       <scroll-view scroll-x="true" class="scrollView">
-        <view class="newSongArea" wx:for="{{resultArr.newSong}}" wx:key="idx">
+        <view class="newSongArea" wx:for="{{resultArr.newSong}}" wx:key="idx" data-id="{{item.id}}" bindtap="toNewSong">
           <image src="{{item.cover}}" class="newSongPic"></image>
           <view class="newSongName">{{item.name}}</view>
           <view class="newSongPlayer">{{item.singerName}}</view>
@@ -51,11 +51,14 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSheet"></image>
     </view>
     <scroll-view scroll-x="true" class="scrollView">
-        <view class="newSongArea" bindtap="recommendSheet" wx:for="{{resultArr.recommendList}}" wx:key="idx">
+        <view class="newSongArea" bindtap="toRecommendSheet" wx:for="{{resultArr.recommendList}}" wx:key="idx" data-id="{{item.id}}">
           <image src="{{item.cover}}" class="newSongPic"></image>
           <view class="newSongName">{{item.name}}</view>
           <view class="newSongPlayer">{{item.singerName}}</view>
         </view>
       </scroll-view>
+  </view>
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
 </view>

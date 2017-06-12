@@ -232,3 +232,25 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
+.shareBack{
+  width:750rpx;
+  height:100vh;
+  position: fixed;
+  z-index:10;
+  top:0;
+  left:0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.sharePic{
+  position: absolute;
+  width:200rpx;
+  height:200rpx;
+  right:0;
+  top:0;
+  z-index:12rpx;
+}
+.hide{
+  display:none;
+}

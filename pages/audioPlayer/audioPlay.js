@@ -6,12 +6,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
-    name: '此时此刻',
-    author: '许巍',
-    // src: 'http://res.heyhou.com/av/2017/01/06/b1a2fcd14ab8331942048c51c6bf58a4.mp3',
-    src: 'http://xiongsanniu.com/music/0.mp3',
-    lrcsrc: 'http://xiongsanniu.com/music/data.json',
+    // poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
+    // name: '此时此刻',
+    // author: '许巍',
+    // src: 'http://xiongsanniu.com/music/0.mp3',
+    // lrcsrc: 'http://xiongsanniu.com/music/data.json',
     lyricArr: [],
     timeArr: [],
     showArr: [],
@@ -48,17 +47,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    loadPage(this);
-    this.getlyric();
+    if(options){
+      let id=options.id;
+      console.log(id);
+      this.getOnlyPlay(id);
+      // loadPage(this);
+    }
+    
+    // this.getlyric();
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    wx.setNavigationBarTitle({
-      title:this.data.item.songName,
-    })
+    // wx.setNavigationBarTitle({
+    //   title:this.data.item.songName,
+    // })
   },
 
   /**
@@ -116,18 +121,18 @@ Page({
   onPullDownRefresh: function () {
 
   },
-  audioPlay: function () {
-    this.audioCtx.play()
-  },
-  audioPause: function () {
-    this.audioCtx.pause()
-  },
-  audio14: function () {
-    this.audioCtx.seek(14)
-  },
-  audioStart: function () {
-    this.audioCtx.seek(0)
-  },
+  // audioPlay: function () {
+  //   this.audioCtx.play()
+  // },
+  // audioPause: function () {
+  //   this.audioCtx.pause()
+  // },
+  // audio14: function () {
+  //   this.audioCtx.seek(14)
+  // },
+  // audioStart: function () {
+  //   this.audioCtx.seek(0)
+  // },
   //展示播放过的列表
   showPlayed: function () {
     var flag = this.data.is_show_played;
@@ -163,18 +168,7 @@ Page({
       })
     }
   },
-  getlyric: function () {
-    util.request(this.data.lrcsrc, {
-      success: function (res) {
-        console.log(res);
-        this.setData({
-          played_list: res.data
-        });
-        let lyric = this.createArrMap(res.data[0].lyric);
-        this.renderLyric(lyric);
-      }.bind(this)
-    })
-  },
+  
   createArrMap: function (lyric) {
     var timeArr = [],
       lyricArr = [];
@@ -292,11 +286,46 @@ Page({
     console.log(this.data.item);
     loadPage(this)
   },
+  getlyric: function (url) {
+    util.request(url, {
+      success: function (res) {
+        console.log(res);
+        this.setData({
+          played_list: res.data
+        });
+        let lyric = this.createArrMap(res.data[0].lyric);
+        this.renderLyric(lyric);
+      }.bind(this)
+    })
+  },
+  getOnlyPlay:function(id){
+    util.request('/program/pro_song_info/get_song_info', {
+      withToken: false,
+      method: 'GET',
+      data: {
+        id:id,
+      },
+      success: function (res) {
+        wx.hideLoading();
+        res = res.data;
+        if (res.ret == 0) {
+          this.setData({
+            item:res.data
+          })
+          console.log(this.data.item);
+          loadPage(this);
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
 });
 
 function play(page) {
   wx.playBackgroundAudio({
-    dataUrl: page.data.src,
+    dataUrl: page.data.item.music,
     success: function (res) {
       wx.seekBackgroundAudio({
         position: page.data.current
@@ -340,7 +369,7 @@ function playing(page) {
 function loadPage(page) {
   //播放
   play(page);
-  loadLyr(page);
+  // loadLyr(page);
   //记录播放状态
   playing(page);
   setInterval(function () {
@@ -352,8 +381,9 @@ function loadPage(page) {
   //     animation(page)
   //   }
   // }, 20);
+
   wx.setNavigationBarTitle({
-    title: page.data.item.songName,
+    title: page.data.item.name,
   })
 }
 

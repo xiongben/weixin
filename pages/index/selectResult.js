@@ -9,7 +9,7 @@ Page({
     inputKeyword:"",
     currentTab: 0,
     start: [0, 0, 0],
-    limit: 4,
+    limit: 8,
     resultArr: [[], [], []],
   },
 
@@ -61,7 +61,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    let index = this.data.currentTab;
+    let keyword = this.data.keyword;
+    this.getSearchResult(keyword, index);
   },
 
   
@@ -152,6 +154,7 @@ Page({
           this.setData({
             resultArr: searchArr,
           });
+          console.log(this.data.resultArr);
         }
         else {
           util.showError(res.msg);
@@ -175,5 +178,23 @@ Page({
         duration: 2000
       })
     }
+  },
+  toAudioPlay:function(e){
+    let id=e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=' + id,
+    })
+  },
+  toSingerDetail:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/musician/musicianDetail?singerid=' + id,
+    })
+  },
+  toSheetDetail:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/list/songDetails?id=' + id,
+    })
   },
 })

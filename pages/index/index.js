@@ -4,11 +4,7 @@ var app = getApp();
 var util = require('../../utils/util.js');
 Page({
   data: {
-    imgUrls: [
-      'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-      'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
+    imgUrls: [],
     indicatorDots: false,
     autoplay: false,
     interval: 5000,
@@ -27,13 +23,36 @@ Page({
     //     userInfo:userInfo
     //   })
     // })
+    wx.showLoading({
+      title: '正在加载',
+    });
+    this.getBannerImg();
     this.getRecommendInfo("newSong");
     this.getRecommendInfo("recommendSong");
     this.getRecommendInfo("recommendList");
+    // let userInfo=util.getUserInfo();
+    // console.log(userInfo);
+    util.test();
   },
-  recommendSheet:function(){
-    let id="1";
-    wx.navigateTo({ url: '/pages/list/songDetails?id=' + id });
+  /**
+  * 用户点击右上角分享
+  */
+  onShareAppMessage: function () {
+    this.setData({
+      shareIcon: false,
+    })
+    return {
+      title: '打榜歌曲',
+      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      success: function (res) {
+        console.log("分享成功");
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '打榜失败',
+        });
+      }
+    }
   },
   searchMusic:function(){
     let id = "1";
@@ -56,14 +75,15 @@ Page({
       success: function (res) {
         wx.hideLoading();
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           let resArr=this.data.resultArr;
           resArr[type]=res.data;
           this.setData({
             resultArr:resArr,
+            hideLoding:true
           })
-          console.log(this.data.resultArr);
+          // console.log(this.data.resultArr);
         }
         else {
           util.showError(res.msg);
@@ -75,13 +95,67 @@ Page({
      let type=e.currentTarget.dataset.type;
      console.log(type);
      let typeArr={
-       recommendSong:'/pages/list/recommendSongs',
-       newSong:'',
-       recommendSheet:''
+       recommendSong:'/pages/list/recommendSongs?id=recommendSong',
+       newSong:'/pages/list/recommendSongs?id=newSong',
+       recommendSheet:'/pages/list/recommendSheet?id=recommendSheet'
      };
      wx.navigateTo({
        url: typeArr[type],
      });
   },
+  toRecommendSheet:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/list/songDetails?id='+id,
+    });
+  },
+  toNewSong:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=' + id,
+    });
+  },
+  toRecommendSong:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=' + id,
+    });
+  },
+  getBannerImg:function(){
+    util.request('/program/pro_banner/get_banner_list', {
+      withToken: false,
+      method: 'GET',
+      data: {
+        type: 1,
+        start:this.data.start,
+        limit:this.data.limit,
+      },
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          this.setData({
+            imgUrls:res.data,
+          });
+          
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  shareSong: function (e) {
+    let id = e.currentTarget.dataset.songid;
+    this.setData({
+      shareSongId: id,
+      shareIcon: true,
+    });
 
+  },
+  hideShareBack: function () {
+    this.setData({
+      shareIcon: !this.data.shareIcon,
+    })
+  },
 })

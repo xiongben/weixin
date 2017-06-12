@@ -9,18 +9,17 @@ Page({
     shareIcon:false,
     currentTab: 0,
     titleName:'',
-    start:0,
+    startArr:[0,0],
     limit:10,
-    swiperHeight:120*10,
     shareSongId:"",
-    
+    list:{},
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getTypeInfo();
+    this.getTypeInfo(this.data.currentTab);
     
   },
 
@@ -89,7 +88,10 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-    this.getMoreList(this.data.currentTab);
+    wx.showLoading({
+      title: '正在加载',
+    });
+    this.getTypeInfo(this.data.currentTab,"more");
   },
 
   /**
@@ -111,12 +113,13 @@ Page({
         currentTab: e.target.dataset.current
       })
       console.log(that.data.currentTab);
+      this.getTypeInfo(that.data.currentTab);
     }
   },
   rulePage:function(){
     wx.navigateTo({ url: '/pages/index/rulePage' });
   },
-  getTypeInfo:function(){
+  getTypeInfo: function (currentTab,more){
     util.request('/program/pro_category/get_all', {
       withToken: false,
       method: 'GET',
@@ -129,12 +132,10 @@ Page({
           let data=res.data.list;
           this.setData({
             titleName:data,
-            idOne: data[0].id,
-            idTwo: data[1].id
+            idArr: [data[0].id, data[1].id],
           });
-          let [idOne, idTwo] = [this.data.idOne, this.data.idTwo];
-          this.getListInfo(idOne,0);
-          this.getListInfo(idTwo,1);
+          this.getListInfo(this.data.idArr[currentTab], currentTab,more);
+          // this.getListInfo(this.data.idTwo,currentTab,more);
         }
         else {
           util.showError(res.msg);
@@ -142,77 +143,55 @@ Page({
       }.bind(this)
     })
   },
-  getListInfo:function(id,type){
+ 
+  getListInfo: function (id,currentTab,more){
+    if(!!more){
+      let newStart=[];
+      newStart[currentTab] = this.data.start[currentTab]+10;
+      this.setData({
+        start:newStart
+      })
+      console.log(this.data.start);
+    }
     util.request('/program/pro_list/song_info_list', {
       withToken: false,
       method: 'GET',
       data: {
-        categoryId:id,
-        start:this.data.start,
-        limit:this.data.limit,
+        categoryId: id,
+        start: this.data.start[currentTab],
+        limit: this.data.limit,
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
         if (res.ret == 0) {
-          let data=res.data.list;
-          if(type == 0){
-            this.setData({
-              listInfoOne: data,
-            });
-          }else if(type == 1){
-            this.setData({
-              listInfoTwo: data,
+          let data = res.data.list;
+          if(data !=""){
+            if(!!more){
+              wx.hideLoading();
+              let newList = this.data.list;
+              newList[currentTab] = newList[currentTab].concat(data);
+              this.setData({
+                list: newList,
+              })
+            }else{
+              let newList = this.data.list;
+              newList[currentTab] = data;
+              this.setData({
+                list: newList,
+              })
+              console.log(this.data.list);
+            }
+          }else{
+            wx.showToast({
+              title: '没有更多了',
             });
           }
+          
+          console.log(this.data.list);
         }
         else {
           util.showError(res.msg);
-       }
-      }.bind(this)
-    })
-  },
-  getMoreList: function (currentTab){
-    wx.showLoading({
-      title: "加载更多中..."
-    });
-    let id;
-    if(currentTab == 0){
-       id=this.data.idOne;
-    }else if(currentTab == 1){
-      id=this.data.idTwo;
-    }
-    this.setData({
-      start:this.data.start+10,
-    });
-    util.request('/program/pro_list/song_info_list',{
-      withToken: false,
-      method: 'GET',
-      data: {
-       start:this.data.start,
-        limit: 10,
-        categoryId: id,
-      },
-      success: function (res) {
-        wx.hideLoading();
-        let resdata = res.data.data.list;
-        if (currentTab == 0) {
-          console.log("加载更多");
-          this.setData({
-            listInfoOne: this.data.listInfoOne.concat(resdata),
-          });
-          this.setData({
-            swiperHeight: this.data.listInfoOne.length * 120,
-            typeOneHeight: this.data.listInfoOne.length * 120,
-          });
-        } else if (currentTab == 1) {
-          this.setData({
-            listInfoTwo: this.data.listInfoTwo.concat(resdata),
-            typeTwoHeight: this.data.listInfoTwo.length * 120,
-            swiperHeight: Math.max(this.data.typeOneHeight, this.data.typeTwoHeight),
-          });
         }
-        
       }.bind(this)
     })
   },

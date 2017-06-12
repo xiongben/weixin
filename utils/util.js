@@ -1,4 +1,5 @@
 var config = require('config.js');
+var Q=require('../templates/q.js');
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -15,13 +16,24 @@ function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
+function test(){
+  Q.when(getUserInfo()).then(function(res){
+    // wx.setStorage({
+    //   'id': res.id,
+    //   'token': res.token
+    // });
+  })
+}
+
 
 function request(url, params) {
   if (params.withToken) {
-    var userInfo = getUserInfo();
+    // Q.when(getUserInfo()).then
+    // getUserInfo();
+   
     params.data = params.data || {};
-    if (userInfo.uid && userInfo.token) {
-      params.data.uid = userInfo.uid;
+    if (userInfo.id !="" && userInfo.token !="") {
+      params.data.id = userInfo.id;
       params.data.token = userInfo.token;
     }
   }
@@ -329,7 +341,10 @@ function chooseCity(callbackurl) {
 //   return wx.getStorageSync(config.storageKeys.userInfo);
 // }
 
+
+
 function getUserInfo() {
+  var dtd = Q.defer();
   wx.login({
     success: function (res) {
       if (res.code) {
@@ -352,18 +367,28 @@ function getUserInfo() {
                       iv:res.iv,
                       openid:openid
                     },
-                    success: function (res) {
-                      console.log(res);
+                    success: function (res,userinfofn) {
                       res = res.data;
+                      console.log(res);
                       if (res.ret == 0) {
+                        let userInfo={
+                          id:res.data.id,
+                          token:res.data.token
+                        }
+                        // wx.setStorageSync({
+                        //   id: res.data.id,
+                        //   token: res.data.token
+                        // });
+                        dtd.resolve(userInfo);
+                       
                       
                       }
                       else {
-
+                        util.showError(res.msg);
                       }
                     }.bind(this),
                     fail: function () {
-
+                      util.showError(res.msg);
                     }
                   })
                 }
@@ -374,6 +399,7 @@ function getUserInfo() {
       }
     }
   });
+  return dtd.promise;
 }
 
 function getUserDetailInfo() {
@@ -580,5 +606,5 @@ module.exports = {
   WXPay: WXPay,
   formate: formate,
   timeToSeconds: timeToSeconds,
-
+  test:test
 }

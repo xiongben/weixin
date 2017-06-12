@@ -18,10 +18,10 @@
       <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">歌单</view>
     </view>
   </view>
-
+ <view class="typePageArea">
   <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toAudioPlay">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
@@ -33,7 +33,7 @@
   </view>
   <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toSingerDetail">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="musicianImg" src="{{item.cover}}"></image>
@@ -45,7 +45,7 @@
   </view>
   <view class="typePage {{currentTab==2 ? '' : 'hide'}}">
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr[2]}}" wx:key="idx">
+      <view class="audioLi" wx:for="{{resultArr[2]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toSheetDetail">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
@@ -55,5 +55,5 @@
       </view>
     </view>
   </view>
-
+</view>
 </view>
