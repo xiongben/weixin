@@ -15,6 +15,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    });
     if(options){
       console.log(options);
       this.setData({
@@ -71,7 +74,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this;
+    this.setData({
+      shareIcon: false,
+    })
+    return {
+      title: '打榜歌曲',
+      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      success: function (res) {
+        console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '打榜失败',
+        });
+      }
+    }
   },
 
   /**
@@ -133,6 +152,36 @@ Page({
           util.showError(res.msg);
         }
       }.bind(this)
+    })
+  },
+  playAll:function(){
+     let playlist=this.data.songList;
+     playlist=JSON.stringify(playlist);
+     wx.setStorageSync('playlist', playlist);
+     wx.navigateTo({
+       url: '/pages/audioPlayer/audioPlay?id=all',
+     })
+  },
+  shareSong: function (e) {
+    let id = e.currentTarget.dataset.songid;
+    this.setData({
+      shareSongId: id,
+      shareIcon: true,
+    });
+
+  },
+  hideShareBack: function () {
+    this.setData({
+      shareIcon: !this.data.shareIcon,
+    })
+  },
+  playSingle:function(e){
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.songList[index];
+    songinfo = JSON.stringify(songinfo);
+    wx.setStorageSync('singleinfo', songinfo);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=single',
     })
   },
 })

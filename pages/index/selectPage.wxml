@@ -2,7 +2,7 @@
 <view class="container">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="searchArea">
-      <input type="text" class="searchMusic" name="keyword" />
+      <input type="text" class="searchMusic" name="keyword" value="{{keyword}}"/>
       <button formType="submit" class="submitBtn">
         <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
       </button>
@@ -11,14 +11,65 @@
       </button>
     </view>
   </form>
-  <view class="hotSearch">
+  <view class="hotSearch" wx:if="{{selectPage}}">
     <view class="hotSearchTitle">热门搜索</view>
-    <view class="hotSearchList" wx:for="{{hotSearchList}}" wx:key="idx" bindtap="hotSearchkeyword" data-keyword="{{item.name}}">{{item.name}}</view>
+    <view class="hotSearchList" wx:for="{{hotSearchList}}" wx:key="idx" catchtap="hotSearchkeyword" data-keyword="{{item.name}}">{{item.name}}</view>
   </view>
-  <view class="searchHistory">
+  <view class="searchHistory" wx:if="{{selectPage}}">
     <view class="historyTitle">搜索历史
-      <image src="../../static/images/btn_Clear_pre.png" class="clearIcon"></image>
+      <image src="../../static/images/btn_Clear_pre.png" class="clearIcon" catchtap="clearHistory"></image>
     </view>
-    <view class="historyList" wx:for="{{historyList}}" wx:key="idx" data-keyword="{{item.keyword}}" bindtap="hotSearchkeyword">{{item.keyword}}</view>
+    <view class="historyList" wx:for="{{historyList}}" wx:key="idx" data-keyword="{{item.keyword}}" catchtap="hotSearchkeyword">{{item.keyword}}</view>
   </view>
+
+  <view class="typeTab" wx:if="{{!selectPage}}">
+    <view class="swiper-tab">
+      <view class="swiper-tab-list {{currentTab==0 ? 'on' : ''}}" data-current="0" catchtap="swichNav">单曲</view>
+      <view class="swiper-tab-list {{currentTab==1 ? 'on' : ''}}" data-current="1" catchtap="swichNav">歌手</view>
+      <view class="swiper-tab-list {{currentTab==2 ? 'on' : ''}}" data-current="2" catchtap="swichNav">歌单</view>
+    </view>
+  </view>
+ <view class="typePageArea" wx:if="{{!selectPage}}">
+  <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx" data-id="{{item.id}}" catchtap="toAudioPlay">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.singerName}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx" data-id="{{item.id}}" catchtap="toSingerDetail">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="musicianImg" src="{{item.cover}}"></image>
+          <view class="musicianName">{{item.chineseName}}</view>
+          <image src="../../static/images/icon_more2.png" class="moreIcon"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="typePage {{currentTab==2 ? '' : 'hide'}}">
+    <view class="musicList">
+      <view class="audioLi" wx:for="{{resultArr[2]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toSheetDetail">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.total}}首音乐</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="noInfo" wx:if="{{noinfo}}">
+  <image src="../../static/images/noinfo.png" class="noinfoPic"></image>
+  <view class="noinfoText">抱歉，暂无相关信息</view>
+</view>
 </view>

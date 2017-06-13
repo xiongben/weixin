@@ -6,7 +6,15 @@ Page({
    * 页面的初始数据
    */
   data: {
-    searchText:""
+    selectPage:true,
+    searchText:"",
+    inputKeyword: "",
+    currentTab: 0,
+    start: [0, 0, 0],
+    historyStart:0,
+    limit: 8,
+    resultArr: [[], [], []],
+    noinfo:false,
   },
 
   /**
@@ -15,6 +23,7 @@ Page({
   onLoad: function (options) {
     this.getHotSearch();
     this.getHistory();
+    
   },
 
   /**
@@ -49,7 +58,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    
   },
 
   /**
@@ -70,14 +79,24 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    if (!this.data.selectPage){
+      wx.showLoading({
+        title: "加载更多中..."
+      });
+      let index = this.data.currentTab;
+      let keyword = this.data.keyword;
+      this.getSearchResult(keyword, index, "more");
+    }else{
+      this.getHistory("more");
+    }
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.getHotSearch();
+    this.getHistory();
   },
   getHotSearch:function(){
     util.request('/program/search/hot_word_list', {
@@ -103,17 +122,17 @@ Page({
       }.bind(this)
     })
   },
-  searchMusic:function(){
-    console.log(this.data.searchText);
-  },
-  cleanSearch:function(){
-
-  },
   formSubmit: function (e) {
     console.log( e.detail.value);
     let keyword = e.detail.value.keyword;
     if(keyword != ""){
-      this.jumpPage(keyword);
+      let index = this.data.currentTab;
+      this.setData({
+        keyword:keyword,
+        selectPage:false
+      })
+      this.getSearchResult(this.data.keyword, index);
+
     }else{
       wx.showToast({
         title: '关键词不能为空',
@@ -124,25 +143,42 @@ Page({
    
   },
   formReset: function () {
-    console.log('form发生了reset事件')
+    console.log('form发生了reset事件');
+    this.setData({
+      keyword:'',
+      selectPage: true,
+      noinfo:false
+    });
   },
-  getHistory:function(){
+  getHistory:function(more){
+    if(!!more){
+      this.setData({
+        historyStart: this.data.historyStart+8
+      })
+    }
     util.request('/program/search/record_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
-        start: 0,
-        limit: 10
+        start: this.data.historyStart,
+        limit: this.data.limit
       },
       success: function (res) {
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
           let data = res.data;
-          this.setData({
-            historyList: data,
-          })
-
+          if(!!more){
+            let newhistoryList = this.data.historyList.concat(data);
+            this.setData({
+              historyList: newhistoryList,
+            })
+          }else{
+            this.setData({
+              historyList: data,
+            })
+          }
+          
         }
         else {
           util.showError(res.msg);
@@ -150,13 +186,145 @@ Page({
       }.bind(this)
     })
   },
-  jumpPage:function(id){
-    wx.navigateTo({
-      url: '/pages/index/selectResult?id='+id,
-    })
-  },
   hotSearchkeyword:function(e){
     let keyword = e.currentTarget.dataset.keyword;
-    this.jumpPage(keyword);
+    this.setData({
+      keyword: keyword,
+      selectPage: false
+    })
+    let index = this.data.currentTab;
+    this.getSearchResult(this.data.keyword, index);
+
+  },
+  clearHistory:function(){
+    util.request('/program/search/delete_record', {
+      withToken: true,
+      method: 'POST',
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          this.setData({
+            historyList: '',
+          })
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+
+  bindChange: function (e) {
+    var that = this;
+    that.setData({ currentTab: e.detail.current });
+  },
+  swichNav: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current,
+      });
+      let index = e.target.dataset.current;
+      let keyword = that.data.keyword;
+      that.getSearchResult(keyword, index);
+
+    }
+  },
+  getSearchResult: function (keyword, index, more) {
+    let typeArr = ["song_info_list", "singer_list", "song_list"];
+    let url = "/program/search/" + typeArr[index];
+    let start;
+    if (!!more) {
+      let newStart = this.data.start;
+      start = this.data.start[index] + 4;
+      newStart[index] = start;
+      this.setData({
+        start: newStart,
+      });
+    } else {
+      start = this.data.start[index];
+    }
+    util.request(url, {
+      withToken: true,
+      method: 'GET',
+      data: {
+        start: start,
+        limit: this.data.limit,
+        keyword: keyword
+      },
+      success: function (res) {
+        wx.hideLoading();
+        this.setData({
+          noinfo: false
+        });
+        res = res.data;
+        if (res.ret == 0) {
+          let data = res.data;
+          let searchArr = this.data.resultArr;
+          if (!!more) {
+            if (data == "") {
+              wx.showToast({
+                title: '此栏没有更多哦',
+                icon: 'success',
+                duration: 2000
+              });
+            }
+            searchArr[index] = searchArr[index].concat(data);
+          } else {
+            if (data == "") {
+              this.setData({
+                 noinfo:true
+              });
+            }
+            searchArr[index] = data;
+          }
+          this.setData({
+            resultArr: searchArr,
+          });
+          console.log(this.data.resultArr);
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  // formSubmit: function (e) {
+  //   console.log(e.detail.value);
+  //   let keyword = e.detail.value.keyword;
+  //   if (keyword != "") {
+  //     this.setData({
+  //       keyword: keyword
+  //     });
+  //     let index = this.data.currentTab;
+  //     this.getSearchResult(keyword, index);
+  //   } else {
+  //     wx.showToast({
+  //       title: '关键词不能为空',
+  //       icon: 'warn',
+  //       duration: 2000
+  //     })
+  //   }
+  // },
+  toAudioPlay: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=' + id,
+    })
+  },
+  toSingerDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/musician/musicianDetail?singerid=' + id,
+    })
+  },
+  toSheetDetail: function (e) {
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/list/songDetails?id=' + id,
+    })
   },
 })

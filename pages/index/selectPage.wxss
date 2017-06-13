@@ -105,3 +105,180 @@
   position: absolute;
   right:15rpx;
 }
+.typeTab{
+  margin-top:20rpx;
+}
+.swiper-tab {
+  width: 100%;
+  border-bottom: 2rpx solid #4b473f;
+  text-align: center;
+  line-height: 80rpx;
+  background:#4b473f;
+}
+
+.swiper-tab-list {
+  font-size: 30rpx;
+  display: inline-block;
+  width: 33%;
+  color: #999;
+  /*background:#fff;*/
+}
+
+.on {
+  color: #e5d1a1;
+  border-bottom: 5rpx solid #e5d1a1;
+}
+
+.swiper-box {
+  display: block;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+
+
+
+.audioLi{
+  height:120rpx;
+  width:100%;
+  
+}
+.liNum{
+  width:68rpx;
+  height:120rpx;
+  line-height:120rpx;
+  text-align:center;
+  font-size:30rpx;
+  color:#e5d1a1;
+  float:left;
+}
+.audioInfo{
+  width:720rpx;
+  height:119rpx;
+  float:left;
+  left:30rpx;
+  /*border-bottom: 1px solid #e5d1a1;*/
+  position:relative;
+  overflow: hidden;
+  
+}
+.bottom-border{
+  width:615rpx;
+  height:117rpx;
+  position: absolute;
+  right:0;
+  top:0;
+  z-index:2;
+  border-bottom: 1px solid #635f59;
+  /*background: red;*/
+}
+.infoImg{
+  background:#fff;
+  width:80rpx;
+  height:80rpx;
+  margin-top:20rpx;
+  border-radius: 10rpx;
+  
+}
+.musicianImg{
+   background:#fff;
+  width:80rpx;
+  height:80rpx;
+  margin-top:20rpx;
+  border-radius: 40rpx;
+}
+.musicianName{
+  position:absolute;
+  left:104rpx;
+  top:35rpx;
+  width:450rpx;
+  height:48rpx;
+  font-size:32rpx;
+  color:#96a9cb;
+  z-index:3;
+  font-weight:700;
+}
+.audioName{
+  /*background:red;*/
+  position:absolute;
+  left:104rpx;
+  top:20rpx;
+  width:450rpx;
+  height:48rpx;
+  font-size:28rpx;
+  color:#e5d1a1;
+  z-index:3;
+}
+.audioAuthor{
+  /*background:green;*/
+  position:absolute;
+  left:104rpx;
+  top:68rpx;
+  width:450rpx;
+  height:40rpx;
+  line-height: 40rpx;
+  font-size:24rpx;
+  color:#8a8782;
+  z-index:3;
+}
+.moreIcon{
+  width: 30rpx;
+  height: 30rpx;
+  position: absolute;
+  top: 45rpx;
+  right: 30rpx;
+}
+
+.pageArea{
+  width:750rpx;
+  /*height:200rpx;*/
+  background:blue;
+  position:relative;
+}
+.typePage{
+  width:750rpx;
+  position: absolute;
+  left:0;
+  /*top:200rpx;*/
+  /*background:yellow;*/
+}
+.hide{
+  display: none;
+}
+
+.typePageArea{
+  position: relative;
+}
+.typePageArea{
+  position: relative;
+  height: auto;
+  width:750rpx;
+  /*margin-top:200rpx;*/
+}
+
+.noInfo{
+  width:300rpx;
+  height:250rpx;
+  /*background:red;*/
+  position: fixed;
+  left:225rpx;
+  top:400rpx;
+}
+.noinfoPic{
+  width:214rpx;
+  height:172rpx;
+  position: absolute;
+  left:43rpx;
+}
+.noinfoText{
+  width:300rpx;
+  height:24rpx;
+  line-height:24rpx;
+  font-size:24rpx;
+  color:#635f59;
+  position: absolute;
+  left:0;
+  bottom: 10rpx;
+  text-align: center;
+}

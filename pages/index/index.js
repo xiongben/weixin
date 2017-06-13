@@ -14,15 +14,6 @@ Page({
   //事件处理函数
 
   onLoad: function () {
-    // console.log('onLoad')
-    // var that = this
-    // //调用应用实例的方法获取全局数据
-    // app.getUserInfo(function(userInfo){
-    //   //更新数据
-    //   that.setData({
-    //     userInfo:userInfo
-    //   })
-    // })
     wx.showLoading({
       title: '正在加载',
     });
@@ -32,12 +23,14 @@ Page({
     this.getRecommendInfo("recommendList");
     // let userInfo=util.getUserInfo();
     // console.log(userInfo);
-    util.test();
+    // util.test();
+    util.setStorageUserInfo();
   },
   /**
   * 用户点击右上角分享
   */
   onShareAppMessage: function () {
+    let that=this;
     this.setData({
       shareIcon: false,
     })
@@ -46,6 +39,7 @@ Page({
       path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
       success: function (res) {
         console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
       },
       fail: function (res) {
         wx.showToast({

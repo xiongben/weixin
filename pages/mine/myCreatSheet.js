@@ -68,13 +68,11 @@ Page({
       })
     }
     util.request('/program/pro_song/get_my_song_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: this.data.start,
         limit: this.data.limit,
-        uid: 7,
-        token: '32ee9e425bfb4facb904'
       },
       success: function (res) {
         res = res.data;
@@ -135,7 +133,7 @@ Page({
   },
   deleteSheetFn: function (id) {
     util.request('/program/pro_song/delete_song', {
-      withToken: false,
+      withToken: true,
       method: 'POST',
       data: {
         id: id
@@ -144,7 +142,7 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-
+          this.getSheetList();
         }
         else {
           util.showError(res.msg);

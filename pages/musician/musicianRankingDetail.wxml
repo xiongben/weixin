@@ -12,7 +12,7 @@
   <view class="playAll">打榜歌曲</view>
   
   <view class="musicList">
-   <view class="audioLi" wx:for="{{songList}}" wx:key="idx" data-id="{{item.songInfo.id}}" bindtap="toAudioPlay">
+   <view class="audioLi" wx:for="{{songList}}" wx:key="idx" bindtap="playSingle" data-index="{{index}}">
      <view class="audioInfo">
        <view class="bottom-border"></view>
        <image class="infoImg" src="{{item.songInfo.cover}}"></image>

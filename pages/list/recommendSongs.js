@@ -21,7 +21,6 @@ Page({
       })
       let data = {
         'recentlyList': '最近播放',
-        'favoriteList': '我喜欢',
         'recommendSong':'推荐歌曲'
       };
       wx.setNavigationBarTitle({
@@ -99,18 +98,15 @@ Page({
     }
     let urlArr={
       'recentlyList': 'pro_song_info/get_play_song_list',
-      'favoriteList': 'pro_song_info/get_like_song_list',
-      'recommendSong':''
+      'recommendSong':'pro_song/recommend_song_list'
     };
     let url ='/program/'+urlArr[type];
     util.request(url, {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: this.data.start,
         limit: this.data.limit,
-        uid:7,
-        token: '32ee9e425bfb4facb904'
       },
       success: function (res) {
         res = res.data;

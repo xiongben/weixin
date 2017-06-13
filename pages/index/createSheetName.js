@@ -78,7 +78,7 @@ Page({
       util.showError("歌单名不能为空");
     } else {
       util.request('/program/pro_song/add_song', {
-        withToken: false,
+        withToken: true,
         method: 'POST',
         data: {
           name: sheetName

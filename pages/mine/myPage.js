@@ -14,7 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    util.getUserInfo();
+    this.loadData();
     this.getSheetList('mycreat');
     this.getSheetList('mycollect');
   },
@@ -80,36 +80,31 @@ Page({
   onPullDownRefresh: function () {
 
   },
-  // loadData: function () {
-  //   util.request('/program/pro_user/get_user_info', {
-  //     withToken: true,
-  //     method: 'GET',
-  //     data: {
-
-  //     },
-  //     success: function (res) {
-  //       res = res.data;
-  //       console.log(res);
-  //       if (res.ret == 0) {
-  //         this.setData({
-  //           userInfo: res.data
-  //         })
-  //       }
-  //       else {
-  //         util.showError(res.msg);
-  //       }
-  //     }.bind(this)
-  //   })
-  // },
+  loadData: function () {
+    util.request('/program/pro_user/get_user_info', {
+      withToken: true,
+      method: 'GET',
+      success: function (res) {
+        res = res.data;
+        console.log(res);
+        if (res.ret == 0) {
+          this.setData({
+            userInfo: res.data
+          })
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
   recentlyList: function (e) {
     let type = e.currentTarget.dataset.type;
-    // let data = {
-    //   'recentlyList': '最近播放',
-    //   'favoriteList': '我喜欢',
-    //   'shareList': '我的分享'
-    // };
-    // let id = data[type];
     wx.navigateTo({ url: '/pages/list/recommendSongs?id=' + type });
+  },
+  favoriteList:function(e){
+    let type = e.currentTarget.dataset.type;
+    wx.navigateTo({ url: '/pages/list/songDetails?id=' + type });
   },
   creatSheet: function () {
     let id = "1";
@@ -117,7 +112,7 @@ Page({
   },
   showSheetList: function (e) {
     let type = e.currentTarget.dataset.type;
-    console.log(type);
+    // console.log(type);
     wx.navigateTo({
       url: '/pages/mine/myCreatSheet',
     })
@@ -130,7 +125,7 @@ Page({
     };
     let url = '/program/' + urlArr[type];
     util.request(url, {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: this.data.start,

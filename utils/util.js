@@ -16,24 +16,22 @@ function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-function test(){
+function setStorageUserInfo(){
   Q.when(getUserInfo()).then(function(res){
-    // wx.setStorage({
-    //   'id': res.id,
-    //   'token': res.token
-    // });
+    // let userInfo = config.storageKeys.userInfo;
+    res=JSON.stringify(res);
+    wx.setStorageSync('userInfo', res);
+    
   })
 }
 
-
 function request(url, params) {
   if (params.withToken) {
-    // Q.when(getUserInfo()).then
-    // getUserInfo();
-   
+    let userInfo=wx.getStorageSync('userInfo');
+    userInfo=JSON.parse(userInfo);
     params.data = params.data || {};
     if (userInfo.id !="" && userInfo.token !="") {
-      params.data.id = userInfo.id;
+      params.data.uid = userInfo.id;
       params.data.token = userInfo.token;
     }
   }
@@ -348,6 +346,7 @@ function getUserInfo() {
   wx.login({
     success: function (res) {
       if (res.code) {
+        console.log(res.code);
         request('/program/pro_user/get_open_id', {
           method: 'POST',
           data: {
@@ -586,6 +585,25 @@ var timeToSeconds = time => {
   return parseInt(arr[0]) * 60 + parseFloat(arr[1])
 }
 
+function sharefn(id){
+     request('/program/pro_list/add_share_score', {
+        withToken: true,
+        method: 'POST',
+        data: {
+          songInfoId: id
+        },
+        success: function (res) {
+          res = res.data;
+          if (res.ret == 0) {
+            console.log("分享成功");
+          }
+          else {
+            wx.showError(res.msg);
+          }
+        }
+      })
+}
+
 module.exports = {
   request: request,
   trim: trim,
@@ -606,5 +624,6 @@ module.exports = {
   WXPay: WXPay,
   formate: formate,
   timeToSeconds: timeToSeconds,
-  test:test
+  setStorageUserInfo: setStorageUserInfo,
+  sharefn: sharefn
 }

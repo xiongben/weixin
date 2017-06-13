@@ -15,7 +15,7 @@
     </view>
     <view class="favoriteMusic">
       <image src="../../static/images/icon_love_me.png" class="theicon"></image>
-      <view class="recentlyMenu" bindtap="recentlyList" data-type="favoriteList">我喜欢
+      <view class="recentlyMenu" bindtap="favoriteList" data-type="favoriteList">我喜欢
         <view class="recentlyMenuRight">{{userInfo.LikeCount}}
           <image src="../../static/images/icon_more2.png" class="iconMore"></image>
         </view>

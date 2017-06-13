@@ -21,7 +21,9 @@ Page({
   onLoad: function (options) {
     
     this.getTypeInfo(this.data.currentTab);
-    
+    let userInfo = wx.getStorageSync('userInfo');
+    userInfo = JSON.parse(userInfo);
+    console.log(userInfo);
   },
 
   /**
@@ -70,14 +72,15 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    let that=this;
     this.setData({
       shareIcon:false,
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/list/monthWeekList?id='+this.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id='+that.data.shareSongId,
       success: function (res) {
-        console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
       },
       fail: function (res) {
         wx.showToast({
@@ -85,6 +88,7 @@ Page({
         });
       }
     }
+    
   },
 
   /**
@@ -149,7 +153,7 @@ Page({
  
   getListInfo: function (id,currentTab,more){
     if(!!more){
-      let newStartArr=[];
+      let newStartArr = this.data.startArr;
       newStartArr[currentTab] = this.data.startArr[currentTab]+10;
       this.setData({
         startArr:newStartArr

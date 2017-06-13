@@ -16,6 +16,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    });
     if (options) {
       console.log(options);
       this.setData({
@@ -79,6 +82,7 @@ Page({
       title: '打榜歌曲',
       path: '/pages/list/monthWeekList?id=' + this.data.shareSongId,
       success: function (res) {
+        util.sharefn(that.data.shareSongId);
         console.log("分享成功");
       },
       fail: function (res) {
@@ -165,8 +169,13 @@ Page({
       shareIcon: !this.data.shareIcon,
     })
   },
-  toAudioPlay: function (e) {
-    let id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/audioPlayer/audioPlay?id=' + id });
+  playSingle: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.songList[index];
+    songinfo = JSON.stringify(songinfo);
+    wx.setStorageSync('singleinfo', songinfo);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=single',
+    })
   },
 })

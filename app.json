@@ -1,10 +1,12 @@
 {
   "pages":[
-   
     "pages/index/index",
+    "pages/index/selectPage",
+    "pages/mine/myPage",
+    
     "pages/mine/myCreatSheet",
     "pages/index/createSheetName",
-    "pages/mine/myPage",
+    
     "pages/audioPlayer/audioPlay",
     "pages/list/recommendSheet",
     "pages/list/recommendSongs",
@@ -14,7 +16,7 @@
     "pages/musician/musicianRankingDetail",
     "pages/list/monthWeekList",
     
-    "pages/index/selectPage",
+   
     "pages/index/selectResult",
     
     

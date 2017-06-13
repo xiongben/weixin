@@ -26,14 +26,14 @@
     <scroll-view scroll-y="true">
       <view class="played_tt">
         播放列表
-        <text bindtap="delAllSong">del</text>
+        <text bindtap="delAllSong">删除</text>
       </view>
       <block wx:for="{{played_list}}" wx:for-item="ceil" wx:key="{{index}}">
         <view bindtap="changeSong" class="played_item {{ceil.id==item.id?'active':''}}" data-id="{{ceil.id}}">
           <text class="played_id">{{index+1}}</text>
           <view class="played_core">
-            <text class="played_name">{{ceil.songName}}</text>
-            <text class="played_author">{{ceil.singer}}</text>
+            <text class="played_name">{{ceil.name}}</text>
+            <text class="played_author">{{ceil.singerName}}</text>
           </view>
           <view catchtap="delOneSong" data-id="{{ceil.id}}" class="played_del"></view>
         </view>
@@ -42,7 +42,7 @@
   </view>
 
   <view class="lyricBox {{is_show_lyr?'':'hide' }}" bindtap="showLyr">
-    <view class="lyricList" wx:for="{{lyricArr}}">
+    <view class="lyricList" wx:for="{{lyricArr}}" wx:key="idx">
       <view class="lyricLi">{{item}}</view>
     </view>
   </view>

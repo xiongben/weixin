@@ -48,10 +48,27 @@ Page({
    */
   onLoad: function (options) {
     if(options){
-      let id=options.id;
-      console.log(id);
-      this.getOnlyPlay(id);
-      // loadPage(this);
+      if(options.id =="all"){
+        let playlist = wx.getStorageSync('playlist');
+        playlist=JSON.parse(playlist);
+        console.log(playlist);
+        this.setData({
+          played_list: playlist,
+        });
+        this.setData({
+          item: this.data.played_list[0],
+        });
+        loadPage(this);
+      } else if (options.id == "single"){
+        let singleinfo = wx.getStorageSync('singleinfo');
+        singleinfo = JSON.parse(singleinfo);
+        console.log(singleinfo);
+        this.setData({
+          item: singleinfo,
+        });
+        loadPage(this);
+      }
+
     }
     
     // this.getlyric();
@@ -140,6 +157,13 @@ Page({
       is_show_played: !flag
     })
   },
+  //删除所有歌曲
+    delAllSong: function () {
+    this.setData({
+      played_list: []
+    })
+    wx.setStorageSync('playlist', []);
+  },
   //切换歌曲
   changeSong: function (e) {
     var id = e.currentTarget.dataset.id;
@@ -150,8 +174,8 @@ Page({
           item: ele,
           is_show_played: false
         })
-        loadPage(this)
-
+        console.log(this.data.item);
+        loadPage(this);
       }
     })
   },
