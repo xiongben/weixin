@@ -11,13 +11,13 @@ Page({
     // author: '许巍',
     // src: 'http://xiongsanniu.com/music/0.mp3',
     // lrcsrc: 'http://xiongsanniu.com/music/data.json',
+    showControl:false,
     lyricArr: [],
     timeArr: [],
     showArr: [],
     lrcHighIndex: 0,
     currentPosition: 0,
     status: 0,
-
     isPlaying: false,
     song_lyr: [],
     cur_time: "0:00",
@@ -51,9 +51,13 @@ Page({
       if(options.id =="all"){
         let playlist = wx.getStorageSync('playlist');
         playlist=JSON.parse(playlist);
+        for(let i=0;i<playlist.length;i++){
+           playlist[i].indexNum=i;
+        }
         console.log(playlist);
         this.setData({
           played_list: playlist,
+          showControl:true,
         });
         this.setData({
           item: this.data.played_list[0],
@@ -172,7 +176,8 @@ Page({
       if (ele.id == id) {
         this.setData({
           item: ele,
-          is_show_played: false
+          is_show_played: false,
+          // current:0
         })
         console.log(this.data.item);
         loadPage(this);
@@ -266,7 +271,7 @@ Page({
   prevSong: function () {
     var ele;
     for (var i = 0; i < this.data.played_list.length; i++) {
-      if (this.data.played_list[i].id == this.data.item.id) {
+      if (this.data.played_list[i].indexNum == this.data.item.indexNum) {
         if (i != 0) {
           // this.data = Object.assign(this.data, initData)
            ele = this.data.played_list[i - 1];
@@ -281,7 +286,8 @@ Page({
       }
     }
     this.setData({
-      item: ele
+      item: ele,
+      current:0
     })
     loadPage(this);
   },
@@ -290,7 +296,7 @@ Page({
     var l = this.data.played_list.length;
     var ele;
     for (let i = 0; i < l; i++) {
-      if (this.data.played_list[i].id == this.data.item.id) {
+      if (this.data.played_list[i].indexNum == this.data.item.indexNum) {
         if (i != l - 1) {
           // this.data = Object.assign(this.data)
            ele = this.data.played_list[i + 1];
@@ -305,7 +311,8 @@ Page({
       }
     }
     this.setData({
-      item: ele
+      item: ele,
+      current:0
     })
     console.log(this.data.item);
     loadPage(this)
@@ -348,11 +355,12 @@ Page({
 });
 
 function play(page) {
+  console.log(page.data.current);
   wx.playBackgroundAudio({
     dataUrl: page.data.item.music,
     success: function (res) {
       wx.seekBackgroundAudio({
-        position: page.data.current
+        position: page.data.current,
       })
     }
   })
