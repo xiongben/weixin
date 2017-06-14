@@ -88,6 +88,15 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
+          if (res.data.MySongCount == 0){
+            this.setData({
+              showAdd: true
+            });
+          }else{
+            this.setData({
+              showAdd: false
+            });
+          }
           this.setData({
             userInfo: res.data
           })
@@ -114,7 +123,7 @@ Page({
     let type = e.currentTarget.dataset.type;
     // console.log(type);
     wx.navigateTo({
-      url: '/pages/mine/myCreatSheet',
+      url: '/pages/mine/myCreatSheet?type='+type,
     })
     
   },
@@ -150,6 +159,12 @@ Page({
           util.showError(res.msg);
         }
       }.bind(this)
+    })
+  },
+  toSheetDetail:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/list/songDetails?id=' + id,
     })
   },
 })

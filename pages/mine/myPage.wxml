@@ -26,23 +26,27 @@
     <view class="myCreat" bindtap="showSheetList" data-type="mycreat">我创建的歌单({{userInfo.MySongCount}})
        <image src="../../static/images/icon_more2.png" class="iconMore2"></image>
     </view>
-    <view class="songSheetSecondList" wx:for="{{mycreatList}}" wx:key="idx">
-      <image class="songSheetPic" src="http://res.heyhou.com/image/2017/06/01/092e5aa7ffc10c3442a22212ee9661b4.jpg"></image>
-      <view class="songSheetInfo">
-        <view class="songSheetName">{{item.name}}</view>
-        <view class="songSheetNum">{{item.total}}首</view>
-      </view>
-    </view>
-    <view class="myCollection" bindtap="showSheetList" data-type="mycollect">我收藏的歌单({{userInfo.CollectCount}})
-       <image src="../../static/images/icon_more2.png" class="iconMore2"></image>
-    </view>
-    <view class="songSheetSecondList" wx:for="{{mycollectList}}" wx:key="idx">
+    <view class="songSheetSecondList" wx:for="{{mycreatList}}" wx:key="idx" bindtap="toSheetDetail" data-name="value" bindtap="toSheetDetail" data-id="{{item.id}}">
       <image class="songSheetPic" src="{{item.cover}}"></image>
       <view class="songSheetInfo">
         <view class="songSheetName">{{item.name}}</view>
         <view class="songSheetNum">{{item.total}}首</view>
       </view>
     </view>
-    <view class="buildNew" bindtap="creatSheet">新建歌单</view>
+    <view class="songSheetSecondList" wx:if="{{showAdd}}">
+      <image class="songSheetPic" src="http://res.heyhou.com/image/2017/06/01/092e5aa7ffc10c3442a22212ee9661b4.jpg" bindtap="creatSheet"></image>
+    </view>
+    <view class="myCollection" bindtap="showSheetList" data-type="mycollect">我收藏的歌单({{userInfo.CollectCount}})
+       <image src="../../static/images/icon_more2.png" class="iconMore2"></image>
+    </view>
+    <view class="songSheetSecondList" wx:for="{{mycollectList}}" wx:key="idx" bindtap="toSheetDetail" data-id="{{item.id}}">
+      <image class="songSheetPic" src="{{item.cover}}"></image>
+      <view class="songSheetInfo">
+        <view class="songSheetName">{{item.name}}</view>
+        <view class="songSheetNum">{{item.total}}首</view>
+      </view>
+    </view>
+    <!--
+    -->
   </view>
 </view>

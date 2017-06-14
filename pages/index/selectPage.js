@@ -274,12 +274,15 @@ Page({
             }
             searchArr[index] = searchArr[index].concat(data);
           } else {
-            if (data == "") {
+            if (data == ""||data.list =="") {
               this.setData({
                  noinfo:true
               });
             }
             searchArr[index] = data;
+            if(index == 0){
+              searchArr[index] = data.list;
+            }
           }
           this.setData({
             resultArr: searchArr,

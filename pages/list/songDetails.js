@@ -18,11 +18,21 @@ Page({
     if(options){
       console.log(options);
       let sheetid=options.id;
-      this.setData({
-        sheetId:sheetid
-      })
+      if (sheetid == "favoriteList"){
+        this.setData({
+          type: "favoriteList"
+        });
+        this.getSheetInfo(this.data.sheetId,this.data.type);
+      }else{
+        this.setData({
+          sheetId: sheetid,
+          type: "common"
+        });
+        this.getSheetInfo(this.data.sheetId,this.data.type);
+      }
+     
     }
-    this.getSheetInfo(this.data.sheetId);
+    
   },
 
   /**
@@ -75,7 +85,7 @@ Page({
     wx.showLoading({
       title: '加载更多',
     });
-    this.getSheetInfo(this.data.sheetId,"more");
+    this.getSheetInfo(this.data.sheetId,this.data.type,"more");
 
   },
 
@@ -85,13 +95,18 @@ Page({
   onPullDownRefresh: function () {
   
   },
-  getSheetInfo:function(id,more){
+  getSheetInfo:function(id,type,more){
+    let urlArr={
+      favoriteList:'pro_song_info/get_like_song_list',
+      common:'pro_song_info/get_info_song_list',
+    }
+    let url = '/program/'+urlArr[type];
     if (!!more) {
       this.setData({
         start: this.data.start + 5,
       })
     }
-    util.request('/program/pro_song_info/get_info_song_list', {
+    util.request(url, {
       withToken: false,
       method: 'GET',
       data: {

@@ -7,7 +7,13 @@ Page({
     showDelet: false,
   },
   onLoad: function (options) {
-    this.getSheetList();
+    if(options.type){
+      this.setData({
+         type:options.type
+      });
+      this.getSheetList(this.data.type);
+    }
+    
   },
 
   /**
@@ -52,7 +58,7 @@ Page({
     wx.showLoading({
       title: '正在加载',
     });
-    this.getSheetList('more');
+    this.getSheetList(this.data.type,"more");
   },
 
   /**
@@ -61,13 +67,18 @@ Page({
   onShareAppMessage: function () {
 
   },
-  getSheetList: function (more) {
+  getSheetList: function (type,more) {
+    let urlArr = {
+      mycreat: '/program/pro_song/get_my_song_list',
+      mycollect: '/program/pro_song/get_collect_song_list'
+    }
+    let url = urlArr[type];
     if (!!more) {
       this.setData({
         start: this.data.start + 10,
       })
     }
-    util.request('/program/pro_song/get_my_song_list', {
+    util.request(url, {
       withToken: true,
       method: 'GET',
       data: {

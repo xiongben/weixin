@@ -122,6 +122,9 @@
   font-size: 28rpx;
   color: #e5d1a1;
   z-index: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .audioAuthor {
@@ -135,6 +138,9 @@
   font-size: 24rpx;
   color: #8a8782;
   z-index: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .shareIconArea {
@@ -233,24 +239,25 @@
   white-space: nowrap;
 }
 
-
-.shareBack{
-  width:750rpx;
-  height:100vh;
+.shareBack {
+  width: 750rpx;
+  height: 100vh;
   position: fixed;
-  z-index:10;
-  top:0;
-  left:0;
+  z-index: 10;
+  top: 0;
+  left: 0;
   background: rgba(0, 0, 0, 0.5);
 }
-.sharePic{
+
+.sharePic {
   position: absolute;
-  width:200rpx;
-  height:200rpx;
-  right:0;
-  top:0;
-  z-index:12rpx;
+  width: 200rpx;
+  height: 200rpx;
+  right: 0;
+  top: 0;
+  z-index: 12rpx;
 }
-.hide{
-  display:none;
+
+.hide {
+  display: none;
 }
