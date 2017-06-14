@@ -32,7 +32,7 @@
  <view class="typePageArea" wx:if="{{!selectPage}}">
   <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx" data-id="{{item.id}}" catchtap="toAudioPlay">
+      <view class="audioLi" wx:for="{{resultArr[0]}}" wx:key="idx"  data-index="{{index}}" catchtap="toAudioPlay">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
@@ -44,7 +44,7 @@
   </view>
   <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx" data-id="{{item.id}}" catchtap="toSingerDetail">
+      <view class="audioLi" wx:for="{{resultArr[1]}}" wx:key="idx"  data-id="{{item.id}}" catchtap="toSingerDetail">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="musicianImg" src="{{item.cover}}"></image>

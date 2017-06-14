@@ -179,7 +179,9 @@ Page({
     let index = e.currentTarget.dataset.index;
     let songinfo = this.data.songList[index];
     songinfo = JSON.stringify(songinfo);
+    let listsrc = JSON.stringify('/program/pro_list/singer_index_view');
     wx.setStorageSync('singleinfo', songinfo);
+    wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=single',
     })

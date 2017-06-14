@@ -9,7 +9,7 @@ Page({
     autoplay: false,
     interval: 5000,
     duration: 1000,
-    resultArr:{},
+    resultArr: {},
   },
   //事件处理函数
 
@@ -30,7 +30,7 @@ Page({
   * 用户点击右上角分享
   */
   onShareAppMessage: function () {
-    let that=this;
+    let that = this;
     this.setData({
       shareIcon: false,
     })
@@ -48,17 +48,17 @@ Page({
       }
     }
   },
-  searchMusic:function(){
+  searchMusic: function () {
     let id = "1";
     wx.navigateTo({ url: '/pages/index/selectPage?id=' + id });
   },
-  getRecommendInfo:function(type){
-    let typeArr={
-      recommendSong:"pro_song_info/recommend_song_list",
-      newSong:"pro_song_info/new_start_song_list",
-      recommendList:"pro_song/recommend_song_list"
+  getRecommendInfo: function (type) {
+    let typeArr = {
+      recommendSong: "pro_song_info/recommend_song_list",
+      newSong: "pro_song_info/new_start_song_list",
+      recommendList: "pro_song/recommend_song_list"
     };
-    let url ='/program/'+typeArr[type];
+    let url = '/program/' + typeArr[type];
     util.request(url, {
       withToken: false,
       method: 'GET',
@@ -71,67 +71,76 @@ Page({
         res = res.data;
         // console.log(res);
         if (res.ret == 0) {
-          let resArr=this.data.resultArr;
-          resArr[type]=res.data;
+          let resArr = this.data.resultArr;
+          resArr[type] = res.data.list;
           this.setData({
-            resultArr:resArr,
-            hideLoding:true
+            resultArr: resArr,
+            hideLoding: true
           })
           // console.log(this.data.resultArr);
         }
         else {
           util.showError(res.msg);
         }
-      }.bind(this)
+      }.bind(this),
+      fail: function (res) {
+        util.showError(res);
+      }
     })
   },
-  moreInfo:function(e){
-     let type=e.currentTarget.dataset.type;
-     console.log(type);
-     let typeArr={
-       recommendSong:'/pages/list/recommendSongs?id=recommendSong',
-       newSong:'/pages/list/recommendSongs?id=newSong',
-       recommendSheet:'/pages/list/recommendSheet?id=recommendSheet'
-     };
-     wx.navigateTo({
-       url: typeArr[type],
-     });
-  },
-  toRecommendSheet:function(e){
-    let id = e.currentTarget.dataset.id;
+  moreInfo: function (e) {
+    let type = e.currentTarget.dataset.type;
+    console.log(type);
+    let typeArr = {
+      recommendSong: '/pages/list/recommendSongs?id=recommendSong',
+      newSong: '/pages/list/recommendSongs?id=newSong',
+      recommendSheet: '/pages/list/recommendSheet?id=recommendSheet'
+    };
     wx.navigateTo({
-      url: '/pages/list/songDetails?id='+id,
+      url: typeArr[type],
     });
   },
-  toNewSong:function(e){
+  toRecommendSheet: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=' + id,
+      url: '/pages/list/songDetails?id=' + id,
     });
   },
-  toRecommendSong:function(e){
-    let id = e.currentTarget.dataset.id;
+  toNewSong: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.resultArr.newSong[index];
+    songinfo = JSON.stringify(songinfo);
+    wx.setStorageSync('singleinfo', songinfo);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=' + id,
-    });
+      url: '/pages/audioPlayer/audioPlay?id=single',
+    })
   },
-  getBannerImg:function(){
+  toRecommendSong: function (e) {
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.resultArr.recommendSong[index];
+    songinfo = JSON.stringify(songinfo);
+    wx.setStorageSync('singleinfo', songinfo);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=single',
+    })
+  },
+  getBannerImg: function () {
     util.request('/program/pro_banner/get_banner_list', {
       withToken: false,
       method: 'GET',
       data: {
         type: 1,
-        start:this.data.start,
-        limit:this.data.limit,
+        start: this.data.start,
+        limit: this.data.limit,
       },
       success: function (res) {
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
           this.setData({
-            imgUrls:res.data,
+            imgUrls: res.data,
           });
-          
+
         }
         else {
           util.showError(res.msg);

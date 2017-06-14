@@ -80,6 +80,7 @@ Page({
       path: '/pages/list/monthWeekList?id=' + this.data.shareSongId,
       success: function (res) {
         console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
       },
       fail: function (res) {
         wx.showToast({

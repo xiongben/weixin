@@ -1,16 +1,12 @@
 // pages/audioPlayer/audioPlay.js
 var util = require('../../utils/util.js');
+var time;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    // poster: 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000',
-    // name: '此时此刻',
-    // author: '许巍',
-    // src: 'http://xiongsanniu.com/music/0.mp3',
-    // lrcsrc: 'http://xiongsanniu.com/music/data.json',
     showControl:false,
     lyricArr: [],
     timeArr: [],
@@ -31,16 +27,7 @@ Page({
     played_list: [],
     is_show_lyr: false,
     is_show_played: false,
-    item: {
-      id: '0',
-      songName: "下完这场雨",
-      singer: "后弦",
-      poster: {
-        origin:''
-      },
-      songSrc: "http://yinyueshiting.baidu.com/data2/music/5583b4d475d522a487f16d39b799a67e/272954076/272954076.mp3?xcode=c98405eb18453184b59adc403ebeee44",
-      lyric: "[00:22.990]看昨天的我们 走远了↵[00:27.669]在命运广场中央 等待↵[00:32.976]那模糊的 肩膀↵"
-    }
+    item: {},
   },
 
   /**
@@ -49,20 +36,24 @@ Page({
   onLoad: function (options) {
     if(options){
       if(options.id =="all"){
+        let index=options.index;
         let playlist = wx.getStorageSync('playlist');
+        let listsrc = wx.getStorageSync('listsrc');
         playlist=JSON.parse(playlist);
+        listsrc = JSON.parse(listsrc);
         for(let i=0;i<playlist.length;i++){
            playlist[i].indexNum=i;
         }
-        console.log(playlist);
         this.setData({
           played_list: playlist,
           showControl:true,
         });
         this.setData({
-          item: this.data.played_list[0],
+          item: this.data.played_list[index],
         });
+        console.log(this.data.item);
         loadPage(this);
+        this.getMoreList(listsrc, this.data.played_list);
       } else if (options.id == "single"){
         let singleinfo = wx.getStorageSync('singleinfo');
         singleinfo = JSON.parse(singleinfo);
@@ -75,7 +66,6 @@ Page({
 
     }
     
-    // this.getlyric();
   },
 
   /**
@@ -142,18 +132,6 @@ Page({
   onPullDownRefresh: function () {
 
   },
-  // audioPlay: function () {
-  //   this.audioCtx.play()
-  // },
-  // audioPause: function () {
-  //   this.audioCtx.pause()
-  // },
-  // audio14: function () {
-  //   this.audioCtx.seek(14)
-  // },
-  // audioStart: function () {
-  //   this.audioCtx.seek(0)
-  // },
   //展示播放过的列表
   showPlayed: function () {
     var flag = this.data.is_show_played;
@@ -177,8 +155,9 @@ Page({
         this.setData({
           item: ele,
           is_show_played: false,
-          // current:0
+          current:0
         })
+        clearInterval(time);
         console.log(this.data.item);
         loadPage(this);
       }
@@ -289,6 +268,7 @@ Page({
       item: ele,
       current:0
     })
+    clearInterval(time);
     loadPage(this);
   },
   //下一首歌曲
@@ -314,37 +294,43 @@ Page({
       item: ele,
       current:0
     })
+    clearInterval(time);
     console.log(this.data.item);
     loadPage(this)
   },
-  getlyric: function (url) {
+  // getlyric: function (url) {
+  //   util.request(url, {
+  //     success: function (res) {
+  //       console.log(res);
+  //       this.setData({
+  //         played_list: res.data
+  //       });
+  //       let lyric = this.createArrMap(res.data[0].lyric);
+  //       this.renderLyric(lyric);
+  //     }.bind(this)
+  //   })
+  // },
+  getMoreList:function(url,list){
+    let start=list.length;
+    let limit=100;
     util.request(url, {
-      success: function (res) {
-        console.log(res);
-        this.setData({
-          played_list: res.data
-        });
-        let lyric = this.createArrMap(res.data[0].lyric);
-        this.renderLyric(lyric);
-      }.bind(this)
-    })
-  },
-  getOnlyPlay:function(id){
-    util.request('/program/pro_song_info/get_song_info', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
-        id:id,
+        start:start,
+        limit:limit
       },
       success: function (res) {
-        wx.hideLoading();
         res = res.data;
         if (res.ret == 0) {
+          let newplayed_list = this.data.played_list.concat(res.data.list);
+          for (let i = 0; i < newplayed_list.length; i++) {
+            newplayed_list[i].indexNum = i;
+          }
           this.setData({
-            item:res.data
+            played_list: newplayed_list
           })
-          console.log(this.data.item);
-          loadPage(this);
+          console.log(this.data.played_list);
         }
         else {
           util.showError(res.msg);
@@ -371,6 +357,7 @@ function play(page) {
 
 //播放中
 function playing(page) {
+  console.log("playing执行吃书");
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       if (!page.data.duration) {
@@ -387,28 +374,37 @@ function playing(page) {
         // scrollLyr(page)
       }
       //循环播放,这里存在bug，差值可能为1
+      console.log(page.data.duration+":"+page.data.current);
       if (page.data.duration - page.data.current <= 1) {
+        // page.setData({
+        //   current: 0,
+        //   cur_time: '0:00'
+        // })
+        // play(page)
         page.setData({
           current: 0,
-          cur_time: '0:00'
-        })
-        play(page)
+        });
+       
+        console.log("看你有几次");
+        page.nextSong();
       }
     }
   })
 }
 
 function loadPage(page) {
+  console.log("loadpage执行吃书");
   //播放
   play(page);
-  // loadLyr(page);
+  loadLyr(page);
   //记录播放状态
-  playing(page);
-  setInterval(function () {
-    playing(page)
+  // playing(page);
+  time=setInterval(function () {
+    playing(page);
+    
   }, 1000);
-  //动画头像
-  //  let time = setInterval(function () {
+ // 动画头像
+  //  let times = setInterval(function () {
   //   if (page.data.isPlaying) {
   //     animation(page)
   //   }
@@ -420,7 +416,7 @@ function loadPage(page) {
 }
 
 function animation(page) {
-  var angle = page.data.angle + 0.5;
+  var angle = page.data.angle +1;
   page.setData({
     angle: angle
   })
@@ -428,11 +424,12 @@ function animation(page) {
 
 //加载歌词
 function loadLyr(page) {
-  let lyric = page.data.item.lyric;
+  let lyric = page.data.item.lyrics;
   var timeArr = [],
     lyricArr = [];
   var tempArr = lyric.split("\n");
   tempArr.splice(-1, 1);
+  tempArr.splice(0, 3);
   var tempStr = "";
   for (let i = 0; i < tempArr.length; i++) {
     tempStr = tempArr[i];

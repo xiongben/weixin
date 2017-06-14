@@ -19,7 +19,7 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSong"></image>
     </view>
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx" data-id="{{item.id}}" bindtap="toRecommendSong">
+      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx" data-index="{{index}}" bindtap="toRecommendSong">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
@@ -37,14 +37,19 @@
     <view class="modelTitle">新歌发布
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="newSong"></image>
     </view>
-      <scroll-view scroll-x="true" class="scrollView">
-        <view class="newSongArea" wx:for="{{resultArr.newSong}}" wx:key="idx" data-id="{{item.id}}" bindtap="toNewSong">
-          <image src="{{item.cover}}" class="newSongPic"></image>
-          <view class="newSongName">{{item.name}}</view>
-          <view class="newSongPlayer">{{item.singerName}}</view>
+      <view class="audioLi" wx:for="{{resultArr.newSong}}" wx:key="idx" data-index="{{index}}" bindtap="toNewSong">
+        <view class="audioInfo">
+          <view class="bottom-border"></view>
+          <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.singerName}}</view>
+          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.id}}">
+            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+            <view class="shareText">打榜</view>
+          </view>
         </view>
-        
-      </scroll-view>
+      </view>
+    
   </view>
   <view class="recommendSheet">
     <view class="modelTitle">推荐歌单

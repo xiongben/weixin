@@ -4,7 +4,7 @@
   background:red;
 }
 .backImg{
-  background: url("http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg");
+  /*background: url("http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg");*/
   width:100%;
   height:100vh;
   position: absolute;

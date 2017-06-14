@@ -310,9 +310,12 @@ Page({
   //   }
   // },
   toAudioPlay: function (e) {
-    let id = e.currentTarget.dataset.id;
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.resultArr[0][index];
+    songinfo = JSON.stringify(songinfo);
+    wx.setStorageSync('singleinfo', songinfo);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=' + id,
+      url: '/pages/audioPlayer/audioPlay?id=single',
     })
   },
   toSingerDetail: function (e) {

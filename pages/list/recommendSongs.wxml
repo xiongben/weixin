@@ -5,13 +5,13 @@
   </view>
   
   <view class="musicList">
-   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" data-id="{{item.id}}">
+   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" data-id="{{item.id}}" data-index="{{index}}" bindtap="toAudioPlay">
      <view class="liNum">{{index+1}}</view>
      <view class="audioInfo">
        <image class="infoImg" src="{{item.cover}}"></image>
        <view class="audioName">{{item.name}}</view>
        <view class="audioAuthor">{{item.singerName}}</view>
-       <view class="shareIconArea">
+       <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>
@@ -19,6 +19,9 @@
    </view>
    
    
+  </view>
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
 </view>
 

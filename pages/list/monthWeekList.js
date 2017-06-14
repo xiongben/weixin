@@ -215,7 +215,15 @@ Page({
     })
   },
   toAudioPlay: function (e) {
-    let id = e.currentTarget.dataset.id;
-    wx.navigateTo({ url: '/pages/audioPlayer/audioPlay?id=' + id });
+    let index = e.currentTarget.dataset.index;
+    let playlist = this.data.list[this.data.currentTab][index];
+    playlist = JSON.stringify(playlist);
+    let listsrc = JSON.stringify('/program/pro_list/song_info_list?id=' + this.data.idArr[this.data.currentTab]);
+    wx.setStorageSync('playlist', playlist);
+    wx.setStorageSync('listsrc', listsrc);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=all&index='+index,
+    })
+    
   },
 })
