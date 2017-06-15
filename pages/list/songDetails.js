@@ -9,6 +9,7 @@ Page({
     start:0,
     limit:8,
     sheetId:"",
+    loveSongIf:false,
   },
 
   /**
@@ -75,7 +76,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this;
+    this.setData({
+      shareIcon: false,
+    })
+    return {
+      title: '打榜歌曲',
+      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      success: function (res) {
+        console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '打榜失败',
+        });
+      }
+    }
   },
 
   /**
@@ -101,13 +118,16 @@ Page({
       common:'pro_song_info/get_info_song_list',
     }
     let url = '/program/'+urlArr[type];
+    this.setData({
+      url:url
+    });
     if (!!more) {
       this.setData({
         start: this.data.start + 5,
       })
     }
-    util.request(url, {
-      withToken: false,
+    util.request(this.data.url, {
+      withToken: true,
       method: 'GET',
       data: {
         id: this.data.sheetId,
@@ -145,5 +165,68 @@ Page({
         }
       }.bind(this)
     })
+  },
+  playSong:function(e){
+    let index = e.currentTarget.dataset.index;
+    let songinfo = this.data.musicianList;
+    songinfo = JSON.stringify(songinfo);
+    let listsrc = JSON.stringify(this.data.url + '?id=' + this.data.sheetId);
+    wx.setStorageSync('playlist', songinfo);
+    wx.setStorageSync('listsrc', listsrc);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
+    })
+  },
+  playAll:function(){
+    let songinfo = this.data.musicianList;
+    songinfo = JSON.stringify(songinfo);
+    let listsrc = JSON.stringify(this.data.url + '?id=' + this.data.sheetId);
+    wx.setStorageSync('playlist', songinfo);
+    wx.setStorageSync('listsrc', listsrc);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=all&index=0',
+    })
+  },
+  shareSong: function (e) {
+    let id = e.currentTarget.dataset.songid;
+    this.setData({
+      shareSongId: id,
+      shareIcon: true,
+    });
+
+  },
+  hideShareBack: function () {
+    this.setData({
+      shareIcon: !this.data.shareIcon,
+    })
+  },
+  loveSong: function (e) {
+    // let id = this.data.item.id;
+    this.setData({
+      loveSongIf: !this.data.loveSongIf
+    });
+    let url;
+    if (this.data.loveSongIf) {
+      url = '/program/pro_song_info/delete_song_like';
+    } else {
+      url = '/program/pro_song_info/add_song_like';
+    }
+    util.request(url, {
+      withToken: true,
+      method: 'POST',
+      data: {
+        id: id
+      },
+      success: function (res) {
+        res = res.data;
+        if (res.ret == 0) {
+          console.log("loveSongChange");
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+
   },
 })

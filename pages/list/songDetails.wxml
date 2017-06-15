@@ -1,31 +1,38 @@
  <!--pages/list/songDetails.wxml-->
 <view class="container">
   <view class="sheetDetailsInfo">
-    <image class="backImgArea" src="{{sheetInfo.cover}}"></image>
+    <!--<image class="backImgArea" src="{{sheetInfo.cover}}"></image>-->
+    <view class="backImgArea">
+      <image class="backImg" src="{{sheetInfo.cover}}"></image>
+    </view>
     <view class="filterBg"></view>
     <view class="sheetName">{{sheetInfo.name}}</view>
-    <image class="sheetPic" src="{{sheetInfo.cover}}"></image>
-    <image src="../../static/images/icon_love_me.png" class="loveSongIcon"></image>
+    <!--<image class="sheetPic" src="{{sheetInfo.cover}}"></image>-->
+    <image src="../../static/images/{{loveSongIf?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="loveSongIcon" catchtap="loveSong"></image>
+    
     <view class="loveSongNum">{{sheetInfo.collectionNum}}</view>
-    <image src="../../static/images/icon_share_me.png" class="shareSongIcon"></image>
+    <image src="../../static/images/icon_share_me.png" class="shareSongIcon" catchtap="shareSong" data-songid="{{sheetId}}"></image>
     <view class="shareSongNum">{{sheetInfo.shareNum}}</view>
   </view>
   <view class="playAll">全部播放 
-    <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
+    <image src="../../static/images/btn_play_nor.png" class="playIcon" bindtap="playAll"></image>
   </view>
   
   <view class="musicList">
-   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx">
+   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" data-index="{{index}}" bindtap="playSong">
      <view class="audioInfo">
        <view class="bottom-border"></view>
        <image class="infoImg" src="{{item.cover}}"></image>
        <view class="audioName">{{item.name}}</view>
        <view class="audioAuthor">{{item.singerName}}</view>
-       <view class="shareIconArea">
+       <!--<view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
-       </view>
+       </view>-->
      </view>
    </view>
+  </view>
+  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
 </view>

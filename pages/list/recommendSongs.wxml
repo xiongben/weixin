@@ -1,7 +1,7 @@
 <!--pages/list/recommendSongs.wxml-->
 <view class="container">
   <view class="playAll">全部播放 
-    <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
+    <image src="../../static/images/btn_play_nor.png" class="playIcon" bindtap="playAll"></image>
   </view>
   
   <view class="musicList">
@@ -23,6 +23,7 @@
   <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
     <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
+  
 </view>
 
 

@@ -216,14 +216,13 @@ Page({
   },
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
-    let playlist = this.data.list[this.data.currentTab][index];
+    let playlist = this.data.list[this.data.currentTab];
     playlist = JSON.stringify(playlist);
-    let listsrc = JSON.stringify('/program/pro_list/song_info_list?id=' + this.data.idArr[this.data.currentTab]);
+    let listsrc = JSON.stringify('/program/pro_list/song_info_list?categoryId=' + this.data.idArr[this.data.currentTab]);
     wx.setStorageSync('playlist', playlist);
     wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index='+index,
     })
-    
   },
 })

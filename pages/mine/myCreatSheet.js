@@ -8,9 +8,17 @@ Page({
   },
   onLoad: function (options) {
     if(options.type){
+      console.log(options.type);
       this.setData({
          type:options.type
       });
+      let titleArr={
+        mycreat:"我创建的歌单",
+        mycollect:"我收藏的歌单"
+      };
+        wx.setNavigationBarTitle({
+        title: titleArr[this.data.type]
+        });
       this.getSheetList(this.data.type);
     }
     
@@ -27,7 +35,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getSheetList(this.data.type);
   },
 
   /**
@@ -153,12 +161,18 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-          this.getSheetList();
+          this.getSheetList(this.data.type);
         }
         else {
           util.showError(res.msg);
         }
       }.bind(this)
+    })
+  },
+  toSheetDetail:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/list/songDetails?id=' + id,
     })
   },
 })

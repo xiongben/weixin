@@ -604,6 +604,28 @@ function sharefn(id){
       })
 }
 
+function getBackMusic(page){
+  wx.getBackgroundAudioPlayerState({
+    success: function (res) {
+      console.log("后台有音乐哦");
+      var status = res.status;
+      var dataUrl = res.dataUrl;
+      var title = res.title;
+      var duration = res.duration;
+      var downloadPercent = res.downloadPercent;
+      var coverImgUrl = res.coverImgUrl;
+      console.log(res);
+      page.setData({
+        src: dataUrl,
+        name:title,
+        pic: coverImgUrl,
+        status: status,
+        haveBackMusic:true,
+      });
+    }
+  })
+}
+
 module.exports = {
   request: request,
   trim: trim,
@@ -625,5 +647,6 @@ module.exports = {
   formate: formate,
   timeToSeconds: timeToSeconds,
   setStorageUserInfo: setStorageUserInfo,
-  sharefn: sharefn
+  sharefn: sharefn,
+  getBackMusic: getBackMusic
 }

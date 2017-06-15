@@ -28,6 +28,7 @@ Page({
         title: data[id]
       });
       this.getSongList(this.data.type);
+      
     }
 
   },
@@ -181,6 +182,15 @@ Page({
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
     })
-
+  },
+  playAll:function(){
+    let playlist = this.data.musicianList;
+    playlist = JSON.stringify(playlist);
+    let listsrc = JSON.stringify(this.data.url);
+    wx.setStorageSync('playlist', playlist);
+    wx.setStorageSync('listsrc', listsrc);
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=all&index=0',
+    })
   },
 })

@@ -1,7 +1,10 @@
 <!--pages/musician/musicianDetail.wxml-->
 <view class="container">
   <view class="sheetDetailsInfo">
-    <image src="{{songerInfo.cover}}" class="backImgArea"></image>
+    <!--<image src="{{songerInfo.cover}}" class="backImgArea"></image>-->
+    <view class="backImgArea">
+      <image src="{{songerInfo.cover}}" class="backImg"></image>
+    </view>
     <view class="filterBg"></view>
     <view class="sheetName">kakaxi</view>
     <!--<image class="musicianPic"></image>-->
@@ -20,7 +23,7 @@
        <image class="infoImg" src="{{item.cover}}"></image>
        <view class="audioName">{{item.name}}</view>
        <view class="audioAuthor">{{item.singerName}}</view>
-       <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
+       <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}" wx:if="{{showShare}}">
         <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
         <view class="shareText">打榜</view>
        </view>

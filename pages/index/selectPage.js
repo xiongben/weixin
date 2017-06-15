@@ -324,7 +324,7 @@ Page({
   toSingerDetail: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/musician/musicianDetail?singerid=' + id,
+      url: '/pages/musician/musicianDetail?type=search&singerid=' + id,
     })
   },
   toSheetDetail: function (e) {

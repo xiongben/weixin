@@ -1,13 +1,20 @@
 <!--pages/index/addToSheet.wxml-->
 <view class="container">
-    <view class="songSheetLi">
-       <image class="songSheetPic"></image>
+    <view class="songSheetLi" bindtap="addToLove">
+       <image class="songSheetPic" src="../../static/images/bg_love.png"></image>
        <view class="songSheetInfo">
-         <view class="audioName">歌单歌单</view>
-         <view class="audioAuthor">活鱼ID回到家含税单价</view>
+         <view class="audioName">我喜欢</view>
+         <!--<view class="audioAuthor">活鱼ID回到家含税单价</view>-->
+       </view>
+    </view>
+    <view class="songSheetLi" wx:for="{{musicianList}}" wx:key="idx" data-id="{{item.id}}" data-sheetid="{{item.id}}" bindtap="addToSheet">
+       <image class="songSheetPic" src="{{item.cover}}"></image>
+       <view class="songSheetInfo">
+         <view class="audioName">{{item.name}}</view>
+         <view class="audioAuthor">{{item.total}}首音乐</view>
        </view>
     </view>
     <view class="btnArea">
-       <view class="creatSheet">创建歌单</view>
+       <view class="creatSheet" bindtap="creatSheet">创建歌单</view>
     </view>
 </view>

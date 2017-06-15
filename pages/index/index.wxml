@@ -66,4 +66,8 @@
   <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
     <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
+  <!--<audio poster="{{pic}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop style="position:fixed;left:0;bottom:0" wx:if="{{haveBackMusic}}"></audio>-->
+  <view class="myAudio" wx:if="{{haveBackMusic}}">
+    <button class="myAudioBtn" bindtap="audioPlay">播放</button>
+  </view>
 </view>

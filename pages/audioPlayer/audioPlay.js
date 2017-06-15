@@ -28,6 +28,7 @@ Page({
     is_show_lyr: false,
     is_show_played: false,
     item: {},
+    loveSongIf:false,
   },
 
   /**
@@ -35,12 +36,16 @@ Page({
    */
   onLoad: function (options) {
     if(options){
+      console.log(options);
       if(options.id =="all"){
         let index=options.index;
         let playlist = wx.getStorageSync('playlist');
         let listsrc = wx.getStorageSync('listsrc');
         playlist=JSON.parse(playlist);
         listsrc = JSON.parse(listsrc);
+        // console.log(playlist);
+        // console.log(listsrc);
+
         for(let i=0;i<playlist.length;i++){
            playlist[i].indexNum=i;
         }
@@ -48,13 +53,15 @@ Page({
           played_list: playlist,
           showControl:true,
         });
+        console.log(this.data.played_list);
         this.setData({
           item: this.data.played_list[index],
         });
         console.log(this.data.item);
         loadPage(this);
         this.getMoreList(listsrc, this.data.played_list);
-      } else if (options.id == "single"){
+      }
+       else if (options.id == "single"){
         let singleinfo = wx.getStorageSync('singleinfo');
         singleinfo = JSON.parse(singleinfo);
         console.log(singleinfo);
@@ -62,8 +69,9 @@ Page({
           item: singleinfo,
         });
         loadPage(this);
+      }else{
+        this.getIdSong(options.id);
       }
-
     }
     
   },
@@ -116,7 +124,23 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let that = this;
+    this.setData({
+      shareIcon: false,
+    })
+    return {
+      title: '打榜歌曲',
+      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      success: function (res) {
+        console.log("分享成功");
+        util.sharefn(that.data.shareSongId);
+      },
+      fail: function (res) {
+        wx.showToast({
+          title: '打榜失败',
+        });
+      }
+    }
   },
 
   /**
@@ -338,16 +362,88 @@ Page({
       }.bind(this)
     })
   },
+  getIdSong:function(id){
+    util.request('/program/pro_song_info/get_song_info', {
+      withToken: true,
+      method: 'GET',
+      data: {
+        id:id
+      },
+      success: function (res) {
+        res = res.data;
+        if (res.ret == 0) {
+          this.setData({
+            item: res.data,
+          });
+          loadPage(this);
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+  },
+  loveSong:function(e){
+    let id = this.data.item.id;
+    this.setData({
+      loveSongIf:!this.data.loveSongIf
+    });
+    let url;
+    if (this.data.loveSongIf){
+      url ='/program/pro_song_info/delete_song_like';
+    }else{
+      url ='/program/pro_song_info/add_song_like';
+    }
+    util.request(url, {
+      withToken: true,
+      method: 'POST',
+      data: {
+        id: id
+      },
+      success: function (res) {
+        res = res.data;
+        if (res.ret == 0) {
+          console.log("loveSongChange");
+        }
+        else {
+          util.showError(res.msg);
+        }
+      }.bind(this)
+    })
+    
+  },
+ 
+  collectSong:function(e){
+    let id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/index/addToSheet?songid='+id,
+    })
+  },
+  shareSong: function (e) {
+    let id = e.currentTarget.dataset.songid;
+    this.setData({
+      shareSongId: id,
+      shareIcon: true,
+    });
+
+  },
+  hideShareBack: function () {
+    this.setData({
+      shareIcon: !this.data.shareIcon,
+    })
+  },
 });
 
 function play(page) {
   console.log(page.data.current);
   wx.playBackgroundAudio({
     dataUrl: page.data.item.music,
+    // coverImgUrl:page.data.item.cover,
     success: function (res) {
       wx.seekBackgroundAudio({
         position: page.data.current,
-      })
+      });
+
     }
   })
   page.setData({
@@ -357,7 +453,7 @@ function play(page) {
 
 //播放中
 function playing(page) {
-  console.log("playing执行吃书");
+  // console.log("playing执行吃书");
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       if (!page.data.duration) {
@@ -374,7 +470,7 @@ function playing(page) {
         // scrollLyr(page)
       }
       //循环播放,这里存在bug，差值可能为1
-      console.log(page.data.duration+":"+page.data.current);
+      // console.log(page.data.duration+":"+page.data.current);
       if (page.data.duration - page.data.current <= 1) {
         // page.setData({
         //   current: 0,
@@ -385,7 +481,7 @@ function playing(page) {
           current: 0,
         });
        
-        console.log("看你有几次");
+        // console.log("看你有几次");
         page.nextSong();
       }
     }
@@ -393,7 +489,8 @@ function playing(page) {
 }
 
 function loadPage(page) {
-  console.log("loadpage执行吃书");
+  // console.log("loadpage执行吃书");
+  countPlayTime(page)
   //播放
   play(page);
   loadLyr(page);
@@ -409,7 +506,7 @@ function loadPage(page) {
   //     animation(page)
   //   }
   // }, 20);
-
+  
   wx.setNavigationBarTitle({
     title: page.data.item.name,
   })
@@ -449,3 +546,25 @@ function loadLyr(page) {
   
 }
 
+function countPlayTime(page){
+  util.request('/program/pro_song_info/add_song_play', {
+    withToken: true,
+    method: 'POST',
+    data: {
+      id: page.data.item.id,
+    },
+    success: function (res) {
+      res = res.data;
+      if (res.ret == 0) {
+        // wx.showToast({
+        //   title: '统计次数啊',
+        //   icon: 'success',
+        //   duration: 2000
+        // });
+      }
+      else {
+        util.showError(res.msg);
+      }
+    }.bind(page)
+  })
+}

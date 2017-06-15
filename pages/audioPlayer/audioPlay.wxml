@@ -7,9 +7,9 @@
     <image src="{{item.cover}}" class="cover coverActive" ></image>
   </view>
   <view class="songshare {{!is_show_lyr?'':'hide' }}">
-    <image src="../../static/images/btn_love_nor_play.png" class="menuIcon"></image>
-    <image src="../../static/images/btn_share_nor_play.png" class="menuIcon"></image>
-    <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" ></image>
+    <image src="../../static/images/{{loveSongIf?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="menuIcon" data-id="{{item.id}}" catchtap="loveSong"></image>
+    <image src="../../static/images/btn_share_nor_play.png" class="menuIcon" catchtap="shareSong" data-songid="{{item.id}}"></image>
+    <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" data-id="{{item.id}}" catchtap="collectSong"></image>
   </view>
   <view class="songContrl">
     <view class="cur_time">{{cur_time}}</view>
@@ -32,8 +32,8 @@
         <view bindtap="changeSong" class="played_item {{ceil.id==item.id?'active':''}}" data-id="{{ceil.id}}">
           <text class="played_id">{{index+1}}</text>
           <view class="played_core">
-            <text class="played_name">{{ceil.name}}</text>
-            <text class="played_author">{{ceil.singerName}}</text>
+            <view class="played_name">{{ceil.name}}</view>
+            <view class="played_author">{{ceil.singerName}}</view>
           </view>
           <view catchtap="delOneSong" data-id="{{ceil.id}}" class="played_del"></view>
         </view>
@@ -47,5 +47,7 @@
     </view>
   </view>
 
-
+ <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
+  </view>
 </view>

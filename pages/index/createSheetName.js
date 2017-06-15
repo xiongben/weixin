@@ -96,8 +96,8 @@ Page({
               // wx.navigateTo({
               //   url: '/pages/mine/myPage',
               // })
-              wx.navigateTo({
-                url: '/pages/list/songDetails',
+              wx.navigateBack({
+                delta: 1
               });
             },2000);
           }

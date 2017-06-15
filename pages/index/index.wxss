@@ -261,3 +261,18 @@
 .hide {
   display: none;
 }
+
+/*控制器*/
+.myAudio{
+  width:750rpx;
+  height:150rpx;
+  background:#e5d1a1;
+  position: fixed;
+  left:0;
+  bottom: 0;
+  z-index: 100;
+}
+.myAudioBtn{
+  width:100rpx;
+  height:100rpx;
+}

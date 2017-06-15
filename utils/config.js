@@ -1,9 +1,9 @@
 module.exports = {
   api: 'https://api2.heyhou.com',
-  tapi: 'https://tapi.heyhou.com',
+  // tapi: 'https://tapi.heyhou.com',
   // tapi: 'https://sapi.heyhou.com',
   //tapi: 'http://192.168.1.130',
-  // tapi: 'http://ttjh.f3322.net:82',
+  tapi: 'http://ttjh.f3322.net:82',
   //tapi: 'http://heyhou.me',
   // appID: 'wx625e5106ecf2cd1e',
   // appID: 'wx398f9d4ef8357a15',
@@ -20,7 +20,9 @@ module.exports = {
     MALL_RECEIPT_ADDRESS: 'HH_RECEIPT_ADDRESS',
     TRANSFER_ORDER_INFO: 'HH_TRANSFER_ORDER_INFO',
     PAY_SUCCESS_INFO: 'HH_PAY_SUCCESS_INFO',
-    REGISTER_AREA_CODE: 'HH_REGISTER_AREA_CODE'
+    REGISTER_AREA_CODE: 'HH_REGISTER_AREA_CODE',
+    listinfo: 'HH_LIST_INFO',
+    listsrc: 'HH_LIST_SRC',
   },
   AMAP: {
     URL: 'https://restapi.amap.com/v3',

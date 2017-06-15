@@ -155,11 +155,13 @@ Page({
     })
   },
   playAll:function(){
-     let playlist=this.data.songList;
-     playlist=JSON.stringify(playlist);
+     let playlist = this.data.songList;
+     playlist = JSON.stringify(playlist);
+     let listsrc = JSON.stringify('/program/pro_list/singer_index_view?singerId=' + this.data.singerId);
      wx.setStorageSync('playlist', playlist);
+     wx.setStorageSync('listsrc', listsrc);
      wx.navigateTo({
-       url: '/pages/audioPlayer/audioPlay?id=all',
+       url: '/pages/audioPlayer/audioPlay?id=all&index=0',
      })
   },
   shareSong: function (e) {
@@ -177,13 +179,13 @@ Page({
   },
   playSingle:function(e){
     let index = e.currentTarget.dataset.index;
-    let songinfo = this.data.songList[index];
+    let songinfo = this.data.songList;
     songinfo = JSON.stringify(songinfo);
-    let listsrc = JSON.stringify('/program/pro_list/singer_index_view');
-    wx.setStorageSync('singleinfo', songinfo);
+    let listsrc = JSON.stringify('/program/pro_list/singer_index_view?singerId=' + this.data.singerId);
+    wx.setStorageSync('playlist', songinfo);
     wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=single',
+      url: '/pages/audioPlayer/audioPlay?id=all&index='+index,
     })
   },
 })

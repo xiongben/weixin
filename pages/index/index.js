@@ -2,6 +2,7 @@
 //获取应用实例
 var app = getApp();
 var util = require('../../utils/util.js');
+
 Page({
   data: {
     imgUrls: [],
@@ -25,6 +26,10 @@ Page({
     // console.log(userInfo);
     // util.test();
     util.setStorageUserInfo();
+    
+  },
+  onShow: function () {
+    util.getBackMusic(this);
   },
   /**
   * 用户点击右上角分享
@@ -108,20 +113,25 @@ Page({
   },
   toNewSong: function (e) {
     let index = e.currentTarget.dataset.index;
-    let songinfo = this.data.resultArr.newSong[index];
-    songinfo = JSON.stringify(songinfo);
-    wx.setStorageSync('singleinfo', songinfo);
+    let songlist = this.data.resultArr.newSong;
+    songlist = JSON.stringify(songlist);
+    let listsrc = JSON.stringify('/program/pro_song_info/new_start_song_list');
+    wx.setStorageSync('playlist', songlist);
+    wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=single',
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
     })
+   
   },
   toRecommendSong: function (e) {
     let index = e.currentTarget.dataset.index;
-    let songinfo = this.data.resultArr.recommendSong[index];
+    let songinfo = this.data.resultArr.recommendSong;
     songinfo = JSON.stringify(songinfo);
-    wx.setStorageSync('singleinfo', songinfo);
+    let listsrc = JSON.stringify('/program/pro_song_info/recommend_song_list');
+    wx.setStorageSync('playlist', songinfo);
+    wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=single',
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
     })
   },
   getBannerImg: function () {
@@ -140,7 +150,6 @@ Page({
           this.setData({
             imgUrls: res.data,
           });
-
         }
         else {
           util.showError(res.msg);
@@ -160,5 +169,19 @@ Page({
     this.setData({
       shareIcon: !this.data.shareIcon,
     })
+  },
+  audioPlay:function(){
+    if (this.data.status == 1){
+      wx.pauseBackgroundAudio();
+    } else if (this.data.status == 2){
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        
+      })
+    }
+    
+    // page.setData({
+    //   haveBackMusic: false,
+    // });
   },
 })

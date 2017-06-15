@@ -27,7 +27,7 @@
       </view>
     </view>
     <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
-      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toAudioPlay">
+      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toAudioPlay" data-index="{{index}}">
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.cover}}"></image>
