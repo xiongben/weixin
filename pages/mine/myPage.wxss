@@ -117,3 +117,54 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
+/*控制器*/
+.myAudio{
+  width:750rpx;
+  height:60rpx;
+  background:rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 50;
+  bottom:0;
+  left:0;
+}
+.audioImg{
+  width:100rpx;
+  height:50rpx;
+  position: absolute;
+  left:30rpx;
+  top:5rpx;
+  border-radius: 15rpx;
+}
+.audioBackName{
+  position: absolute;
+  width:500rpx;
+  height:40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 24rpx;
+  color:#fff;
+  left:150rpx;
+  top:10rpx;
+}
+.audioBackSinger{
+  position: absolute;
+  width:500rpx;
+  height:40rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 24rpx;
+  color:#635f59;
+  left:130rpx;
+  top:55rpx;
+}
+.myAudioBackBtn{
+  width:40rpx;
+  height:40rpx;
+  position: absolute;
+  right:40rpx;
+  top:10rpx;
+}

@@ -50,6 +50,9 @@
   color:#fff;
   left:0;
   top:245rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .musicianRank{
   position:absolute;
@@ -147,6 +150,9 @@
   font-size:28rpx;
   color:#e5d1a1;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audioAuthor{
   /*background:green;*/
@@ -159,6 +165,9 @@
   font-size:24rpx;
   color:#8a8782;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .shareIconArea{
   /*background:blue;*/

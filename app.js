@@ -32,6 +32,7 @@ App({
     }
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    playSongInfo: null,
   }
 })

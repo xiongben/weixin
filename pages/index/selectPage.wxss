@@ -198,6 +198,9 @@
   color:#96a9cb;
   z-index:3;
   font-weight:700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audioName{
   /*background:red;*/
@@ -209,6 +212,9 @@
   font-size:28rpx;
   color:#e5d1a1;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audioAuthor{
   /*background:green;*/
@@ -221,6 +227,9 @@
   font-size:24rpx;
   color:#8a8782;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .moreIcon{
   width: 30rpx;

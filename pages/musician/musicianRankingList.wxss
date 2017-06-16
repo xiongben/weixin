@@ -62,6 +62,9 @@
   height:48rpx;
   font-size:28rpx;
   color:#e5d1a1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .authorScore{
   /*background:green;*/

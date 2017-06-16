@@ -605,27 +605,47 @@ function sharefn(id){
 }
 
 function getBackMusic(page){
+  if (backTime){
+    clearInterval(backTime);
+  }
+  let backTime = setInterval(function () {
+    lookBackMusicStatus(page);
+  }, 5000);
+  // lookBackMusicStatus(page);
+}
+
+function lookBackMusicStatus(page){
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       console.log("后台有音乐哦");
       var status = res.status;
       var dataUrl = res.dataUrl;
-      var title = res.title;
       var duration = res.duration;
       var downloadPercent = res.downloadPercent;
-      var coverImgUrl = res.coverImgUrl;
       console.log(res);
+      let playSongInfo = wx.getStorageSync('playSongInfo');
+      playSongInfo = JSON.parse(playSongInfo);
+      // let playSongInfo = getApp().globalData.playSongInfo;
       page.setData({
         src: dataUrl,
-        name:title,
-        pic: coverImgUrl,
-        status: status,
-        haveBackMusic:true,
+        name: playSongInfo.name,
+        singer: playSongInfo.singer,
+        cover: playSongInfo.cover
       });
+      if (status == 2) {
+        page.setData({
+          status: status,
+          haveBackMusic: false,
+        });
+      } else {
+        page.setData({
+          status: status,
+          haveBackMusic: true,
+        });
+      }
     }
   })
 }
-
 module.exports = {
   request: request,
   trim: trim,

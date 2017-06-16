@@ -80,7 +80,7 @@ Page({
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/list/monthWeekList?id=' + this.data.shareSongId,
+      path: '/pages/list/monthWeekList?id=' + that.data.shareSongId,
       success: function (res) {
         util.sharefn(that.data.shareSongId);
         console.log("分享成功");

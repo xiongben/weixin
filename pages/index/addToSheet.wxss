@@ -29,6 +29,9 @@
   font-size:28rpx;
   color:#e5d1a1;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audioAuthor{
   /*background:green;*/
@@ -41,6 +44,9 @@
   font-size:24rpx;
   color:#8a8782;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .btnArea{
   width:750rpx;

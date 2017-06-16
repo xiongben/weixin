@@ -19,7 +19,7 @@
     </view>
   </view>
   <view class="songSheetSecondList" wx:for="{{sheetList}}" wx:key="idx" data-id="{{item.id}}" bindtap="toSheetDetail">
-    <image class="songSheetPic" src="http://res.heyhou.com/image/2017/06/01/092e5aa7ffc10c3442a22212ee9661b4.jpg"></image>
+    <image class="songSheetPic" src="{{item.cover}}"></image>
     <view class="songSheetInfo">
       <view class="songSheetName">{{item.name}}</view>
       <view class="songSheetNum">{{item.total}}首</view>

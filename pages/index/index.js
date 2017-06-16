@@ -29,7 +29,10 @@ Page({
     
   },
   onShow: function () {
-    util.getBackMusic(this);
+    if (!this.data.src){
+      util.getBackMusic(this);
+    }
+    
   },
   /**
   * 用户点击右上角分享
@@ -41,9 +44,9 @@ Page({
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId,
       success: function (res) {
-        console.log("分享成功");
+        console.log('/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId);
         util.sharefn(that.data.shareSongId);
       },
       fail: function (res) {
@@ -159,6 +162,7 @@ Page({
   },
   shareSong: function (e) {
     let id = e.currentTarget.dataset.songid;
+    console.log("分享Id是："+id);
     this.setData({
       shareSongId: id,
       shareIcon: true,
@@ -173,15 +177,31 @@ Page({
   audioPlay:function(){
     if (this.data.status == 1){
       wx.pauseBackgroundAudio();
-    } else if (this.data.status == 2){
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0){
+      this.setData({
+        status: 1,
+      });
       wx.playBackgroundAudio({
         dataUrl: this.data.src,
-        
+        success:function(res){
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
       })
     }
     
-    // page.setData({
-    //   haveBackMusic: false,
-    // });
   },
+  
+ 
 })

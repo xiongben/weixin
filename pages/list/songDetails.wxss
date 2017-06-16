@@ -48,6 +48,9 @@
   font-size:36rpx;
   color:#fff;
   text-shadow: 2px -2px 10px #000;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .loveSongIcon,.shareSongIcon{
   width:48rpx;
@@ -155,6 +158,9 @@
   font-size:28rpx;
   color:#e5d1a1;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .audioAuthor{
   /*background:green;*/
@@ -167,6 +173,9 @@
   font-size:24rpx;
   color:#8a8782;
   z-index:3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .shareIconArea{
   /*background:blue;*/

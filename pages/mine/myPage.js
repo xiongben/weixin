@@ -33,6 +33,9 @@ Page({
     this.loadData();
     this.getSheetList('mycreat');
     this.getSheetList('mycollect');
+    if (!this.data.src) {
+      util.getBackMusic(this);
+    }
   },
 
   /**
@@ -168,5 +171,33 @@ Page({
     wx.navigateTo({
       url: '/pages/list/songDetails?id=' + id,
     })
+  },
+  audioPlay: function () {
+    if (this.data.status == 1) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0) {
+      this.setData({
+        status: 1,
+      });
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        success: function (res) {
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
+      })
+    }
+
   },
 })

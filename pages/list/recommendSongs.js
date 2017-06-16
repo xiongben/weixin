@@ -44,7 +44,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (!this.data.src) {
+      util.getBackMusic(this);
+    }
   },
 
   /**
@@ -79,7 +81,7 @@ Page({
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId,
       success: function (res) {
         console.log("分享成功");
         util.sharefn(that.data.shareSongId);
@@ -192,5 +194,33 @@ Page({
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index=0',
     })
+  },
+  audioPlay: function () {
+    if (this.data.status == 1) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0) {
+      this.setData({
+        status: 1,
+      });
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        success: function (res) {
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
+      })
+    }
+
   },
 })

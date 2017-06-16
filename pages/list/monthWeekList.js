@@ -37,8 +37,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
-  },
+    if (!this.data.src) {
+      util.getBackMusic(this);
+    }
+  }, 
 
   /**
    * 生命周期函数--监听页面隐藏
@@ -224,5 +226,33 @@ Page({
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index='+index,
     })
+  },
+  audioPlay: function () {
+    if (this.data.status == 1) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0) {
+      this.setData({
+        status: 1,
+      });
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        success: function (res) {
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
+      })
+    }
+
   },
 })

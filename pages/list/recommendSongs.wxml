@@ -23,7 +23,11 @@
   <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
     <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
   </view>
-  
+  <view class="myAudio" wx:if="{{haveBackMusic}}" bindtap="backToAudioPlay">
+    <image src="../../static/images/music2.gif" class="audioImg"></image>
+    <view class="audioBackName">{{name}}</view>
+    <image src="../../static/images/{{status==1?'btn_pause_nor':'btn_play_nor'}}.png" class="myAudioBackBtn" catchtap="audioPlay"></image>
+  </view>
 </view>
 
 

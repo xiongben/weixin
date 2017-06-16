@@ -130,7 +130,7 @@ Page({
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId,
       success: function (res) {
         console.log("分享成功");
         util.sharefn(that.data.shareSongId);
@@ -443,7 +443,14 @@ function play(page) {
       wx.seekBackgroundAudio({
         position: page.data.current,
       });
-
+      let playSongInfo={
+        cover: page.data.item.cover,
+        name: page.data.item.name,
+        singer: page.data.item.singerName
+      };
+      playSongInfo = JSON.stringify(playSongInfo);
+      wx.setStorageSync('playSongInfo', playSongInfo);
+      // page.globalData.playSongInfo = playSongInfo;
     }
   })
   page.setData({
@@ -498,7 +505,6 @@ function loadPage(page) {
   // playing(page);
   time=setInterval(function () {
     playing(page);
-    
   }, 1000);
  // 动画头像
   //  let times = setInterval(function () {

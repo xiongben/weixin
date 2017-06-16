@@ -82,10 +82,10 @@ Page({
     })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      path: '/pages/list/songDetails?id=' + that.data.shareSongId,
       success: function (res) {
         console.log("分享成功");
-        util.sharefn(that.data.shareSongId);
+        this.shareSheetFn(that.data.shareSongId);
       },
       fail: function (res) {
         wx.showToast({
@@ -155,7 +155,8 @@ Page({
           } else {
             this.setData({
               musicianList: res.data.songList,
-              sheetInfo:res.data
+              sheetInfo:res.data,
+              loveSongIf: res.data.isCollect ? true : false
             });
             
           }
@@ -206,16 +207,16 @@ Page({
       loveSongIf: !this.data.loveSongIf
     });
     let url;
-    if (this.data.loveSongIf) {
-      url = '/program/pro_song_info/delete_song_like';
+    if (!this.data.loveSongIf) {
+      url = '/program/pro_song/delete_song_collect';
     } else {
-      url = '/program/pro_song_info/add_song_like';
+      url = '/program/pro_song/add_song_collect';
     }
     util.request(url, {
       withToken: true,
       method: 'POST',
       data: {
-        id: id
+        id: this.data.sheetInfo.id,
       },
       success: function (res) {
         res = res.data;
@@ -227,6 +228,23 @@ Page({
         }
       }.bind(this)
     })
-
   },
+  shareSheetFn:function(id){
+    request('/program/pro_song/add_song_share', {
+      withToken: true,
+      method: 'POST',
+      data: {
+        id: id
+      },
+      success: function (res) {
+        res = res.data;
+        if (res.ret == 0) {
+          console.log("分享成功");
+        }
+        else {
+          wx.showError(res.msg);
+        }
+      }
+    })
+  }
 })

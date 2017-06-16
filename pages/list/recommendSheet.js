@@ -1,7 +1,6 @@
 // pages/list/recommendSheet.js
 var util = require('../../utils/util.js');
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -28,7 +27,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (!this.data.src) {
+      util.getBackMusic(this);
+    }
   },
 
   /**
@@ -96,21 +97,21 @@ Page({
         if (res.ret == 0) {
           if (!!more) {
             wx.hideLoading();
-            if (res.data == "") {
+            if (res.data.list == "" || !res.data.list) {
               wx.showToast({
                 title: '没有更多了',
                 icon: 'success',
                 duration: 2000
               })
             } else {
-              let moreMusicianList = this.data.musicianList.concat(res.data);
+              let moreMusicianList = this.data.musicianList.concat(res.data.list);
               this.setData({
                 sheetList: moreMusicianList,
               });
             }
           } else {
             this.setData({
-              sheetList: res.data,
+              sheetList: res.data.list,
             });
 
           }
@@ -126,5 +127,33 @@ Page({
     wx.navigateTo({
       url: '/pages/list/songDetails?id=' + sheetid,
     });
+  },
+  audioPlay: function () {
+    if (this.data.status == 1) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0) {
+      this.setData({
+        status: 1,
+      });
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        success: function (res) {
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
+      })
+    }
+
   },
 })
