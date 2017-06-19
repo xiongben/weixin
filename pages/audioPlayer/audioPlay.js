@@ -29,6 +29,7 @@ Page({
     is_show_played: false,
     item: {},
     loveSongIf:false,
+    noLyric:true,
   },
 
   /**
@@ -528,6 +529,10 @@ function animation(page) {
 //加载歌词
 function loadLyr(page) {
   let lyric = page.data.item.lyrics;
+    page.setData({
+      noLyric: lyric == "",
+    });
+  
   var timeArr = [],
     lyricArr = [];
   var tempArr = lyric.split("\n");

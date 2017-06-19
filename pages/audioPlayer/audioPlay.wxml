@@ -45,6 +45,10 @@
     <view class="lyricList" wx:for="{{lyricArr}}" wx:key="idx">
       <view class="lyricLi">{{item}}</view>
     </view>
+    <view class="noLyric" wx:if="{{noLyric}}">
+       <image src="../../static/images/noinfo.png" class="noLyricIcon"></image>
+       <view class="noLyricText">亲，暂无歌词哦！</view>
+    </view>
   </view>
 
  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">

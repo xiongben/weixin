@@ -149,7 +149,31 @@ audio{
   text-align: center;
   color:#fff;
 }
-
+.noLyric{
+  width:300rpx;
+  height:250rpx;
+  /*background:red;*/
+  position: absolute;
+  left:225rpx;
+  top:400rpx;
+}
+.noLyricIcon{
+  width:214rpx;
+  height:172rpx;
+  position: absolute;
+  left:43rpx;
+}
+.noLyricText{
+  width:300rpx;
+  height:24rpx;
+  line-height:24rpx;
+  font-size:24rpx;
+  color:#635f59;
+  position: absolute;
+  left:0;
+  bottom: 10rpx;
+  text-align: center;
+}
 /*copy*/
 .played_list{
     position: absolute;

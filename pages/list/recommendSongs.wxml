@@ -1,27 +1,27 @@
 <!--pages/list/recommendSongs.wxml-->
 <view class="container">
-  <view class="playAll">全部播放 
+  <view class="playAll">全部播放
     <image src="../../static/images/btn_play_nor.png" class="playIcon" bindtap="playAll"></image>
   </view>
-  
+
   <view class="musicList">
-   <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" data-id="{{item.id}}" data-index="{{index}}" bindtap="toAudioPlay">
-     <view class="liNum">{{index+1}}</view>
-     <view class="audioInfo">
-       <image class="infoImg" src="{{item.cover}}"></image>
-       <view class="audioName">{{item.name}}</view>
-       <view class="audioAuthor">{{item.singerName}}</view>
-       <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>
-     </view>
-   </view>
-   
-   
-  </view>
-  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
-    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
+    <view class="audioLi" wx:for="{{musicianList}}" wx:key="idx" >
+      <view class="liNum">{{index+1}}</view>
+      <view class="audioInfo">
+        <image class="infoImg" src="{{item.cover}}"></image>
+        <view class="audioPlayArea" data-id="{{item.id}}" data-index="{{index}}" bindtap="toAudioPlay">
+          <view class="audioName">{{item.name}}</view>
+          <view class="audioAuthor">{{item.singerName}}</view>
+        </view>
+        <view class="shareIconArea">
+          <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
+          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+          <view class="shareText">打榜</view>
+        </view>
+      </view>
+    </view>
+
+
   </view>
   <view class="myAudio" wx:if="{{haveBackMusic}}" bindtap="backToAudioPlay">
     <image src="../../static/images/music2.gif" class="audioImg"></image>
@@ -29,5 +29,3 @@
     <image src="../../static/images/{{status==1?'btn_pause_nor':'btn_play_nor'}}.png" class="myAudioBackBtn" catchtap="audioPlay"></image>
   </view>
 </view>
-
-

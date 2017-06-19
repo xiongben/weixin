@@ -9,6 +9,10 @@ Page({
     songlist:[],
     limit:5,
     start:0,
+    urlArr:{
+      singerDetail: '/program/pro_singer/view',
+      musicianDetail: '/program/pro_list/singer_index_view'
+    }
   },
 
   /**
@@ -19,13 +23,20 @@ Page({
       title: '正在加载',
     });
     if(options){
-      console.log(options);
-      this.setData({
-        singerId:options.singerid
-      });
+      if(options.type){
+        this.setData({
+          type:'singerDetail',
+          singerId: options.singerid
+        });
+      }else{
+        this.setData({
+          singerId: options.singerid,
+          type: 'musicianDetail',
+        });
+      }
     }
     wx.showLoading();
-    this.getMusicianInfo();
+    this.getMusicianInfo(this.data.type);
   },
 
   /**
@@ -73,17 +84,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     let that = this;
-    this.setData({
-      shareIcon: false,
-    })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + this.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
       success: function (res) {
         console.log("分享成功");
-        util.sharefn(that.data.shareSongId);
+        util.sharefn(res.target.dataset.songid);
       },
       fail: function (res) {
         wx.showToast({
@@ -100,7 +108,7 @@ Page({
      wx.showLoading({
        title: '加载更多',
      });
-     this.getMusicianInfo("more");
+     this.getMusicianInfo(this.data.type,"more");
   },
 
   /**
@@ -109,13 +117,15 @@ Page({
   onPullDownRefresh: function () {
   
   },
-  getMusicianInfo:function(more){
+  getMusicianInfo:function(type,more){
     if(!!more){
        this.setData({
          start:this.data.start+5,
        })
     }
-    util.request('/program/pro_list/singer_index_view', {
+    
+    let url = this.data.urlArr[type];
+    util.request(url, {
       withToken: false,
       method: 'GET',
       data: {
@@ -157,26 +167,14 @@ Page({
   playAll:function(){
      let playlist = this.data.songList;
      playlist = JSON.stringify(playlist);
-     let listsrc = JSON.stringify('/program/pro_list/singer_index_view?singerId=' + this.data.singerId);
+     let listsrc = JSON.stringify(this.data.urlArr[this.data.type]+'?singerId=' + this.data.singerId);
      wx.setStorageSync('playlist', playlist);
      wx.setStorageSync('listsrc', listsrc);
      wx.navigateTo({
        url: '/pages/audioPlayer/audioPlay?id=all&index=0',
      })
   },
-  shareSong: function (e) {
-    let id = e.currentTarget.dataset.songid;
-    this.setData({
-      shareSongId: id,
-      shareIcon: true,
-    });
-
-  },
-  hideShareBack: function () {
-    this.setData({
-      shareIcon: !this.data.shareIcon,
-    })
-  },
+  
   playSingle:function(e){
     let index = e.currentTarget.dataset.index;
     let songinfo = this.data.songList;

@@ -74,15 +74,12 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-    this.setData({
-      shareIcon: false,
-    })
+  onShareAppMessage: function (res) {
     return {
       title: '打榜歌曲',
-      path: '/pages/list/monthWeekList?id=' + that.data.shareSongId,
+      path: '/pages/list/monthWeekList?id=' + res.target.dataset.songid,
       success: function (res) {
-        util.sharefn(that.data.shareSongId);
+        util.sharefn(res.target.dataset.songid);
         console.log("分享成功");
       },
       fail: function (res) {
@@ -156,19 +153,7 @@ Page({
       }.bind(this)
     })
   },
-  shareSong: function (e) {
-    let id = e.currentTarget.dataset.songid;
-    this.setData({
-      shareSongId: id,
-      shareIcon: true,
-    });
-
-  },
-  hideShareBack: function () {
-    this.setData({
-      shareIcon: !this.data.shareIcon,
-    })
-  },
+  
   playSingle: function (e) {
     let index = e.currentTarget.dataset.index;
     let songinfo = this.data.songList;

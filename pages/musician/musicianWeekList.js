@@ -74,9 +74,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    this.setData({
-      shareIcon: false,
-    })
     return {
       title: '打榜歌曲',
       path: '/pages/list/monthWeekList?id=' + that.data.shareSongId,
@@ -201,7 +198,7 @@ Page({
     });
   },
   rulePage: function () {
-    wx.navigateTo({ url: '/pages/index/rulePage' });
+    wx.navigateTo({ url: '/pages/index/rulePage?type=musicianType' });
   },
   shareSong: function (e) {
     let id = e.currentTarget.dataset.songid;

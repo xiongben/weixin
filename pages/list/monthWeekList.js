@@ -73,16 +73,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     let that=this;
-    this.setData({
-      shareIcon:false,
-    })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id='+that.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
       success: function (res) {
-        util.sharefn(that.data.shareSongId);
+        util.sharefn(res.target.dataset.songid);
       },
       fail: function (res) {
         wx.showToast({

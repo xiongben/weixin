@@ -13,38 +13,41 @@
   <!--<swiper current="{{currentTab}}" class="swiper-box" duration="300" bindchange="bindChange" style="height:{{swiperHeight}}rpx">-->
   <view class="typePageArea">
     <view class="typePage {{currentTab==0 ? '' : 'hide'}}">
-      <view class="audioLi" wx:for="{{list[0]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toAudioPlay" data-index="{{index}}">
+      <view class="audioLi" wx:for="{{list[0]}}" wx:key="idx" >
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioPlayArea" data-id="{{item.id}}" bindtap="toAudioPlay" data-index="{{index}}">
           <view class="audioName">{{item.name}}</view>
           <view class="audioAuthor">{{item.singerName}}  {{item.total}}分</view>
-          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.id}}">
-            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-            <view class="shareText">打榜</view>
-          </view>
+        </view>
+        <view class="shareIconArea">
+          <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
+          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+          <view class="shareText">打榜</view>
+        </view>
         </view>
       </view>
     </view>
     <view class="typePage {{currentTab==1 ? '' : 'hide'}}">
-      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx" data-id="{{item.id}}" bindtap="toAudioPlay" data-index="{{index}}">
+      <view class="audioLi" wx:for="{{list[1]}}" wx:key="idx" >
         <view class="liNum">{{index+1}}</view>
         <view class="audioInfo">
           <image class="infoImg" src="{{item.cover}}"></image>
+          <view class="audioPlayArea" data-id="{{item.id}}" bindtap="toAudioPlay" data-index="{{index}}">
           <view class="audioName">{{item.name}}</view>
           <view class="audioAuthor">{{item.singerName}}  {{item.total}}分</view>
-          <view class="shareIconArea"  catchtap="shareSong" data-songid="{{item.id}}">
-            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-            <view class="shareText">打榜</view>
-          </view>
+        </view>
+        <view class="shareIconArea">
+          <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
+          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+          <view class="shareText">打榜</view>
+        </view>
         </view>
       </view>
     </view>
     </view>
   <!--</swiper>-->
-  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
-    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
-  </view>
 
   <view class="myAudio" wx:if="{{haveBackMusic}}" bindtap="backToAudioPlay">
     <image src="../../static/images/music2.gif" class="audioImg"></image>

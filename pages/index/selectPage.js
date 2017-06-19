@@ -104,7 +104,7 @@ Page({
       method: 'GET',
       data: {
         start:0,
-        limit:10
+        limit:5
       },
       success: function (res) {
         res = res.data;
@@ -324,7 +324,7 @@ Page({
   toSingerDetail: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/musician/musicianDetail?type=search&singerid=' + id,
+      url: '/pages/musician/musicianDetail?type=singerDetail&singerid=' + id,
     })
   },
   toSheetDetail: function (e) {

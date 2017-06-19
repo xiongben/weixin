@@ -74,17 +74,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     let that = this;
-    this.setData({
-      shareIcon: false,
-    })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
       success: function (res) {
         console.log("分享成功");
-        util.sharefn(that.data.shareSongId);
+        util.sharefn(res.target.dataset.songid);
       },
       fail: function (res) {
         wx.showToast({
@@ -161,19 +158,7 @@ Page({
       }.bind(this)
     })
   },
-  shareSong: function (e) {
-    let id = e.currentTarget.dataset.songid;
-    this.setData({
-      shareSongId: id,
-      shareIcon: true,
-    });
-
-  },
-  hideShareBack: function () {
-    this.setData({
-      shareIcon: !this.data.shareIcon,
-    })
-  },
+  
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
     let playlist = this.data.musicianList;

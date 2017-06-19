@@ -2,11 +2,13 @@
 <view class="container">
   <view class="ruleTitle">榜单介绍</view>
   <view class="ruleTextArea">
-    <view class="ruleText">榜单是面向推荐歌曲和新歌的联合打榜，通过播放和转发分享，综合反映歌曲的传播热度和歌手的影响力。</view>
+    <view class="ruleText" wx:if="{{!musicianRule}}">榜单是面向推荐歌曲和新歌的联合打榜，通过播放和转发分享，综合反映歌曲的传播热度和歌手的影响力。</view>
+    <view class="ruleText" wx:if="{{musicianRule}}">音乐人榜单是面向音乐人/歌手的音乐榜单，旨在弘扬原创音乐和音乐人的影响力。</view>
   </view>
   <view class="ruleTitle">榜单构成</view>
   <view class="ruleTextArea">
-    <view class="ruleText">分为嘻哈周榜TOP50，电音周榜TOP50。</view>
+    <view class="ruleText" wx:if="{{!musicianRule}}">分为嘻哈周榜TOP50，电音周榜TOP50。</view>
+    <view class="ruleText" wx:if="{{musicianRule}}">周榜TOP20，月榜TOP20。</view>
   </view>
   <view class="ruleTitle">积分规则</view>
   <view class="ruleTextArea">

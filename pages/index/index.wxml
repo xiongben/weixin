@@ -24,13 +24,16 @@
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSong"></image>
     </view>
     <view class="musicList">
-      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx" data-index="{{index}}" bindtap="toRecommendSong">
+      <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
-          <view class="audioName">{{item.name}}</view>
-          <view class="audioAuthor">{{item.singerName}}</view>
-          <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
+          <view class="audioPlayArea" data-index="{{index}}" bindtap="toRecommendSong">
+            <view class="audioName">{{item.name}}</view>
+            <view class="audioAuthor">{{item.singerName}}</view>
+          </view>
+          <view class="shareIconArea">
+            <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
             <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
             <view class="shareText">打榜</view>
           </view>
@@ -42,16 +45,19 @@
     <view class="modelTitle">新歌发布
       <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="newSong"></image>
     </view>
-    <view class="audioLi" wx:for="{{resultArr.newSong}}" wx:key="idx" data-index="{{index}}" bindtap="toNewSong">
+    <view class="audioLi" wx:for="{{resultArr.newSong}}" wx:key="idx" >
       <view class="audioInfo">
         <view class="bottom-border"></view>
         <image class="infoImg" src="{{item.cover}}"></image>
-        <view class="audioName">{{item.name}}</view>
-        <view class="audioAuthor">{{item.singerName}}</view>
-        <view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
-          <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-          <view class="shareText">打榜</view>
-        </view>
+        <view class="audioPlayArea" data-index="{{index}}" bindtap="toNewSong">
+            <view class="audioName">{{item.name}}</view>
+            <view class="audioAuthor">{{item.singerName}}</view>
+          </view>
+        <view class="shareIconArea">
+            <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
+            <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
+            <view class="shareText">打榜</view>
+          </view>
       </view>
     </view>
 
@@ -68,9 +74,9 @@
       </view>
     </scroll-view>
   </view>
-  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
+  <!--<view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
     <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
-  </view>
+  </view>-->
   <!--<audio poster="{{pic}}" name="{{name}}" author="{{author}}" src="{{src}}" id="myAudio" controls loop style="position:fixed;left:0;bottom:0" wx:if="{{haveBackMusic}}"></audio>-->
-
+  
 </view>

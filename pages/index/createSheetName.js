@@ -76,6 +76,8 @@ Page({
     let sheetName = e.detail.value.sheetName;
     if (sheetName == "") {
       util.showError("歌单名不能为空");
+    } else if (sheetName.length>20){
+      util.showError("歌单名不能超过20个字符");
     } else {
       util.request('/program/pro_song/add_song', {
         withToken: true,

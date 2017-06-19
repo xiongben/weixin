@@ -13,7 +13,6 @@
     "pages/musician/musicianRankingList",
     "pages/musician/musicianRankingDetail",
     "pages/list/monthWeekList",
-    "pages/index/selectResult",
     "pages/mine/shareSongs",
     "pages/musician/musicianDetail",
     "pages/index/addToSheet",
