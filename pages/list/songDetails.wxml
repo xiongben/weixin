@@ -11,7 +11,8 @@
     <image src="../../static/images/{{loveSongIf?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="loveSongIcon" catchtap="loveSong"></image>
     
     <view class="loveSongNum">{{sheetInfo.collectionNum}}</view>
-    <image src="../../static/images/icon_share_me.png" class="shareSongIcon" catchtap="shareSong" data-songid="{{sheetId}}"></image>
+    <image src="../../static/images/icon_share_me.png" class="shareSongIcon" ></image>
+    <button class="shareButton" open-type="share" data-songid="{{sheetId}}"></button>
     <view class="shareSongNum">{{sheetInfo.shareNum}}</view>
   </view>
   <view class="playAll">全部播放 
@@ -32,7 +33,5 @@
      </view>
    </view>
   </view>
-  <view class="shareBack" wx:if="{{shareIcon}}" bindtap="hideShareBack">
-    <image src="../../static/images/icon_arrows_share.png" class="sharePic"></image>
-  </view>
+  
 </view>

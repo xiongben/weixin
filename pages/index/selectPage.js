@@ -123,6 +123,7 @@ Page({
     })
   },
   formSubmit: function (e) {
+    console.log(e.detail.value);
     console.log( e.detail.value);
     let keyword = e.detail.value.keyword;
     if(keyword != ""){
@@ -141,6 +142,24 @@ Page({
       })
     }
    
+  },
+  keyformSubmit:function(e){
+    let keyword = e.detail.value;
+    if (keyword != "") {
+      let index = this.data.currentTab;
+      this.setData({
+        keyword: keyword,
+        selectPage: false
+      })
+      this.getSearchResult(this.data.keyword, index);
+
+    } else {
+      wx.showToast({
+        title: '关键词不能为空',
+        icon: 'warn',
+        duration: 2000
+      })
+    }
   },
   formReset: function () {
     console.log('form发生了reset事件');

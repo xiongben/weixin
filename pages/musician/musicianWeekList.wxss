@@ -117,7 +117,18 @@
   margin-top: 10rpx;
   background: #4b473f;
 }
-
+.ruleText{
+  height: 64rpx;
+  line-height: 64rpx;
+  text-indent: 30rpx;
+  font-size: 24rpx;
+  color: #8a8782;
+  width:650rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float:left;
+}
 .moreicon {
   height: 28rpx;
   width: 28rpx;

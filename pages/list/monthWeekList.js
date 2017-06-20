@@ -75,19 +75,33 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that=this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (res) {
-        util.sharefn(res.target.dataset.songid);
-      },
-      fail: function (res) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if (res.from === 'button'){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
+        success: function (res) {
+          util.sharefn(res.target.dataset.songid);
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '打榜歌曲',
+        path: '/pages/list/monthWeekList',
+        success: function (res) {
+          
+        },
+        fail: function (res) {
+          wx.showToast({
+            title: '分享失败',
+          });
+        }
       }
     }
-    
   },
 
   /**

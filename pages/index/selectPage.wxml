@@ -2,7 +2,7 @@
 <view class="container">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <view class="searchArea">
-      <input type="text" class="searchMusic" name="keyword" value="{{keyword}}" placeholder="搜索你感兴趣的音乐"/>
+      <input type="text" class="searchMusic" name="keyword" value="{{keyword}}" placeholder="搜索你感兴趣的音乐" focus="true" confirm-type="search" bindconfirm="keyformSubmit"/>
       <button formType="submit" class="submitBtn">
         <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
       </button>

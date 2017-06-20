@@ -8,13 +8,17 @@
   </view>
   <view class="songshare {{!is_show_lyr?'':'hide' }}">
     <image src="../../static/images/{{loveSongIf?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="menuIcon" data-id="{{item.id}}" catchtap="loveSong"></image>
-    <image src="../../static/images/btn_share_nor_play.png" class="menuIcon" catchtap="shareSong" data-songid="{{item.id}}"></image>
+    
+    <image src="../../static/images/btn_share_nor_play.png" class="menuIcon" >
+    <button class="shareButton" data-songid="{{item.id}}" open-type="share"></button>
+    </image>
+    
     <image src="../../static/images/btn_collect_add_nor_play.png" class="menuIcon" data-id="{{item.id}}" catchtap="collectSong"></image>
   </view>
   <view class="songContrl">
     <view class="cur_time">{{cur_time}}</view>
     <view class="total_time">{{total_time}}</view>
-    <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" />
+    <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" disabled="true"/>
     <view class="controlBtnArea">
       <image src="../../static/images/btn_reverse_pre.png" class="controlIcon" bindtap="prevSong" wx:if="{{showControl}}"></image>
       <image src="../../static/images/btn_{{isPlaying?'pause':'play'}}_room_nor.png" class="controlPauseIcon" bindtap="playSong"></image>

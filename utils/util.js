@@ -374,13 +374,7 @@ function getUserInfo() {
                           id:res.data.id,
                           token:res.data.token
                         }
-                        // wx.setStorageSync({
-                        //   id: res.data.id,
-                        //   token: res.data.token
-                        // });
                         dtd.resolve(userInfo);
-                       
-                      
                       }
                       else {
                         util.showError(res.msg);

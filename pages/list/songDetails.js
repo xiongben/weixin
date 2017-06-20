@@ -75,17 +75,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     let that = this;
-    this.setData({
-      shareIcon: false,
-    })
     return {
       title: '打榜歌曲',
-      path: '/pages/list/songDetails?id=' + that.data.shareSongId,
+      path: '/pages/list/songDetails?id=' + res.target.dataset.songid,
       success: function (res) {
         console.log("分享成功");
-        this.shareSheetFn(that.data.shareSongId);
+        this.shareSheetFn(res.target.dataset.songid);
       },
       fail: function (res) {
         wx.showToast({

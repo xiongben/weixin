@@ -70,6 +70,15 @@
   text-shadow: 2px -2px 10px #000;
   
 }
+.shareButton{
+  width:48rpx;
+  height:48rpx;
+  position: absolute;
+  z-index:6;
+  right:160rpx;
+  bottom: 50rpx;
+  background: rgba(0, 0, 0, 0);
+}
 .loveSongNum{
   left:115rpx;
   bottom:10rpx;

@@ -124,17 +124,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function (res) {
     let that = this;
-    this.setData({
-      shareIcon: false,
-    })
     return {
       title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + that.data.shareSongId,
+      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
       success: function (res) {
         console.log("分享成功");
-        util.sharefn(that.data.shareSongId);
+        util.sharefn(res.target.dataset.songid);
       },
       fail: function (res) {
         wx.showToast({
@@ -264,13 +261,13 @@ Page({
     }
   },
   //拖动滚动条
-  changeSongPross: function (e) {
-    this.setData({
-      current: e.detail.value,
-      cur_time: util.formate(e.detail.value)
-    })
-    play(this)
-  },
+  // changeSongPross: function (e) {
+  //   this.setData({
+  //     current: e.detail.value,
+  //     cur_time: util.formate(e.detail.value)
+  //   })
+  //   play(this)
+  // },
   //前一首歌曲
   prevSong: function () {
     var ele;
@@ -323,18 +320,7 @@ Page({
     console.log(this.data.item);
     loadPage(this)
   },
-  // getlyric: function (url) {
-  //   util.request(url, {
-  //     success: function (res) {
-  //       console.log(res);
-  //       this.setData({
-  //         played_list: res.data
-  //       });
-  //       let lyric = this.createArrMap(res.data[0].lyric);
-  //       this.renderLyric(lyric);
-  //     }.bind(this)
-  //   })
-  // },
+
   getMoreList:function(url,list){
     let start=list.length;
     let limit=100;
@@ -420,19 +406,6 @@ Page({
       url: '/pages/index/addToSheet?songid='+id,
     })
   },
-  shareSong: function (e) {
-    let id = e.currentTarget.dataset.songid;
-    this.setData({
-      shareSongId: id,
-      shareIcon: true,
-    });
-
-  },
-  hideShareBack: function () {
-    this.setData({
-      shareIcon: !this.data.shareIcon,
-    })
-  },
 });
 
 function play(page) {
@@ -498,7 +471,7 @@ function playing(page) {
 
 function loadPage(page) {
   // console.log("loadpage执行吃书");
-  countPlayTime(page)
+  countRecentTime(page)
   //播放
   play(page);
   loadLyr(page);
@@ -557,7 +530,7 @@ function loadLyr(page) {
   
 }
 
-function countPlayTime(page){
+function countRecentTime(page){
   util.request('/program/pro_song_info/add_song_play', {
     withToken: true,
     method: 'POST',
@@ -567,11 +540,19 @@ function countPlayTime(page){
     success: function (res) {
       res = res.data;
       if (res.ret == 0) {
-        // wx.showToast({
-        //   title: '统计次数啊',
-        //   icon: 'success',
-        //   duration: 2000
-        // });
+        util.request('/program/pro_list/add_play_score', {
+          withToken: true,
+          method: 'POST',
+          data: {
+            songInfoId: page.data.item.id,
+          },
+          success: function (res) {
+            res = res.data;
+            if (res.ret == 0) {
+
+            }
+          }.bind(page)
+        })
       }
       else {
         util.showError(res.msg);
@@ -579,3 +560,4 @@ function countPlayTime(page){
     }.bind(page)
   })
 }
+
