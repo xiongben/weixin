@@ -1,5 +1,6 @@
 <!--pages/audioPlayer/audioPlay.wxml-->
 <view class="container">
+  <view class="singerName {{!is_show_lyr?'':'hide' }}">{{item.singerName}}</view>
   <view class="backImg" style="background:url({{item.cover}})"></view>
   <image src="../../static/images/btn_playlist_nor.png" class="songListBtn" bindtap="showPlayed" wx:if="{{showControl}}"></image>
   <view class="songPic {{!is_show_lyr?'':'hide' }}" bindtap="showLyr">

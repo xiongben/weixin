@@ -611,12 +611,12 @@ function getBackMusic(page){
 function lookBackMusicStatus(page){
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
-      console.log("后台有音乐哦");
+      // console.log("后台有音乐哦");
       var status = res.status;
       var dataUrl = res.dataUrl;
       var duration = res.duration;
       var downloadPercent = res.downloadPercent;
-      console.log(res);
+      // console.log(res);
       let playSongInfo = wx.getStorageSync('playSongInfo');
       playSongInfo = JSON.parse(playSongInfo);
       // let playSongInfo = getApp().globalData.playSongInfo;

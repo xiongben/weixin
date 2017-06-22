@@ -199,7 +199,9 @@ Page({
     })
   },
   loveSong: function (e) {
-    // let id = this.data.item.id;
+    if (this.data.type == "favoriteList"){
+      return false;
+    }
     this.setData({
       loveSongIf: !this.data.loveSongIf
     });

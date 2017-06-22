@@ -453,16 +453,9 @@ function playing(page) {
       //循环播放,这里存在bug，差值可能为1
       // console.log(page.data.duration+":"+page.data.current);
       if (page.data.duration - page.data.current <= 1) {
-        // page.setData({
-        //   current: 0,
-        //   cur_time: '0:00'
-        // })
-        // play(page)
         page.setData({
           current: 0,
         });
-       
-        // console.log("看你有几次");
         page.nextSong();
       }
     }
