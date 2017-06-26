@@ -6,7 +6,7 @@
     <image src="../../static/images/{{status==1?'btn_pause_nor':'btn_play_nor'}}.png" class="myAudioBackBtn" catchtap="audioPlay"></image>
   </view>
   <view class="searchArea" bindtap="searchMusic">
-    <!--<input type="text" class="searchMusic"  disabled/>-->
+    <input type="text" class="searchMusic"  disabled="true" placeholder="搜索你感兴趣的歌曲"/>
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
     <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>

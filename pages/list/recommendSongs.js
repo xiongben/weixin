@@ -135,17 +135,20 @@ Page({
         if (res.ret == 0) {
           if (!!more) {
             wx.hideLoading();
-            if (res.data == "") {
+            if (res.data == "" || res.data == []) {
               wx.showToast({
                 title: '没有更多了',
                 icon: 'success',
                 duration: 2000
               })
+            }else{
+              let moreMusicianList = this.data.musicianList.concat(res.data.list);
+              this.setData({
+                musicianList: moreMusicianList,
+              });
             }
-            let moreMusicianList = this.data.musicianList.concat(res.data.list);
-            this.setData({
-              musicianList: moreMusicianList,
-            });
+            
+            console.log(this.data.musicianList);
           } else {
             this.setData({
               musicianList: res.data.list,

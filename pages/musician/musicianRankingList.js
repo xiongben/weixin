@@ -152,6 +152,6 @@ Page({
     });
   },
   rulePage: function () {
-    wx.navigateTo({ url: '/pages/index/rulePage' });
+    wx.navigateTo({ url: '/pages/index/rulePage?type=musicianType'});
   },
 })

@@ -587,12 +587,11 @@ function sharefn(id){
           songInfoId: id
         },
         success: function (res) {
-          res = res.data;
           if (res.ret == 0) {
             console.log("分享成功");
           }
           else {
-            wx.showError(res.msg);
+            wx.showToast(res.msg);
           }
         }
       })

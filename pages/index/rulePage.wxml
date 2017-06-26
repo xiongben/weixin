@@ -16,9 +16,11 @@
   </view>
    <view class="ruleTitle">统计规则</view>
   <view class="ruleTextArea">
-    <view class="ruleText">嘻哈周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+    <view class="ruleText" wx:if="{{!musicianRule}}">嘻哈周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+    <view class="ruleText" wx:if="{{musicianRule}}">周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
      
-    <view class="ruleText2">电音周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+    <view class="ruleText2" wx:if="{{!musicianRule}}">电音周榜：每周一0:00开始累计，每周日23:59截止，每周一上午10:00发布上周榜单</view>
+    <view class="ruleText2" wx:if="{{musicianRule}}">月榜：每月一日0:00开始累计，月末23:59截止，每月一日上午10:00发布上月榜单</view>
   </view>
    <view class="ruleTitle">联系我们</view>
   <view class="ruleTextArea">

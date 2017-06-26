@@ -38,16 +38,15 @@ Page({
   * 用户点击右上角分享
   */
   onShareAppMessage: function (res){
-    console.log(res.target.dataset.songid);
     let that = this;
     return {
       title: '打榜歌曲',
       path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (res) {
+      success: function (data) {
         console.log('/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid);
         util.sharefn(res.target.dataset.songid);
       },
-      fail: function (res) {
+      fail: function (data) {
         wx.showToast({
           title: '打榜失败',
         });

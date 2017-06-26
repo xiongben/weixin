@@ -2,7 +2,7 @@
 <view class="container">
   <form bindsubmit="formSubmit">
    <view class="sheetNameArea">
-    <input type="text" class="sheetName" placeholder="输入歌单名" name="sheetName"/>
+    <input type="text" class="sheetName" placeholder="歌单标题" name="sheetName" focus="true"/>
   </view>
  
   <!--<view class="section section_gap sheetSet">
@@ -12,7 +12,7 @@
     </checkbox-group>
   </view>-->
   <view class="btnArea">
-    <button formType="submit" class="creatSheet">创建歌单</button>
+    <button formType="submit" class="creatSheet">完成</button>
   </view>
 </form>
 </view>

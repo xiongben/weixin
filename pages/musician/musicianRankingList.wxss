@@ -11,20 +11,34 @@
 }
 
 
-.listRule{
-  height:50rpx;
-  line-height:50rpx;
+.listRule {
+  height: 50rpx;
+  line-height: 50rpx;
   text-indent: 30rpx;
-  font-size:24rpx;
-  color:#8a8782;
-  background:#4b473f;
+  font-size: 24rpx;
+  color: #8a8782;
+  margin-top:10rpx;
+  background: #4b473f;
+  /*background:blue;*/
 }
-.moreicon{
-  height:28rpx;
-  width:28rpx;
-  float:right;
-  margin-right:30rpx;
-  margin-top:11rpx;
+.ruleText{
+  height: 50rpx;
+  line-height: 50rpx;
+  text-indent: 30rpx;
+  font-size: 24rpx;
+  color: #8a8782;
+  width:650rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  float:left;
+}
+.moreicon {
+  height: 28rpx;
+  width: 28rpx;
+  float: right;
+  margin-right: 30rpx;
+  margin-top: 11rpx;
 }
 .audioLi{
   height:120rpx;

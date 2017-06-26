@@ -227,17 +227,18 @@
   left:0;
 }
 .audioImg{
-  width:100rpx;
-  height:50rpx;
+  width:80rpx;
+  height:30rpx;
   position: absolute;
   left:30rpx;
-  top:5rpx;
+  top:15rpx;
   border-radius: 15rpx;
 }
 .audioBackName{
   position: absolute;
   width:500rpx;
   height:40rpx;
+  line-height:40rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -250,6 +251,7 @@
   position: absolute;
   width:500rpx;
   height:40rpx;
+  line-height:40rpx;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

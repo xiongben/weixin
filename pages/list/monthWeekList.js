@@ -19,11 +19,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
     this.getTypeInfo(this.data.currentTab);
-    let userInfo = wx.getStorageSync('userInfo');
-    userInfo = JSON.parse(userInfo);
-    console.log(userInfo);
+    this.getTypeInfo(this.data.currentTab+1);
   },
 
   /**
@@ -133,7 +130,7 @@ Page({
         currentTab: e.target.dataset.current
       })
       console.log(that.data.currentTab);
-      this.getTypeInfo(that.data.currentTab);
+      // this.getTypeInfo(that.data.currentTab);
     }
   },
   rulePage:function(){

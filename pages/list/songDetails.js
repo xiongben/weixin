@@ -23,6 +23,9 @@ Page({
         this.setData({
           type: "favoriteList"
         });
+        wx.setNavigationBarTitle({
+          title: "我喜欢"
+        });
         this.getSheetInfo(this.data.sheetId,this.data.type);
       }else{
         this.setData({

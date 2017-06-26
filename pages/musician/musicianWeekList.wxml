@@ -1,7 +1,7 @@
 <!--pages/musician/musicianWeekList.wxml-->
 <view class="container">
   <view class="listRule" bindtap="rulePage">
-    <view class="ruleText">打榜规则：播放一次+1分，分享一次+10分，每个用户不超过200分</view>
+    <view class="ruleText">打榜规则：播放1次+1分，分享1次+10分，每个用户不超过200分</view>
     <image src="../../static/images/icon_more2.png" class="moreicon"></image>
   </view>
   <view class="weekRanking" bindtap="jumpToList" data-type="week">

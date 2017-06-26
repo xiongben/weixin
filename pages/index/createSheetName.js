@@ -75,9 +75,9 @@ Page({
     console.log('form发生了submit事件，携带数据为：', e.detail.value);
     let sheetName = e.detail.value.sheetName;
     if (sheetName == "") {
-      util.showError("歌单名不能为空");
+      util.showError("请输入歌单名称");
     } else if (sheetName.length>20){
-      util.showError("歌单名不能超过20个字符");
+      util.showError("字数过长，请限制在20个字符内");
     } else {
       util.request('/program/pro_song/add_song', {
         withToken: true,

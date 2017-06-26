@@ -76,14 +76,13 @@ Page({
   onShareAppMessage: function () {
     return {
       title: '打榜歌曲',
-      path: '/pages/list/monthWeekList?id=' + that.data.shareSongId,
+      path: '/pages/musician/musicianWeekList',
       success: function (res) {
         console.log("分享成功");
-        util.sharefn(that.data.shareSongId);
       },
       fail: function (res) {
         wx.showToast({
-          title: '打榜失败',
+          title: '分享失败',
         });
       }
     }
@@ -200,19 +199,7 @@ Page({
   rulePage: function () {
     wx.navigateTo({ url: '/pages/index/rulePage?type=musicianType' });
   },
-  shareSong: function (e) {
-    let id = e.currentTarget.dataset.songid;
-    this.setData({
-      shareSongId: id,
-      shareIcon: true,
-    });
-
-  },
-  hideShareBack: function () {
-    this.setData({
-      shareIcon: !this.data.shareIcon,
-    })
-  },
+  
   audioPlay: function () {
     if (this.data.status == 1) {
       wx.pauseBackgroundAudio();

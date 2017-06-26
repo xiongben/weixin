@@ -226,6 +226,8 @@ Page({
           this.setData({
             historyList: '',
           })
+        } else if (res.ret === 45){
+          util.showError("历史记录已为空");
         }
         else {
           util.showError(res.msg);
@@ -240,6 +242,9 @@ Page({
   },
   swichNav: function (e) {
     var that = this;
+    this.setData({
+       noinfo:false,
+    });
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
     } else {
@@ -291,7 +296,11 @@ Page({
                 duration: 2000
               });
             }
-            searchArr[index] = searchArr[index].concat(data);
+            if (index == 0) {
+              searchArr[index] = searchArr[index].concat(data.list);
+            }else{
+              searchArr[index] = searchArr[index].concat(data);
+            }
           } else {
             if (data == ""||data.list =="") {
               this.setData({

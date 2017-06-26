@@ -44,9 +44,7 @@ Page({
         let listsrc = wx.getStorageSync('listsrc');
         playlist=JSON.parse(playlist);
         listsrc = JSON.parse(listsrc);
-        // console.log(playlist);
-        // console.log(listsrc);
-
+        
         for(let i=0;i<playlist.length;i++){
            playlist[i].indexNum=i;
         }
@@ -260,7 +258,7 @@ Page({
       })
     }
   },
-  //拖动滚动条
+ // 拖动滚动条
   // changeSongPross: function (e) {
   //   this.setData({
   //     current: e.detail.value,
@@ -333,14 +331,22 @@ Page({
       },
       success: function (res) {
         res = res.data;
+        console.log(res);
         if (res.ret == 0) {
-          let newplayed_list = this.data.played_list.concat(res.data.list);
-          for (let i = 0; i < newplayed_list.length; i++) {
-            newplayed_list[i].indexNum = i;
+          if (res.data.list){
+            var newplayed_list = this.data.played_list.concat(res.data.list);
+            for (let i = 0; i < newplayed_list.length; i++) {
+                newplayed_list[i].indexNum = i;
+                this.setData({
+                  played_list: newplayed_list
+                })
+
+            }
           }
-          this.setData({
-            played_list: newplayed_list
-          })
+          
+          console.log(newplayed_list);
+          
+         
           console.log(this.data.played_list);
         }
         else {
@@ -351,7 +357,7 @@ Page({
   },
   getIdSong:function(id){
     util.request('/program/pro_song_info/get_song_info', {
-      withToken: true,
+      withToken:false,
       method: 'GET',
       data: {
         id:id
@@ -376,7 +382,7 @@ Page({
       loveSongIf:!this.data.loveSongIf
     });
     let url;
-    if (this.data.loveSongIf){
+    if (!this.data.loveSongIf){
       url ='/program/pro_song_info/delete_song_like';
     }else{
       url ='/program/pro_song_info/add_song_like';
@@ -469,10 +475,11 @@ function loadPage(page) {
   play(page);
   loadLyr(page);
   //记录播放状态
-  // playing(page);
+  playing(page);
   time=setInterval(function () {
     playing(page);
-  }, 1000);
+   
+  }, 2000);
  // 动画头像
   //  let times = setInterval(function () {
   //   if (page.data.isPlaying) {

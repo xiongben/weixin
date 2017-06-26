@@ -21,9 +21,9 @@
     <view class="total_time">{{total_time}}</view>
     <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" disabled="true"/>
     <view class="controlBtnArea">
-      <image src="../../static/images/btn_reverse_pre.png" class="controlIcon" bindtap="prevSong" wx:if="{{showControl}}"></image>
+      <image src="../../static/images/btn_reverse_nor.png" class="controlIcon" bindtap="prevSong" wx:if="{{showControl}}"></image>
       <image src="../../static/images/btn_{{isPlaying?'pause':'play'}}_room_nor.png" class="controlPauseIcon" bindtap="playSong"></image>
-      <image src="../../static/images/btn_next_pre.png" class="controlIcon" bindtap="nextSong" wx:if="{{showControl}}"></image>
+      <image src="../../static/images/btn_next_nor.png" class="controlIcon" bindtap="nextSong" wx:if="{{showControl}}"></image>
     </view>
   </view>
 
