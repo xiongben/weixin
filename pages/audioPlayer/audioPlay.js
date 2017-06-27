@@ -40,30 +40,21 @@ Page({
       console.log(options);
       if (options.id == "all") {
         let index = options.index;
-        // let playlist = wx.getStorageSync('playlist');
-        // let listsrc = wx.getStorageSync('listsrc');
         let listsrc = options.url;
-        // playlist=JSON.parse(playlist);
         listsrc = JSON.parse(listsrc);
         if (options.singerId){
           listsrc = listsrc + "?singerId=" + options.singerId;
+        } else if (options.sheetId){
+          listsrc = listsrc + "?id=" + options.sheetId;
         }
         // for(let i=0;i<playlist.length;i++){
         //    playlist[i].indexNum=i;
         //    playlist[i].cover = util.calcCenterImg(playlist[i].cover, 1, 1);
         // }
         this.setData({
-          // played_list: playlist,
           showControl: true,
           playIndex: index
         });
-        // console.log(this.data.played_list);
-        // this.setData({
-        //   item: this.data.played_list[index],
-        // });
-        // console.log(this.data.item);
-        // loadPage(this);
-        // this.getMoreList(listsrc, this.data.played_list);
         console.log(listsrc,index,);
         this.getMoreList(listsrc);
       }
@@ -335,7 +326,7 @@ Page({
       method: 'GET',
       data: {
         start: 0,
-        limit: limit
+        limit: limit,
       },
       success: function (res) {
         res = res.data;
@@ -346,6 +337,21 @@ Page({
             var newplayed_list = res.data.list;
             for (let i = 0; i < newplayed_list.length; i++) {
               newplayed_list[i].indexNum = i;
+              newplayed_list[i].cover = util.calcCenterImg(newplayed_list[i].cover, 1, 1);
+            }
+            this.setData({
+              played_list: newplayed_list
+            })
+            this.setData({
+              item: this.data.played_list[this.data.playIndex],
+            });
+            console.log(this.data.item);
+            loadPage(this);
+          }else if(res.data.songList){
+            var newplayed_list = res.data.songList;
+            for (let i = 0; i < newplayed_list.length; i++) {
+              newplayed_list[i].indexNum = i;
+              newplayed_list[i].cover = util.calcCenterImg(newplayed_list[i].cover, 1, 1);
             }
             this.setData({
               played_list: newplayed_list
@@ -356,7 +362,7 @@ Page({
             console.log(this.data.item);
             loadPage(this);
           }
-          // console.log(this.data.played_list);
+          
         }
         else {
           util.showError(res.msg);

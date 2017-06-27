@@ -94,17 +94,33 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/list/songDetails?id=' + res.target.dataset.songid,
-      success: function (data) {
-        console.log("分享成功");
-        this.shareSheetFn(res.target.dataset.songid);
-      },
-      fail: function (data) {
-        
+    if (this.data.type == 'favoriteList'){
+      let userInfo = wx.getStorageSync('userInfo');
+      userInfo = JSON.parse(userInfo);
+      return {
+        title: '我喜欢的歌曲',
+        path: '/pages/list/shareSongDetails?id=' + userInfo.id + '&token=' + userInfo.token,
+        success: function (data) {
+          console.log("分享成功");
+        },
+        fail: function (data) {
+
+        }
+      }
+    }else{
+      return {
+        title: '打榜歌曲',
+        path: '/pages/list/songDetails?id=' + res.target.dataset.songid,
+        success: function (data) {
+          console.log("分享成功");
+          this.shareSheetFn(res.target.dataset.songid);
+        },
+        fail: function (data) {
+
+        }
       }
     }
+    
   },
 
   /**
@@ -190,25 +206,17 @@ Page({
   },
   playSong:function(e){
     let index = e.currentTarget.dataset.index;
-    // let songinfo = this.data.musicianList;
-    // songinfo = JSON.stringify(songinfo);
     let listsrc = JSON.stringify(this.data.url);
-    // wx.setStorageSync('playlist', songinfo);
-    // wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&singerId=' + this.data.singerId+'&url=' + listsrc,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&sheetId=' + this.data.singerId+'&url=' + listsrc,
     })
   },
   playAll:function(){
     // console.log(this.data.musicianList);
     if (this.data.musicianList && this.data.musicianList.length != 0){
-      // let songinfo = this.data.musicianList;
-      // songinfo = JSON.stringify(songinfo);
       let listsrc = JSON.stringify(this.data.url);
-      // wx.setStorageSync('playlist', songinfo);
-      // wx.setStorageSync('listsrc', listsrc);
       wx.navigateTo({
-        url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc + '&singerId=' + this.data.singerId,
+        url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc + '&sheetId=' + this.data.singerId,
       })
     }else{
       wx.showToast({

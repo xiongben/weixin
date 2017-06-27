@@ -1,4 +1,6 @@
 // pages/list/shareSongDetails.js
+var util = require('../../utils/util.js');
+
 Page({
 
   /**
@@ -19,12 +21,16 @@ Page({
    */
   onLoad: function (options) {
     if(options){
-      let uid=options.uid;
-      let token=options.token;
+      // let userInfo = wx.getStorageSync('userInfo');
+      // userInfo = JSON.parse(userInfo);
+      // console.log(userInfo);
+      let uid = options.id;
+      let token = options.token;
       this.setData({
-        uid:uid,
+        uid: uid,
         token:token
-      })
+      });
+      this.getSheetInfo();
     }
   },
 
@@ -60,14 +66,17 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    wx.stopPullDownRefresh();
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    wx.showLoading({
+      title: '加载更多',
+    });
+    this.getSheetInfo("more");
   },
 
   /**
@@ -88,7 +97,9 @@ Page({
       data: {
         id: this.data.sheetId,
         start: this.data.start,
-        limit: this.data.limit
+        limit: this.data.limit,
+        uid:this.data.uid,
+        token:this.data.token
       },
       success: function (res) {
         res = res.data;
@@ -113,6 +124,13 @@ Page({
               musicianList: res.data.songList,
             });
           }
+          let imglist = this.data.musicianList;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            musicianList: imglist,
+          });
         }
         else {
           util.showError(res.msg);
@@ -120,4 +138,12 @@ Page({
       }.bind(this)
     })
   },
-})
+  playSong:function(e){
+    let index = e.currentTarget.dataset.index;
+    let id = this.data.musicianList[index].id;
+    wx.navigateTo({
+      url: '/pages/audioPlayer/audioPlay?id=' + id,
+    })
+  }
+});
+
