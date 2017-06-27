@@ -5,6 +5,7 @@ Page({
     start: 0,
     limit: 10,
     showDelet: false,
+    
   },
   onLoad: function (options) {
     if(options.type){
@@ -171,8 +172,15 @@ Page({
   },
   toSheetDetail:function(e){
     let id = e.currentTarget.dataset.id;
-    wx.navigateTo({
-      url: '/pages/list/songDetails?id=' + id,
-    })
+    if(this.data.type == 'mycreat'){
+      wx.navigateTo({
+        url: '/pages/list/songDetails?id=' + id + '&type=mycreat',
+      })
+    } else if (this.data.type == 'mycollect'){
+      wx.navigateTo({
+        url: '/pages/list/songDetails?id=' + id + '&type=common',
+      })
+    }
+   
   },
 })

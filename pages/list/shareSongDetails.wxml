@@ -1,26 +1,11 @@
-<!--pages/list/songDetails.wxml-->
+<!--pages/list/shareSongDetails.wxml-->
 <view class="container">
-  <view class="sheetDetailsInfo" wx:if="{{showheader}}">
-    <!--<image class="backImgArea" src="{{sheetInfo.cover}}"></image>-->
-    <view class="backImgArea">
-      <image class="backImg" src="{{sheetInfo.cover}}"></image>
-    </view>
-    <view class="filterBg"></view>
-    <view class="sheetName">{{sheetInfo.name}}</view>
-    <!--<image class="sheetPic" src="{{sheetInfo.cover}}"></image>-->
-    <image src="../../static/images/{{loveSongIf?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="loveSongIcon" catchtap="loveSong"></image>
-
-    <view class="loveSongNum">{{sheetInfo.collectionNum}}</view>
-    <image src="../../static/images/icon_share_me.png" class="shareSongIcon"></image>
-    <button class="shareButton" open-type="share" data-songid="{{sheetId}}"></button>
-    <view class="shareSongNum">{{sheetInfo.shareNum}}</view>
-  </view>
-  <view class="playAll">全部播放
-    <image src="../../static/images/btn_play_nor.png" class="playIcon" bindtap="playAll"></image>
+  <view class="playAll">分享歌单
+    <!--<image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
     <view class="btnArea" bindtap="manageSheet" wx:if="{{manageSheet}}">
       <text class="iconText">管理</text>
       <image src="../../static/images/btn_manage_pre.png" class="iconMore"></image>
-    </view>
+    </view>-->
   </view>
 
   <view class="musicList">

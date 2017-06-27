@@ -639,6 +639,37 @@ function lookBackMusicStatus(page){
     }
   })
 }
+//图片裁剪
+function calcCenterImg(s, rw, rh, v) {
+  var width = wx.getSystemInfoSync().windowWidth;
+  if (width > 540) { // 最大宽度
+    width = 540;
+  }
+  var rem = width / 3.75; // iPhone6比例  
+  if (String(s).indexOf('imageView2') > -1) {
+    return s;
+  }
+  var w = 3.75;
+  if (rw === '100%') {
+    rw = w;
+  }
+  if (rh === '100%') {
+    rh = w;
+  }
+
+  rw = ~~(rw * rem);
+  rh = ~~(rh * rem);
+
+  s += '?imageView2/' + (v || 1);
+
+  if (rw) {
+    s += '/w/%s'.printf(rw);
+  }
+  if (rh) {
+    s += '/h/%s'.printf(rh);
+  }
+  return s;
+};
 module.exports = {
   request: request,
   trim: trim,
@@ -661,5 +692,6 @@ module.exports = {
   timeToSeconds: timeToSeconds,
   setStorageUserInfo: setStorageUserInfo,
   sharefn: sharefn,
-  getBackMusic: getBackMusic
+  getBackMusic: getBackMusic,
+  calcCenterImg: calcCenterImg
 }

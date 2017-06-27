@@ -127,6 +127,13 @@ Page({
             });
             this.titleText(type, res.data);
           }
+          let imglist = this.data.musicianList;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            musicianList: imglist,
+          })
         }
         else {
           util.showError(res.msg);

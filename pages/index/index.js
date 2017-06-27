@@ -22,9 +22,6 @@ Page({
     this.getRecommendInfo("newSong");
     this.getRecommendInfo("recommendSong");
     this.getRecommendInfo("recommendList");
-    // let userInfo=util.getUserInfo();
-    // console.log(userInfo);
-    // util.test();
     util.setStorageUserInfo();
     
   },
@@ -33,6 +30,13 @@ Page({
       util.getBackMusic(this);
     }
     
+  },
+  onPullDownRefresh: function () {
+    console.log("reflesh");
+    this.getBannerImg();
+    this.getRecommendInfo("newSong");
+    this.getRecommendInfo("recommendSong");
+    this.getRecommendInfo("recommendList");
   },
   /**
   * 用户点击右上角分享
@@ -73,9 +77,13 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
+        wx.stopPullDownRefresh();
         res = res.data;
         // console.log(res);
         if (res.ret == 0) {
+          for (let j = 0; j < res.data.list.length; j++) {
+            res.data.list[j].cover = util.calcCenterImg(res.data.list[j].cover, 1, 1);
+          }
           let resArr = this.data.resultArr;
           resArr[type] = res.data.list;
           this.setData({
@@ -113,25 +121,27 @@ Page({
   },
   toNewSong: function (e) {
     let index = e.currentTarget.dataset.index;
-    let songlist = this.data.resultArr.newSong;
-    songlist = JSON.stringify(songlist);
+    // let songlist = this.data.resultArr.newSong;
+    // songlist = JSON.stringify(songlist);
     let listsrc = JSON.stringify('/program/pro_song_info/new_start_song_list');
-    wx.setStorageSync('playlist', songlist);
-    wx.setStorageSync('listsrc', listsrc);
+    // wx.setStorageSync('playlist', songlist);
+    // wx.setStorageSync('listsrc', listsrc);
+    console.log(listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
    
   },
   toRecommendSong: function (e) {
+    console.log('test iiiiiii');
     let index = e.currentTarget.dataset.index;
     let songinfo = this.data.resultArr.recommendSong;
     songinfo = JSON.stringify(songinfo);
     let listsrc = JSON.stringify('/program/pro_song_info/recommend_song_list');
-    wx.setStorageSync('playlist', songinfo);
-    wx.setStorageSync('listsrc', listsrc);
+    // wx.setStorageSync('playlist', songinfo);
+    // wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
   },
   getBannerImg: function () {
@@ -158,34 +168,6 @@ Page({
     })
   },
  
-  audioPlay:function(){
-    if (this.data.status == 1){
-      wx.pauseBackgroundAudio();
-      this.setData({
-        status: 0,
-      });
-      wx.getBackgroundAudioPlayerState({
-        success: function (res) {
-          console.log(res);
-        }
-      });
-    } else if (this.data.status == 0){
-      this.setData({
-        status: 1,
-      });
-      wx.playBackgroundAudio({
-        dataUrl: this.data.src,
-        success:function(res){
-          wx.getBackgroundAudioPlayerState({
-            success: function (res) {
-              console.log(res);
-            }
-          });
-        }
-      })
-    }
-    
-  },
   
  
 })

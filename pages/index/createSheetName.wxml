@@ -2,7 +2,7 @@
 <view class="container">
   <form bindsubmit="formSubmit">
    <view class="sheetNameArea">
-    <input type="text" class="sheetName" placeholder="歌单标题" name="sheetName" focus="true"/>
+    <input type="text" class="sheetName" placeholder="歌单名称" name="sheetName" focus="true"/>
   </view>
  
   <!--<view class="section section_gap sheetSet">

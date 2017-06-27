@@ -8,6 +8,7 @@ Page({
   data: {
     start:0,
     limit:10,
+    showShare:true,
   },
 
   /**
@@ -16,6 +17,11 @@ Page({
   onLoad: function (options) {
     if (options) {
       let id = options.id;
+      if (id == 'recentlyList') {
+        this.setData({
+          showShare: false
+        })
+      }
       this.setData({
         type:id
       })
@@ -24,6 +30,7 @@ Page({
         'recommendSong':'推荐歌曲',
         'newSong':'新歌发布'
       };
+      
       wx.setNavigationBarTitle({
         title: data[id]
       });
@@ -79,11 +86,11 @@ Page({
     return {
       title: '打榜歌曲',
       path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (res) {
+      success: function (data) {
         console.log("分享成功");
         util.sharefn(res.target.dataset.songid);
       },
-      fail: function (res) {
+      fail: function (data) {
         wx.showToast({
           title: '打榜失败',
         });
@@ -131,7 +138,7 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           if (!!more) {
             wx.hideLoading();
@@ -148,7 +155,7 @@ Page({
               });
             }
             
-            console.log(this.data.musicianList);
+            // console.log(this.data.musicianList);
           } else {
             this.setData({
               musicianList: res.data.list,
@@ -164,13 +171,13 @@ Page({
   
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
-    let playlist = this.data.musicianList;
-    playlist = JSON.stringify(playlist);
+    // let playlist = this.data.musicianList;
+    // playlist = JSON.stringify(playlist);
     let listsrc = JSON.stringify(this.data.url);
-    wx.setStorageSync('playlist', playlist);
-    wx.setStorageSync('listsrc', listsrc);
+    // wx.setStorageSync('playlist', playlist);
+    // wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
   },
   playAll:function(){
@@ -191,7 +198,7 @@ Page({
       });
       wx.getBackgroundAudioPlayerState({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
         }
       });
     } else if (this.data.status == 0) {

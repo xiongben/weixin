@@ -9,7 +9,7 @@
             <text class="iconText">管理</text>
             <image src="../../static/images/btn_manage_pre.png" class="iconMore"></image>
           </view>
-          <view class="btnArea" bindtap="addSheet">
+          <view class="btnArea" bindtap="addSheet" wx:if="{{type == 'mycollect'?false:true}}">
             <text class="iconText">添加</text>
             <image src="../../static/images/btn_add_pre.png" class="iconMore"></image>
           </view>

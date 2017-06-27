@@ -78,11 +78,11 @@ Page({
     return {
       title: '打榜歌曲',
       path: '/pages/list/monthWeekList?id=' + res.target.dataset.songid,
-      success: function (res) {
+      success: function (data) {
         util.sharefn(res.target.dataset.songid);
         console.log("分享成功");
       },
-      fail: function (res) {
+      fail: function (data) {
         wx.showToast({
           title: '打榜失败',
         });
@@ -145,7 +145,13 @@ Page({
               songList: res.data.list,
             })
           }
-
+          let imglist = this.data.songList;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            songList: imglist,
+          })
         }
         else {
           util.showError(res.msg);
@@ -156,13 +162,13 @@ Page({
   
   playSingle: function (e) {
     let index = e.currentTarget.dataset.index;
-    let songinfo = this.data.songList;
-    songinfo = JSON.stringify(songinfo);
-    let listsrc = JSON.stringify('/program/pro_list/singer_index_view?singerId=' + this.data.singerId);
-    wx.setStorageSync('playlist', songinfo);
-    wx.setStorageSync('listsrc', listsrc);
+    // let songinfo = this.data.songList;
+    // songinfo = JSON.stringify(songinfo);
+    let listsrc = JSON.stringify('/program/pro_list/singer_index_view');
+    // wx.setStorageSync('playlist', songinfo);
+    // wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc + '&singerId=' + this.data.singerId,
     })
   },
 })

@@ -108,6 +108,17 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.creatSheetName{
+  height:68rpx;
+  line-height:68rpx;
+  margin-top:45rpx;
+  font-size: 28rpx;
+  color:#e5d1a1;
+  width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .songSheetNum{
   height:30rpx;
   font-size:24rpx;

@@ -6,7 +6,8 @@
     <image src="../../static/images/{{status==1?'btn_pause_nor':'btn_play_nor'}}.png" class="myAudioBackBtn" catchtap="audioPlay"></image>
   </view>
   <view class="searchArea" bindtap="searchMusic">
-    <input type="text" class="searchMusic"  disabled="true" placeholder="搜索你感兴趣的歌曲"/>
+    <!--<input type="text" class="searchMusic"  disabled="true" placeholder="搜索你感兴趣的歌曲"/>-->
+    <view class="searchMusicText" bindtap="searchMusic">搜索你感兴趣的歌曲</view>
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
     <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
   </view>
@@ -20,15 +21,15 @@
     </swiper>
   </view>
   <view class="recommendSong">
-    <view class="modelTitle">推荐歌曲
-      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSong"></image>
+    <view class="modelTitle" bindtap="moreInfo" data-type="recommendSong">推荐歌曲
+      <image src="../../static/images/icon_more2.png" class="moreIcon" ></image>
     </view>
     <view class="musicList">
       <view class="audioLi" wx:for="{{resultArr.recommendSong}}" wx:key="idx">
         <view class="audioInfo">
           <view class="bottom-border"></view>
           <image class="infoImg" src="{{item.cover}}"></image>
-          <view class="audioPlayArea" data-index="{{index}}" bindtap="toRecommendSong">
+          <view class="audioPlayArea" data-index="{{index}}" catchtap="toRecommendSong">
             <view class="audioName">{{item.name}}</view>
             <view class="audioAuthor">{{item.singerName}}</view>
           </view>
@@ -42,14 +43,14 @@
     </view>
   </view>
   <view class="newSong">
-    <view class="modelTitle">新歌发布
-      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="newSong"></image>
+    <view class="modelTitle" bindtap="moreInfo" data-type="newSong">新歌发布
+      <image src="../../static/images/icon_more2.png" class="moreIcon" ></image>
     </view>
     <view class="audioLi" wx:for="{{resultArr.newSong}}" wx:key="idx" >
       <view class="audioInfo">
         <view class="bottom-border"></view>
         <image class="infoImg" src="{{item.cover}}"></image>
-        <view class="audioPlayArea" data-index="{{index}}" bindtap="toNewSong">
+        <view class="audioPlayArea" data-index="{{index}}" catchtap="toNewSong">
             <view class="audioName">{{item.name}}</view>
             <view class="audioAuthor">{{item.singerName}}</view>
           </view>
@@ -63,8 +64,8 @@
 
   </view>
   <view class="recommendSheet">
-    <view class="modelTitle">推荐歌单
-      <image src="../../static/images/icon_more2.png" class="moreIcon" bindtap="moreInfo" data-type="recommendSheet"></image>
+    <view class="modelTitle" bindtap="moreInfo" data-type="recommendSheet">推荐歌单
+      <image src="../../static/images/icon_more2.png" class="moreIcon" ></image>
     </view>
     <scroll-view scroll-x="true" class="scrollView">
       <view class="newSongArea" bindtap="toRecommendSheet" wx:for="{{resultArr.recommendList}}" wx:key="idx" data-id="{{item.id}}">

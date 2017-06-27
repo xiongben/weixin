@@ -76,10 +76,10 @@ Page({
       return {
         title: '打榜歌曲',
         path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-        success: function (res) {
+        success: function (data) {
           util.sharefn(res.target.dataset.songid);
         },
-        fail: function (res) {
+        fail: function (data) {
           wx.showToast({
             title: '打榜失败',
           });
@@ -198,6 +198,13 @@ Page({
               })
               console.log(this.data.list);
             }
+            let imglist = this.data.list;
+            for (let j = 0; j < imglist.length; j++) {
+              imglist[j].cover = util.calcCenterImg(imglist[j].cover,0.8, 0.8);
+            }
+            this.setData({
+              list: imglist,
+            })
           }else{
             wx.showToast({
               title: '没有更多了',

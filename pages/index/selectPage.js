@@ -342,11 +342,11 @@ Page({
   // },
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
-    let songinfo = this.data.resultArr[0][index];
-    songinfo = JSON.stringify(songinfo);
-    wx.setStorageSync('singleinfo', songinfo);
+    let id = this.data.resultArr[0][index].id;
+    // songinfo = JSON.stringify(songinfo);
+    // wx.setStorageSync('singleinfo', songinfo);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=single',
+      url: '/pages/audioPlayer/audioPlay?id='+id,
     })
   },
   toSingerDetail: function (e) {

@@ -1,4 +1,4 @@
-/* pages/list/songDetails.wxss */
+/* pages/list/shareSongDetails.wxss */
 .sheetDetailsInfo{
   width:750rpx;
   height:420rpx;
@@ -230,28 +230,4 @@
 
 .hide {
   display: none;
-}
-
-.iconText{
-  float:right;
-  color:#e5d1a1;
-  font-size:30rpx;
-  margin:0 20rpx 0 0;
-}
-.btnArea{
-  float:right;
-}
-.iconMore {
-  float: right;
-  width: 45rpx;
-  height: 45rpx;
-  margin: 18rpx 5rpx 0 0;
-}
-.deleteIcon{
-  width:30rpx;
-  height:30rpx;
-  position: absolute;
-  right:30rpx;
-  top:45rpx;
-  z-index: 10;
 }

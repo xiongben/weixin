@@ -1,5 +1,6 @@
 {
   "pages":[
+    
     "pages/index/index",
     "pages/index/selectPage",
     "pages/mine/myPage",    
@@ -9,6 +10,7 @@
     "pages/list/recommendSheet",
     "pages/list/recommendSongs",
     "pages/list/songDetails",
+    "pages/list/shareSongDetails",
     "pages/musician/musicianWeekList",
     "pages/musician/musicianRankingList",
     "pages/musician/musicianRankingDetail",
@@ -23,7 +25,7 @@
     "navigationBarBackgroundColor": "#222",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"#fff",
-    "enablePullDownRefresh": false
+    "enablePullDownRefresh": true
   },
   "tabBar": {
     "position": "bottom",

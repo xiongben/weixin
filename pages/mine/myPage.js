@@ -118,7 +118,7 @@ Page({
   },
   favoriteList:function(e){
     let type = e.currentTarget.dataset.type;
-    wx.navigateTo({ url: '/pages/list/songDetails?id=' + type });
+    wx.navigateTo({ url: '/pages/list/songDetails?type=' + type });
   },
   creatSheet: function () {
     let id = "1";
@@ -169,7 +169,7 @@ Page({
   toSheetDetail:function(e){
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/list/songDetails?id=' + id,
+      url: '/pages/list/songDetails?id=' + id +'&type=mycreat',
     })
   },
   audioPlay: function () {

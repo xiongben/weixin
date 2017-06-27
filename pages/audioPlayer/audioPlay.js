@@ -1,13 +1,13 @@
 // pages/audioPlayer/audioPlay.js
 var util = require('../../utils/util.js');
-var time;
+var time=null;
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    showControl:false,
+    showControl: false,
     lyricArr: [],
     timeArr: [],
     showArr: [],
@@ -28,51 +28,58 @@ Page({
     is_show_lyr: false,
     is_show_played: false,
     item: {},
-    loveSongIf:false,
-    noLyric:true,
+    loveSongIf: false,
+    noLyric: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options){
+    if (options) {
       console.log(options);
-      if(options.id =="all"){
-        let index=options.index;
-        let playlist = wx.getStorageSync('playlist');
-        let listsrc = wx.getStorageSync('listsrc');
-        playlist=JSON.parse(playlist);
+      if (options.id == "all") {
+        let index = options.index;
+        // let playlist = wx.getStorageSync('playlist');
+        // let listsrc = wx.getStorageSync('listsrc');
+        let listsrc = options.url;
+        // playlist=JSON.parse(playlist);
         listsrc = JSON.parse(listsrc);
-        
-        for(let i=0;i<playlist.length;i++){
-           playlist[i].indexNum=i;
+        if (options.singerId){
+          listsrc = listsrc + "?singerId=" + options.singerId;
         }
+        // for(let i=0;i<playlist.length;i++){
+        //    playlist[i].indexNum=i;
+        //    playlist[i].cover = util.calcCenterImg(playlist[i].cover, 1, 1);
+        // }
         this.setData({
-          played_list: playlist,
-          showControl:true,
+          // played_list: playlist,
+          showControl: true,
+          playIndex: index
         });
-        console.log(this.data.played_list);
-        this.setData({
-          item: this.data.played_list[index],
-        });
-        console.log(this.data.item);
-        loadPage(this);
-        this.getMoreList(listsrc, this.data.played_list);
+        // console.log(this.data.played_list);
+        // this.setData({
+        //   item: this.data.played_list[index],
+        // });
+        // console.log(this.data.item);
+        // loadPage(this);
+        // this.getMoreList(listsrc, this.data.played_list);
+        console.log(listsrc,index,);
+        this.getMoreList(listsrc);
       }
-       else if (options.id == "single"){
-        let singleinfo = wx.getStorageSync('singleinfo');
-        singleinfo = JSON.parse(singleinfo);
-        console.log(singleinfo);
-        this.setData({
-          item: singleinfo,
-        });
-        loadPage(this);
-      }else{
+      else if (options.id == "single") {
+        // let singleinfo = wx.getStorageSync('singleinfo');
+        // singleinfo = JSON.parse(singleinfo);
+        // this.getIdSong(options.id);
+        // this.setData({
+        //   item: singleinfo,
+        // });
+        // loadPage(this);
+      } else {
         this.getIdSong(options.id);
       }
     }
-    
+
   },
 
   /**
@@ -109,14 +116,14 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-     console.log("下拉动作");
+    console.log("下拉动作");
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-      console.log("上拉动作");
+    console.log("上拉动作");
   },
 
   /**
@@ -127,11 +134,11 @@ Page({
     return {
       title: '打榜歌曲',
       path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (res) {
+      success: function (data) {
         console.log("分享成功");
         util.sharefn(res.target.dataset.songid);
       },
-      fail: function (res) {
+      fail: function (data) {
         wx.showToast({
           title: '打榜失败',
         });
@@ -150,7 +157,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh();
   },
   //展示播放过的列表
   showPlayed: function () {
@@ -160,7 +167,7 @@ Page({
     })
   },
   //删除所有歌曲
-    delAllSong: function () {
+  delAllSong: function () {
     this.setData({
       played_list: []
     })
@@ -175,7 +182,7 @@ Page({
         this.setData({
           item: ele,
           is_show_played: false,
-          current:0
+          current: 0
         })
         clearInterval(time);
         console.log(this.data.item);
@@ -196,7 +203,7 @@ Page({
       })
     }
   },
-  
+
   createArrMap: function (lyric) {
     var timeArr = [],
       lyricArr = [];
@@ -246,7 +253,7 @@ Page({
     }
     IrcHighIndex++;
   },
- 
+
   //播放暂停
   playSong: function () {
     if (!this.data.isPlaying) {
@@ -258,14 +265,14 @@ Page({
       })
     }
   },
- // 拖动滚动条
-  // changeSongPross: function (e) {
-  //   this.setData({
-  //     current: e.detail.value,
-  //     cur_time: util.formate(e.detail.value)
-  //   })
-  //   play(this)
-  // },
+  // 拖动滚动条
+  changeSongPross: function (e) {
+    this.setData({
+      current: e.detail.value,
+      cur_time: util.formate(e.detail.value)
+    })
+    play(this)
+  },
   //前一首歌曲
   prevSong: function () {
     var ele;
@@ -273,8 +280,8 @@ Page({
       if (this.data.played_list[i].indexNum == this.data.item.indexNum) {
         if (i != 0) {
           // this.data = Object.assign(this.data, initData)
-           ele = this.data.played_list[i - 1];
-        }else{
+          ele = this.data.played_list[i - 1];
+        } else {
           ele = this.data.played_list[i];
           wx.showToast({
             title: '已是第一首',
@@ -286,7 +293,7 @@ Page({
     }
     this.setData({
       item: ele,
-      current:0
+      current: 0
     })
     clearInterval(time);
     loadPage(this);
@@ -299,8 +306,8 @@ Page({
       if (this.data.played_list[i].indexNum == this.data.item.indexNum) {
         if (i != l - 1) {
           // this.data = Object.assign(this.data)
-           ele = this.data.played_list[i + 1];
-        }else{
+          ele = this.data.played_list[i + 1];
+        } else {
           ele = this.data.played_list[i];
           wx.showToast({
             title: '已是最后一首',
@@ -312,42 +319,44 @@ Page({
     }
     this.setData({
       item: ele,
-      current:0
+      current: 0
     })
     clearInterval(time);
     console.log(this.data.item);
     loadPage(this)
   },
 
-  getMoreList:function(url,list){
-    let start=list.length;
-    let limit=100;
+  getMoreList: function (url, list) {
+    // let start=list.length;
+    console.log("zhixinqiuqiu");
+    let limit = 100;
     util.request(url, {
       withToken: true,
       method: 'GET',
       data: {
-        start:start,
-        limit:limit
+        start: 0,
+        limit: limit
       },
       success: function (res) {
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
-          if (res.data.list){
-            var newplayed_list = this.data.played_list.concat(res.data.list);
+          if (res.data.list) {
+            // var newplayed_list = this.data.played_list.concat(res.data.list);
+            var newplayed_list = res.data.list;
             for (let i = 0; i < newplayed_list.length; i++) {
-                newplayed_list[i].indexNum = i;
-                this.setData({
-                  played_list: newplayed_list
-                })
-
+              newplayed_list[i].indexNum = i;
             }
+            this.setData({
+              played_list: newplayed_list
+            })
+            this.setData({
+              item: this.data.played_list[this.data.playIndex],
+            });
+            console.log(this.data.item);
+            loadPage(this);
           }
-          
-          console.log(newplayed_list);
-          
-         
-          console.log(this.data.played_list);
+          // console.log(this.data.played_list);
         }
         else {
           util.showError(res.msg);
@@ -355,12 +364,12 @@ Page({
       }.bind(this)
     })
   },
-  getIdSong:function(id){
+  getIdSong: function (id) {
     util.request('/program/pro_song_info/get_song_info', {
-      withToken:false,
+      withToken: false,
       method: 'GET',
       data: {
-        id:id
+        id: id
       },
       success: function (res) {
         res = res.data;
@@ -376,16 +385,18 @@ Page({
       }.bind(this)
     })
   },
-  loveSong:function(e){
+  loveSong: function (e) {
     let id = this.data.item.id;
+    let newItem = this.data.item;
+    newItem.isLike = !newItem.isLike;
     this.setData({
-      loveSongIf:!this.data.loveSongIf
+      item: newItem
     });
     let url;
-    if (!this.data.loveSongIf){
-      url ='/program/pro_song_info/delete_song_like';
-    }else{
-      url ='/program/pro_song_info/add_song_like';
+    if (!this.data.item.isLike) {
+      url = '/program/pro_song_info/delete_song_like';
+    } else {
+      url = '/program/pro_song_info/add_song_like';
     }
     util.request(url, {
       withToken: true,
@@ -403,19 +414,19 @@ Page({
         }
       }.bind(this)
     })
-    
+
   },
- 
-  collectSong:function(e){
+
+  collectSong: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: '/pages/index/addToSheet?songid='+id,
+      url: '/pages/index/addToSheet?songid=' + id,
     })
   },
 });
 
 function play(page) {
-  console.log(page.data.current);
+  // console.log(page.data.current);
   wx.playBackgroundAudio({
     dataUrl: page.data.item.music,
     // coverImgUrl:page.data.item.cover,
@@ -423,7 +434,7 @@ function play(page) {
       wx.seekBackgroundAudio({
         position: page.data.current,
       });
-      let playSongInfo={
+      let playSongInfo = {
         cover: page.data.item.cover,
         name: page.data.item.name,
         singer: page.data.item.singerName
@@ -454,16 +465,21 @@ function playing(page) {
           current: res.currentPosition,
           cur_time: util.formate(res.currentPosition)
         })
-        // scrollLyr(page)
+        if (page.data.duration - page.data.current <= 1) {
+          page.setData({
+            current: 0,
+          });
+          page.nextSong();
+        }
       }
       //循环播放,这里存在bug，差值可能为1
       // console.log(page.data.duration+":"+page.data.current);
-      if (page.data.duration - page.data.current <= 1) {
+      if (page.data.duration - page.data.current <= 1){
         page.setData({
           current: 0,
         });
-        page.nextSong();
       }
+      
     }
   })
 }
@@ -476,24 +492,26 @@ function loadPage(page) {
   loadLyr(page);
   //记录播放状态
   playing(page);
-  time=setInterval(function () {
+  if (time != null) {
+    clearInterval(time);
+  }
+  time = setInterval(function () {
     playing(page);
-   
   }, 2000);
- // 动画头像
+  // 动画头像
   //  let times = setInterval(function () {
   //   if (page.data.isPlaying) {
   //     animation(page)
   //   }
   // }, 20);
-  
+
   wx.setNavigationBarTitle({
     title: page.data.item.name,
   })
 }
 
 function animation(page) {
-  var angle = page.data.angle +1;
+  var angle = page.data.angle + 1;
   page.setData({
     angle: angle
   })
@@ -502,10 +520,10 @@ function animation(page) {
 //加载歌词
 function loadLyr(page) {
   let lyric = page.data.item.lyrics;
-    page.setData({
-      noLyric: lyric == "",
-    });
-  
+  page.setData({
+    noLyric: lyric == "",
+  });
+
   var timeArr = [],
     lyricArr = [];
   var tempArr = lyric.split("\n");
@@ -527,10 +545,10 @@ function loadLyr(page) {
   page.setData({
     lyricArr: lyricArr
   })
-  
+
 }
 
-function countRecentTime(page){
+function countRecentTime(page) {
   util.request('/program/pro_song_info/add_song_play', {
     withToken: true,
     method: 'POST',
