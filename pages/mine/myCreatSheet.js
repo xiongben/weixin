@@ -57,7 +57,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -152,7 +152,12 @@ Page({
     })
   },
   deleteSheetFn: function (id) {
-    util.request('/program/pro_song/delete_song', {
+    let urlArr = {
+      mycreat: '/program/pro_song/delete_song',
+      mycollect: '/program/pro_song/delete_song_collect'
+    }
+    let url = urlArr[this.data.type];
+    util.request(url, {
       withToken: true,
       method: 'POST',
       data: {

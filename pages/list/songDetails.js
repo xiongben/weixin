@@ -85,7 +85,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
+    this.getSheetInfo(this.data.sheetId, this.data.type);
   },
 
 
@@ -93,34 +93,34 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    let that = this;
-    if (this.data.type == 'favoriteList'){
-      let userInfo = wx.getStorageSync('userInfo');
-      userInfo = JSON.parse(userInfo);
-      return {
-        title: '我喜欢的歌曲',
-        path: '/pages/list/shareSongDetails?id=' + userInfo.id + '&token=' + userInfo.token,
-        success: function (data) {
-          console.log("分享成功");
-        },
-        fail: function (data) {
+    let that = this
+      if (this.data.type == 'favoriteList') {
+        let userInfo = wx.getStorageSync('userInfo');
+        userInfo = JSON.parse(userInfo);
+        return {
+          title: '我喜欢的歌曲',
+          path: '/pages/list/shareSongDetails?id=' + userInfo.id + '&token=' + userInfo.token,
+          success: function (data) {
+            console.log("分享成功");
+          },
+          fail: function (data) {
 
+          }
+        }
+      } else {
+        return {
+          title: '打榜歌曲',
+          path: '/pages/list/songDetails?id=' + res.target.dataset.songid,
+          success: function (data) {
+            console.log("分享成功");
+            this.shareSheetFn(this.data.sheetId);
+            
+          },
+          fail: function (data) {
+
+          }
         }
       }
-    }else{
-      return {
-        title: '打榜歌曲',
-        path: '/pages/list/songDetails?id=' + res.target.dataset.songid,
-        success: function (data) {
-          console.log("分享成功");
-          this.shareSheetFn(res.target.dataset.songid);
-        },
-        fail: function (data) {
-
-        }
-      }
-    }
-    
   },
 
   /**
@@ -167,6 +167,7 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
+          wx.stopPullDownRefresh();
           if (!!more) {
             wx.hideLoading();
             if (res.data) {
@@ -191,11 +192,15 @@ Page({
             
           }
           let imglist = this.data.musicianList;
+          let imgBanner = this.data.sheetInfo;
+
           for (let j = 0; j < imglist.length; j++) {
             imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
           }
+          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 1, 1);
           this.setData({
             musicianList: imglist,
+            sheetInfo: imgBanner
           })
         }
         else {
@@ -271,11 +276,12 @@ Page({
         res = res.data;
         if (res.ret == 0) {
           console.log("分享成功");
+          this.getSheetInfo(this.data.sheetId, this.data.type);
         }
         else {
           wx.showError(res.msg);
         }
-      }
+      }.bind(this)
     })
   },
   manageSheet: function () {

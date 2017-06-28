@@ -102,7 +102,9 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getRankingInfo('week');
+    this.getRankingInfo('month');
+    this.getMusicianList();
   },
   bindChange: function (e) {
     var that = this;
@@ -121,6 +123,7 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
+        wx.stopPullDownRefresh();
         res = res.data;
         if (res.ret == 0) {
           if (param == "week") {
@@ -132,7 +135,13 @@ Page({
               monthrankInfo: res.data.list
             })
           }
-
+          let imglist = this.data.monthrankInfo;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            monthrankInfo: imglist,
+          })
         }
         else {
           util.showError(res.msg);
@@ -176,6 +185,13 @@ Page({
               musicianList: res.data,
             });
           }
+          let imglist = this.data.musicianList;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            musicianList: imglist,
+          })
 
         }
         else {

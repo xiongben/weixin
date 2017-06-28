@@ -110,6 +110,15 @@
   width:30rpx;
   height:30rpx;
   position: absolute;
-  right:30rpx;
+  right:25rpx;
   top:64rpx;
+}
+.deleteIconArea{
+  width:80rpx;
+  height:158rpx;
+  position: absolute;
+  right:5rpx;
+  top:0;
+  z-index: 10;
+  /*background:red;*/
 }

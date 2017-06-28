@@ -23,7 +23,10 @@
     <view class="songSheetInfo">
       <view class="songSheetName">{{item.name}}</view>
       <view class="songSheetNum">{{item.total}}首</view>
-      <image src="../../static/images/btn_Clear_pre.png" class="deleteIcon" wx:if="{{showDelet}}" catchtap="deleteSheet" data-id="{{item.id}}"></image>
+      <view class="deleteIconArea" wx:if="{{showDelet}}" catchtap="deleteSheet" data-id="{{item.id}}">
+           <image src="../../static/images/btn_Clear_pre.png" class="deleteIcon" ></image>
+        </view>
+     
     </view>
   </view>
 </view>

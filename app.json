@@ -58,6 +58,7 @@
         "iconPath": "static/images/btn_me_nor.png",
         "selectedIconPath": "static/images/btn_me_hl.png"
       }
+      
     ]
   }
 }

@@ -597,20 +597,13 @@ function sharefn(id){
       })
 }
 
-function getBackMusic(page){
-  if (backTime){
-    clearInterval(backTime);
-  }
-  let backTime = setInterval(function () {
-    lookBackMusicStatus(page);
-  }, 5000);
-  // lookBackMusicStatus(page);
-}
+
 
 function lookBackMusicStatus(page){
+  console.log(page);
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
-      // console.log("后台有音乐哦");
+      console.log("后台有音乐哦");
       var status = res.status;
       var dataUrl = res.dataUrl;
       var duration = res.duration;
@@ -692,6 +685,6 @@ module.exports = {
   timeToSeconds: timeToSeconds,
   setStorageUserInfo: setStorageUserInfo,
   sharefn: sharefn,
-  getBackMusic: getBackMusic,
+  lookBackMusicStatus: lookBackMusicStatus,
   calcCenterImg: calcCenterImg
 }

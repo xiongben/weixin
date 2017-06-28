@@ -6,10 +6,8 @@
   position: relative;
 }
 .backImgArea{
-  width:100%;
-  height:100%;
-  /*background:greenyellow;*/
-  /*filter: blur(5px);*/
+  width:750rpx;
+  height:420rpx;
   position: absolute;
   left:0;
   top:0;
@@ -17,7 +15,8 @@
   overflow: hidden;
 }
 .backImg{
-  width:100%;
+  width:750rpx;
+  height:750rpx;
 }
 .filterBg{
   background: rgba(0,0,0,0.3);
@@ -40,9 +39,9 @@
 .sheetName{
   position:absolute;
   z-index:5;
-  left:300rpx;
+  left:0;
   top:140rpx;
-  width:440rpx;
+  width:750rpx;
   height:60rpx;
   line-height:60rpx;
   font-size:36rpx;
@@ -51,6 +50,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  text-align: center;
 }
 .loveSongIcon,.shareSongIcon{
   width:48rpx;
@@ -251,7 +251,16 @@
   width:30rpx;
   height:30rpx;
   position: absolute;
-  right:30rpx;
+  right:20rpx;
   top:45rpx;
+  
+}
+.deleteIconArea{
+  width:80rpx;
+  height:119rpx;
+  position: absolute;
+  right:10rpx;
+  top:0rpx;
   z-index: 10;
+  /*background:red;*/
 }

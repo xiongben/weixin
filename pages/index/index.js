@@ -2,7 +2,7 @@
 //获取应用实例
 var app = getApp();
 var util = require('../../utils/util.js');
-
+var backTime;
 Page({
   data: {
     imgUrls: [],
@@ -26,10 +26,20 @@ Page({
     
   },
   onShow: function () {
-    if (!this.data.src){
-      util.getBackMusic(this);
-    }
-    
+    // if (!this.data.src){
+    //   util.getBackMusic(this);
+    // }
+    clearInterval(backTime);
+    wx.getBackgroundAudioPlayerState({
+      success: function (res) {
+        if(res && res.status == 1){
+          backTime=setInterval(function(){
+            util.lookBackMusicStatus(this);
+          },5000) ;
+          
+        }
+      }.bind(this)
+    })
   },
   onPullDownRefresh: function () {
     console.log("reflesh");
@@ -133,7 +143,6 @@ Page({
    
   },
   toRecommendSong: function (e) {
-    console.log('test iiiiiii');
     let index = e.currentTarget.dataset.index;
     let songinfo = this.data.resultArr.recommendSong;
     songinfo = JSON.stringify(songinfo);
@@ -167,7 +176,34 @@ Page({
       }.bind(this)
     })
   },
- 
+  audioPlay: function () {
+    if (this.data.status == 1) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        status: 0,
+      });
+      wx.getBackgroundAudioPlayerState({
+        success: function (res) {
+          console.log(res);
+        }
+      });
+    } else if (this.data.status == 0) {
+      this.setData({
+        status: 1,
+      });
+      wx.playBackgroundAudio({
+        dataUrl: this.data.src,
+        success: function (res) {
+          wx.getBackgroundAudioPlayerState({
+            success: function (res) {
+              console.log(res);
+            }
+          });
+        }
+      })
+    }
+
+  },
   
  
 })

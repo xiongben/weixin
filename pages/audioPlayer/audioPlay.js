@@ -1,6 +1,6 @@
 // pages/audioPlayer/audioPlay.js
 var util = require('../../utils/util.js');
-var time=null;
+var time;
 Page({
 
   /**
@@ -14,7 +14,7 @@ Page({
     lrcHighIndex: 0,
     currentPosition: 0,
     status: 0,
-    isPlaying: false,
+    isPlaying: true,
     song_lyr: [],
     cur_time: "0:00",
     total_time: "0:00",
@@ -42,31 +42,21 @@ Page({
         let index = options.index;
         let listsrc = options.url;
         listsrc = JSON.parse(listsrc);
-        if (options.singerId){
+        if (options.singerId) {
           listsrc = listsrc + "?singerId=" + options.singerId;
-        } else if (options.sheetId){
+        } else if (options.sheetId) {
           listsrc = listsrc + "?id=" + options.sheetId;
         }
-        // for(let i=0;i<playlist.length;i++){
-        //    playlist[i].indexNum=i;
-        //    playlist[i].cover = util.calcCenterImg(playlist[i].cover, 1, 1);
-        // }
+
         this.setData({
           showControl: true,
           playIndex: index
         });
-        console.log(listsrc,index,);
+        
         this.getMoreList(listsrc);
       }
-      else if (options.id == "single") {
-        // let singleinfo = wx.getStorageSync('singleinfo');
-        // singleinfo = JSON.parse(singleinfo);
-        // this.getIdSong(options.id);
-        // this.setData({
-        //   item: singleinfo,
-        // });
-        // loadPage(this);
-      } else {
+      else {
+        // this.audioCtx = wx.createAudioContext('myAudio');
         this.getIdSong(options.id);
       }
     }
@@ -77,16 +67,14 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    // wx.setNavigationBarTitle({
-    //   title:this.data.item.songName,
-    // })
+    
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    // this.audioCtx = wx.createAudioContext('myAudio');
   },
 
   /**
@@ -150,13 +138,16 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
   },
-  //展示播放过的列表
-  showPlayed: function () {
-    var flag = this.data.is_show_played;
-    this.setData({
-      is_show_played: !flag
-    })
-  },
+  //test--------
+  // timechange:function(data){
+  //   // console.log(data);
+  //     this.setData({
+  //       duration: parseInt(data.detail.duration),
+  //       total_time: util.formate(data.detail.duration),
+  //       current: parseInt(data.detail.currentTime),
+  //       cur_time: util.formate(data.detail.currentTime)
+  //     });
+  // },
   //删除所有歌曲
   delAllSong: function () {
     this.setData({
@@ -175,9 +166,10 @@ Page({
           is_show_played: false,
           current: 0
         })
-        clearInterval(time);
-        console.log(this.data.item);
-        loadPage(this);
+        // clearInterval(time);
+        // console.log(this.data.item);
+        // loadPage(this);
+        this.play();
       }
     })
   },
@@ -248,7 +240,7 @@ Page({
   //播放暂停
   playSong: function () {
     if (!this.data.isPlaying) {
-      play(this);
+      this.play();
     } else {
       wx.pauseBackgroundAudio({})
       this.setData({
@@ -262,7 +254,8 @@ Page({
       current: e.detail.value,
       cur_time: util.formate(e.detail.value)
     })
-    play(this)
+    this.audioCtx.seek(e.detail.value);
+    // play(this)
   },
   //前一首歌曲
   prevSong: function () {
@@ -287,7 +280,8 @@ Page({
       current: 0
     })
     clearInterval(time);
-    loadPage(this);
+    // loadPage(this);
+    this.play();
   },
   //下一首歌曲
   nextSong: function () {
@@ -313,13 +307,15 @@ Page({
       current: 0
     })
     clearInterval(time);
-    console.log(this.data.item);
-    loadPage(this)
+    // console.log(this.data.item);
+    // loadPage(this)
+    this.play();
   },
-
+  songEnd:function(){
+    this.nextSong();
+  },
   getMoreList: function (url, list) {
-    // let start=list.length;
-    console.log("zhixinqiuqiu");
+    console.log(this.audioCtx);
     let limit = 100;
     util.request(url, {
       withToken: true,
@@ -346,8 +342,9 @@ Page({
               item: this.data.played_list[this.data.playIndex],
             });
             console.log(this.data.item);
-            loadPage(this);
-          }else if(res.data.songList){
+            // loadPage(this);
+           this.play();
+          } else if (res.data.songList) {
             var newplayed_list = res.data.songList;
             for (let i = 0; i < newplayed_list.length; i++) {
               newplayed_list[i].indexNum = i;
@@ -360,9 +357,10 @@ Page({
               item: this.data.played_list[this.data.playIndex],
             });
             console.log(this.data.item);
-            loadPage(this);
+            this.play();
+            // loadPage(this);
           }
-          
+
         }
         else {
           util.showError(res.msg);
@@ -383,7 +381,7 @@ Page({
           this.setData({
             item: res.data,
           });
-          loadPage(this);
+          this.play();
         }
         else {
           util.showError(res.msg);
@@ -422,42 +420,61 @@ Page({
     })
 
   },
-
+  showPlayed: function () {
+    var flag = this.data.is_show_played;
+    this.setData({
+      is_show_played: !flag
+    })
+  },
   collectSong: function (e) {
     let id = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: '/pages/index/addToSheet?songid=' + id,
     })
   },
+  play:function() {
+    wx.playBackgroundAudio({
+      dataUrl: this.data.item.music,
+      success: function (res) {
+        wx.seekBackgroundAudio({
+          position: this.data.current,
+        });
+      }.bind(this)
+    })
+    // this.audioCtx = wx.createAudioContext('myAudio');
+    // this.audioCtx.setSrc(this.data.item.music);
+    this.setData({
+      isPlaying: true,
+    })
+    clearInterval(time);
+    let page=this;
+  time = setInterval(function () {
+    playing(page);
+  }, 2000);
+    // this.audioCtx.play();
+    // const backgroundAudioManager = wx.getBackgroundAudioManager();
+    // backgroundAudioManager.src =this.data.item.music;
+    // backgroundAudioManager.play();
+    loadLyr(this);
+}
 });
 
-function play(page) {
-  // console.log(page.data.current);
-  wx.playBackgroundAudio({
-    dataUrl: page.data.item.music,
-    // coverImgUrl:page.data.item.cover,
-    success: function (res) {
-      wx.seekBackgroundAudio({
-        position: page.data.current,
-      });
-      let playSongInfo = {
-        cover: page.data.item.cover,
-        name: page.data.item.name,
-        singer: page.data.item.singerName
-      };
-      playSongInfo = JSON.stringify(playSongInfo);
-      wx.setStorageSync('playSongInfo', playSongInfo);
-      // page.globalData.playSongInfo = playSongInfo;
-    }
-  })
-  page.setData({
-    isPlaying: true,
-  })
-}
+// function play(page) {
+//   page.audioCtx = wx.createAudioContext('myAudio');
+//   page.audioCtx.setSrc(this.data.item.music);
+//   page.setData({
+//     isPlaying: true,
+//   })
+//   setTimeout(function(){
+//     page.audioCtx.play();
+//   },2000);
+  
+// }
 
 //播放中
 function playing(page) {
-  // console.log("playing执行吃书");
+  console.log("playing执行吃书");
+  
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       if (!page.data.duration) {
@@ -478,43 +495,37 @@ function playing(page) {
           page.nextSong();
         }
       }
-      //循环播放,这里存在bug，差值可能为1
+      //循环播放,
       // console.log(page.data.duration+":"+page.data.current);
-      if (page.data.duration - page.data.current <= 1){
+      if (page.data.duration - page.data.current <= 1) {
         page.setData({
           current: 0,
         });
       }
-      
+
     }
   })
 }
 
-function loadPage(page) {
-  // console.log("loadpage执行吃书");
-  countRecentTime(page)
-  //播放
-  play(page);
-  loadLyr(page);
-  //记录播放状态
-  playing(page);
-  if (time != null) {
-    clearInterval(time);
-  }
-  time = setInterval(function () {
-    playing(page);
-  }, 2000);
-  // 动画头像
-  //  let times = setInterval(function () {
-  //   if (page.data.isPlaying) {
-  //     animation(page)
-  //   }
-  // }, 20);
+// function loadPage(page) {
+//   console.log("loadpage执行吃书");
+//   countRecentTime(page)
+//   播放
+//   play(page);
+//   loadLyr(page);
+//   记录播放状态
+//   playing(page);
+//   clearInterval(time);
+  
+//   time = setInterval(function () {
+//     playing(page);
+//   }, 2000);
+ 
 
-  wx.setNavigationBarTitle({
-    title: page.data.item.name,
-  })
-}
+//   wx.setNavigationBarTitle({
+//     title: page.data.item.name,
+//   })
+// }
 
 function animation(page) {
   var angle = page.data.angle + 1;

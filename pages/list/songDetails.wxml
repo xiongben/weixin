@@ -30,11 +30,11 @@
         <image class="infoImg" src="{{item.cover}}"></image>
         <view class="audioName">{{item.name}}</view>
         <view class="audioAuthor">{{item.singerName}}</view>
-        <image src="../../static/images/btn_Clear_pre.png" class="deleteIcon" wx:if="{{showDelet}}" catchtap="deleteSong" data-id="{{item.id}}"></image>
-        <!--<view class="shareIconArea" catchtap="shareSong" data-songid="{{item.id}}">
-        <image src="../../static/images/icon_hit_pre.png" class="shareIcon"></image>
-        <view class="shareText">打榜</view>
-       </view>-->
+        <view class="deleteIconArea" wx:if="{{showDelet}}" catchtap="deleteSong" data-id="{{item.id}}">
+          <image src="../../static/images/btn_Clear_pre.png" class="deleteIcon" ></image>
+        </view>
+        
+        
       </view>
     </view>
   </view>

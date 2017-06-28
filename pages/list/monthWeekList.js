@@ -115,7 +115,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    this.getTypeInfo(this.data.currentTab);
+    this.getTypeInfo(this.data.currentTab + 1);
   },
   bindChange: function (e) {
     var that = this;
@@ -181,6 +182,7 @@ Page({
       success: function (res) {
         res = res.data;
         if (res.ret == 0) {
+          wx.stopPullDownRefresh();
           let data = res.data.list;
           if(data !=""){
             if(!!more){
@@ -233,13 +235,13 @@ Page({
   },
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
-    let playlist = this.data.list[this.data.currentTab];
-    playlist = JSON.stringify(playlist);
+     let id = this.data.list[this.data.currentTab][index].id;
+    // playlist = JSON.stringify(playlist);
     let listsrc = JSON.stringify('/program/pro_list/song_info_list?categoryId=' + this.data.idArr[this.data.currentTab]);
-    wx.setStorageSync('playlist', playlist);
-    wx.setStorageSync('listsrc', listsrc);
+    // wx.setStorageSync('playlist', playlist);
+    // wx.setStorageSync('listsrc', listsrc);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index='+index,
+      url: '/pages/audioPlayer/audioPlay?id='+id,
     })
   },
   audioPlay: function () {

@@ -162,11 +162,14 @@ Page({
             })
           }
           let imglist = this.data.songList;
+          let imgBanner = this.data.songerInfo;
           for (let j = 0; j < imglist.length; j++) {
             imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
           }
+          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 1, 1);
           this.setData({
             songList: imglist,
+            songerInfo: imgBanner
           })
         }
         else {
