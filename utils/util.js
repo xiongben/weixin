@@ -580,11 +580,15 @@ var timeToSeconds = time => {
 }
 
 function sharefn(id){
+  let userInfo = wx.getStorageSync('userInfo');
+  userInfo = JSON.parse(userInfo);
      request('/program/pro_list/add_share_score', {
-        withToken: true,
+        // withToken: true,
         method: 'POST',
         data: {
-          songInfoId: id
+          songInfoId: id,
+          uid: userInfo.id,
+          token: userInfo.token
         },
         success: function (res) {
           if (res.ret == 0) {
@@ -600,23 +604,18 @@ function sharefn(id){
 
 
 function lookBackMusicStatus(page){
-  console.log(page);
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
-      console.log("后台有音乐哦");
+      // console.log("后台有音乐哦");
       var status = res.status;
       var dataUrl = res.dataUrl;
       var duration = res.duration;
       var downloadPercent = res.downloadPercent;
-      // console.log(res);
-      let playSongInfo = wx.getStorageSync('playSongInfo');
+      let playSongInfo = wx.getStorageSync('playName');
       playSongInfo = JSON.parse(playSongInfo);
-      // let playSongInfo = getApp().globalData.playSongInfo;
       page.setData({
-        src: dataUrl,
-        name: playSongInfo.name,
-        singer: playSongInfo.singer,
-        cover: playSongInfo.cover
+        name: playSongInfo,
+        src: dataUrl
       });
       if (status == 2) {
         page.setData({

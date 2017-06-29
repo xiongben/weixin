@@ -13,11 +13,12 @@
   width: 500rpx;
   height: 60rpx;
   /*background: red;*/
-  text-indent: 140rpx;
+  /*text-indent: 140rpx;*/
   position: absolute;
   left: 65rpx;
   top: 0;
   font-size: 26rpx;
+  text-align: left;
 }
 
 .searchIcon {
@@ -73,6 +74,12 @@
   height:30rpx;
   float:right;
   margin:30rpx 30rpx 0 0;
+}
+.clearHistoryArea{
+  width:90rpx;
+  height:88rpx;
+  float:right;
+  /*background:red;*/
 }
 .historyList{
   width:720rpx;

@@ -1,5 +1,6 @@
 // pages/list/monthWeekList.js
 var util = require('../../utils/util.js');
+var backTime;
 Page({
 
   /**
@@ -34,9 +35,17 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.src) {
-      util.getBackMusic(this);
-    }
+    clearInterval(backTime);
+    wx.getBackgroundAudioPlayerState({
+      success: function (res) {
+        let page = this;
+        if (res && res.status == 1) {
+          backTime = setInterval(function () {
+            util.lookBackMusicStatus(page);
+          }, 5000);
+        }
+      }.bind(this)
+    })
   }, 
 
   /**
@@ -77,6 +86,9 @@ Page({
         title: '打榜歌曲',
         path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
         success: function (data) {
+          wx.showToast({
+            title: '打榜成功',
+          });
           util.sharefn(res.target.dataset.songid);
         },
         fail: function (data) {
@@ -115,6 +127,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    this.setData({
+      currentTab: 0,
+      startArr: [0, 0],
+      limit: 10,
+    });
     this.getTypeInfo(this.data.currentTab);
     this.getTypeInfo(this.data.currentTab + 1);
   },
@@ -170,7 +187,7 @@ Page({
         startArr:newStartArr
       })
     }
-    console.log(this.data.startArr[currentTab]);
+    // console.log(this.data.startArr[currentTab]);
     util.request('/program/pro_list/song_info_list', {
       withToken: false,
       method: 'GET',
@@ -198,7 +215,7 @@ Page({
               this.setData({
                 list: newList,
               })
-              console.log(this.data.list);
+              // console.log(this.data.list);
             }
             let imglist = this.data.list;
             for (let j = 0; j < imglist.length; j++) {
@@ -212,7 +229,7 @@ Page({
               title: '没有更多了',
             });
           }
-          console.log(this.data.list);
+          // console.log(this.data.list);
         }
         else {
           util.showError(res.msg);
@@ -236,12 +253,9 @@ Page({
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
      let id = this.data.list[this.data.currentTab][index].id;
-    // playlist = JSON.stringify(playlist);
-    let listsrc = JSON.stringify('/program/pro_list/song_info_list?categoryId=' + this.data.idArr[this.data.currentTab]);
-    // wx.setStorageSync('playlist', playlist);
-    // wx.setStorageSync('listsrc', listsrc);
+    let listsrc = JSON.stringify('/program/pro_list/song_info_list');
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id='+id,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc + '&categoryId=' + this.data.idArr[this.data.currentTab],
     })
   },
   audioPlay: function () {
@@ -264,7 +278,7 @@ Page({
         success: function (res) {
           wx.getBackgroundAudioPlayerState({
             success: function (res) {
-              console.log(res);
+              // console.log(res);
             }
           });
         }

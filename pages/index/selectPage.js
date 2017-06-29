@@ -72,7 +72,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '嘿吼音乐',
+      path: '/pages/index/index',
+      success: function (data) {
+
+      },
+    }
   },
 
   /**
@@ -263,7 +269,7 @@ Page({
     let start;
     if (!!more) {
       let newStart = this.data.start;
-      start = this.data.start[index] + 4;
+      start = this.data.start[index] + 8;
       newStart[index] = start;
       this.setData({
         start: newStart,

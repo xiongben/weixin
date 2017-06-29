@@ -15,8 +15,12 @@
     <button class="shareButton" open-type="share" data-songid="{{sheetId}}"></button>
     <view class="shareSongNum">{{sheetInfo.shareNum}}</view>
   </view>
-  <view class="playAll">全部播放
-    <image src="../../static/images/btn_play_nor.png" class="playIcon" bindtap="playAll"></image>
+  <view class="playAll">
+    <view class="playAllArea"  bindtap="playAll">
+       全部播放
+       <image src="../../static/images/btn_play_nor.png" class="playIcon"></image>
+    </view>
+   
     <view class="btnArea" bindtap="manageSheet" wx:if="{{manageSheet}}">
       <text class="iconText">管理</text>
       <image src="../../static/images/btn_manage_pre.png" class="iconMore"></image>

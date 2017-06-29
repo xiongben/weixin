@@ -27,9 +27,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.src) {
-      util.getBackMusic(this);
-    }
+    
   },
 
   /**
@@ -59,7 +57,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '嘿吼音乐',
+      path: '/pages/list/recommendSheet',
+      success: function (data) {
 
+      },
+    }
   },
 
   /**
@@ -104,9 +108,9 @@ Page({
                 duration: 2000
               })
             } else {
-              let moreMusicianList = this.data.musicianList.concat(res.data.list);
+              let moresheetList = this.data.sheetList.concat(res.data.list);
               this.setData({
-                sheetList: moreMusicianList,
+                sheetList: moresheetList,
               });
             }
           } else {
@@ -115,6 +119,7 @@ Page({
             });
 
           }
+          console.log(this.data.sheetList);
         }
         else {
           util.showError(res.msg);

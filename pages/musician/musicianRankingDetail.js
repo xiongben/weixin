@@ -75,19 +75,30 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
-    return {
-      title: '打榜歌曲',
-      path: '/pages/list/monthWeekList?id=' + res.target.dataset.songid,
-      success: function (data) {
-        util.sharefn(res.target.dataset.songid);
-        console.log("分享成功");
-      },
-      fail: function (data) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if (res.from === 'button'){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/list/monthWeekList?id=' + res.target.dataset.songid,
+        success: function (data) {
+          util.sharefn(res.target.dataset.songid);
+          console.log("分享成功");
+        },
+        fail: function (data) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/musician/musicianRankingDetail?singerid=' + this.data.singerId,
+        success: function (data) {
+
+        },
       }
     }
+    
   },
 
   /**
@@ -150,7 +161,7 @@ Page({
           for (let j = 0; j < imglist.length; j++) {
             imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
           }
-          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 1, 1);
+          imgBanner.cover = util.calcCenterImg(imgBanner.cover,2, 2);
           this.setData({
             songList: imglist,
             songerInfo: imgBanner

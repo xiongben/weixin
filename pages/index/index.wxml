@@ -9,13 +9,13 @@
     <!--<input type="text" class="searchMusic"  disabled="true" placeholder="搜索你感兴趣的歌曲"/>-->
     <view class="searchMusicText">搜索你感兴趣的歌曲</view>
     <image src="../../static/images/Icon_Search.png" class="searchIcon"></image>
-    <image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>
+    <!--<image src="../../static/images/btn_close_pre.png" class="closeIcon"></image>-->
   </view>
   <view class="banner">
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
       <block wx:for="{{imgUrls}}" wx:key="{{idx}}">
         <swiper-item>
-          <image src="{{item.photo}}" class="slide-image" data-url="{{item.adUrl}}" bindtap="bannnerUrl"/>
+          <image src="{{item.photo}}" class="slide-image" data-url="{{item.adUrl}}" bindtap="bannnerUrl" data-src="{{item.adUrl}}"/>
         </swiper-item>
       </block>
     </swiper>

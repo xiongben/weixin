@@ -51,9 +51,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.src) {
-      util.getBackMusic(this);
-    }
+    
   },
 
   /**
@@ -83,19 +81,30 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (data) {
-        console.log("分享成功");
-        util.sharefn(res.target.dataset.songid);
-      },
-      fail: function (data) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if(res.from){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
+        success: function (data) {
+          console.log("分享成功");
+          util.sharefn(res.target.dataset.songid);
+        },
+        fail: function (data) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/list/recommendSheet?id='+this.data.type,
+        success: function (data) {
+
+        },
       }
     }
+    
   },
 
   /**

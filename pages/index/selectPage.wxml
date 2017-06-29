@@ -17,7 +17,9 @@
   </view>
   <view class="searchHistory" wx:if="{{selectPage}}">
     <view class="historyTitle">搜索历史
-      <image src="../../static/images/btn_Clear_pre.png" class="clearIcon" catchtap="clearHistory"></image>
+     <view class="clearHistoryArea" catchtap="clearHistory">
+        <image src="../../static/images/btn_Clear_pre.png" class="clearIcon" ></image>
+     </view>
     </view>
     <view class="historyList" wx:for="{{historyList}}" wx:key="idx" data-keyword="{{item.keyword}}" catchtap="hotSearchkeyword">{{item.keyword}}</view>
   </view>

@@ -1,5 +1,6 @@
 // pages/mine/myPage.js
 var util = require('../../utils/util.js');
+var backTime;
 Page({
 
   /**
@@ -33,9 +34,18 @@ Page({
     this.loadData();
     this.getSheetList('mycreat');
     this.getSheetList('mycollect');
-    if (!this.data.src) {
-      util.getBackMusic(this);
-    }
+    clearInterval(backTime);
+    wx.getBackgroundAudioPlayerState({
+      success: function (res) {
+        let page = this;
+        if (res && res.status == 1) {
+          backTime = setInterval(function () {
+            util.lookBackMusicStatus(page);
+          }, 5000);
+
+        }
+      }.bind(this)
+    })
   },
 
   /**
@@ -70,7 +80,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '嘿吼音乐',
+      path: '/pages/index/index',
+      success: function (data) {
 
+      },
+    }
   },
 
   /**
@@ -83,13 +99,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.loadData();
+    this.getSheetList('mycreat');
+    this.getSheetList('mycollect');
   },
   loadData: function () {
     util.request('/program/pro_user/get_user_info', {
       withToken: true,
       method: 'GET',
       success: function (res) {
+        wx.stopPullDownRefresh();
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
@@ -153,10 +172,24 @@ Page({
             this.setData({
               mycreatList: res.data.list,
             });
+            let imglist = this.data.mycreatList;
+            for (let j = 0; j < imglist.length; j++) {
+              imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+            }
+            this.setData({
+              mycreatList: imglist,
+            });
           }else if(type == "mycollect"){
             this.setData({
               mycollectList: res.data.list,
             });
+            let imglist = this.data.mycollectList;
+            for (let j = 0; j < imglist.length; j++) {
+              imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+            }
+            this.setData({
+              mycollectList: imglist,
+            })
           }
          
         }

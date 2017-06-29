@@ -57,7 +57,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    wx.stopPullDownRefresh();
+    this.setData({
+      start: 0,
+      limit: 10,
+    });
+    this.getSheetList(this.data.type);
+   
   },
 
   /**
@@ -74,7 +79,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+    return {
+      title: '嘿吼音乐',
+      path: '/pages/index/index',
+      success: function (data) {
 
+      },
+    }
   },
   getSheetList: function (type,more) {
     let urlArr = {
@@ -95,8 +106,9 @@ Page({
         limit: this.data.limit,
       },
       success: function (res) {
+        wx.stopPullDownRefresh();
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           this.setData({
             sheetTotal:res.data.total
@@ -119,6 +131,13 @@ Page({
               sheetList: res.data.list,
             });
           }
+          let imglist = this.data.sheetList;
+          for (let j = 0; j < imglist.length; j++) {
+            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+          }
+          this.setData({
+            sheetList: imglist,
+          })
         }
         else {
           util.showError(res.msg);
@@ -165,7 +184,7 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           this.getSheetList(this.data.type);
         }

@@ -36,7 +36,7 @@
     <view class="songSheetSecondList" wx:if="{{showAdd}}">
       <image class="songSheetPic" src="../../static/images/btn_add_big_pre.png" bindtap="creatSheet"></image>
       <view class="songSheetInfo">
-        <view class="creatSheetName">创建歌单</view>
+        <view class="creatSheetName">创建新歌单</view>
       </view>
     </view>
     <view class="myCollection" bindtap="showSheetList" data-type="mycollect">我收藏的歌单({{userInfo.CollectCount}})

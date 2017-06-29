@@ -94,6 +94,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this
+    if (res.from === 'button'){
       if (this.data.type == 'favoriteList') {
         let userInfo = wx.getStorageSync('userInfo');
         userInfo = JSON.parse(userInfo);
@@ -103,9 +104,6 @@ Page({
           success: function (data) {
             console.log("分享成功");
           },
-          fail: function (data) {
-
-          }
         }
       } else {
         return {
@@ -114,13 +112,16 @@ Page({
           success: function (data) {
             console.log("分享成功");
             this.shareSheetFn(this.data.sheetId);
-            
-          },
-          fail: function (data) {
-
           }
         }
       }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/index/index',
+      }
+    }
+      
   },
 
   /**
@@ -197,7 +198,7 @@ Page({
           for (let j = 0; j < imglist.length; j++) {
             imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
           }
-          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 1, 1);
+          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 2, 2);
           this.setData({
             musicianList: imglist,
             sheetInfo: imgBanner

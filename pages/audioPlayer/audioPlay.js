@@ -1,6 +1,8 @@
 // pages/audioPlayer/audioPlay.js
 var util = require('../../utils/util.js');
 var time;
+var outTime;
+var getTimesOut;
 Page({
 
   /**
@@ -38,27 +40,32 @@ Page({
   onLoad: function (options) {
     if (options) {
       console.log(options);
-      if (options.id == "all") {
-        let index = options.index;
-        let listsrc = options.url;
-        listsrc = JSON.parse(listsrc);
-        if (options.singerId) {
-          listsrc = listsrc + "?singerId=" + options.singerId;
-        } else if (options.sheetId) {
-          listsrc = listsrc + "?id=" + options.sheetId;
-        }
+      this.setData({
+        option: options
+      })
+      // if (options.id == "all") {
+      //   let index = options.index;
+      //   let listsrc = options.url;
+      //   listsrc = JSON.parse(listsrc);
+      //   if (options.singerId) {
+      //     listsrc = listsrc + "?singerId=" + options.singerId;
+      //   } else if (options.sheetId) {
+      //     listsrc = listsrc + "?id=" + options.sheetId;
+      //   } else if (options.categoryId){
+      //     listsrc = listsrc + "?categoryId=" + options.categoryId;
+      //   }
 
-        this.setData({
-          showControl: true,
-          playIndex: index
-        });
-        
-        this.getMoreList(listsrc);
-      }
-      else {
-        // this.audioCtx = wx.createAudioContext('myAudio');
-        this.getIdSong(options.id);
-      }
+      //   this.setData({
+      //     showControl: true,
+      //     playIndex: index
+      //   });
+
+      //   this.getMoreList(listsrc);
+      // }
+      // else {
+      //   // this.audioCtx = wx.createAudioContext('myAudio');
+      //   this.getIdSong(options.id);
+      // }
     }
 
   },
@@ -68,6 +75,29 @@ Page({
    */
   onReady: function (e) {
     
+    if (this.data.option.id == "all") {
+      let index = this.data.option.index;
+      let listsrc = this.data.option.url;
+      listsrc = JSON.parse(listsrc);
+      if (this.data.option.singerId) {
+        listsrc = listsrc + "?singerId=" + this.data.option.singerId;
+      } else if (this.data.option.sheetId) {
+        listsrc = listsrc + "?id=" + this.data.option.sheetId;
+      } else if (this.data.option.categoryId) {
+        listsrc = listsrc + "?categoryId=" + this.data.option.categoryId;
+      }
+
+      this.setData({
+        showControl: true,
+        playIndex: index
+      });
+
+      this.getMoreList(listsrc);
+    }
+    else {
+      // this.audioCtx = wx.createAudioContext('myAudio');
+      this.getIdSong(this.data.option.id);
+    }
   },
 
   /**
@@ -110,19 +140,30 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (data) {
-        console.log("分享成功");
-        util.sharefn(res.target.dataset.songid);
-      },
-      fail: function (data) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if (res.from === 'button'){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
+        success: function (data) {
+          console.log("分享成功");
+          util.sharefn(res.target.dataset.songid);
+        },
+        fail: function (data) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/index/index',
+        success: function (data) {
+
+        },
       }
     }
+    
   },
 
   /**
@@ -138,22 +179,18 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
   },
-  //test--------
-  // timechange:function(data){
-  //   // console.log(data);
-  //     this.setData({
-  //       duration: parseInt(data.detail.duration),
-  //       total_time: util.formate(data.detail.duration),
-  //       current: parseInt(data.detail.currentTime),
-  //       cur_time: util.formate(data.detail.currentTime)
-  //     });
-  // },
+  
   //删除所有歌曲
   delAllSong: function () {
     this.setData({
       played_list: []
     })
     wx.setStorageSync('playlist', []);
+  },
+  backList:function(){
+    this.setData({
+      is_show_played: false,
+    })
   },
   //切换歌曲
   changeSong: function (e) {
@@ -254,8 +291,8 @@ Page({
       current: e.detail.value,
       cur_time: util.formate(e.detail.value)
     })
-    this.audioCtx.seek(e.detail.value);
-    // play(this)
+    // this.audioCtx.seek(e.detail.value);
+    // this.play();
   },
   //前一首歌曲
   prevSong: function () {
@@ -311,7 +348,7 @@ Page({
     // loadPage(this)
     this.play();
   },
-  songEnd:function(){
+  songEnd: function () {
     this.nextSong();
   },
   getMoreList: function (url, list) {
@@ -343,7 +380,7 @@ Page({
             });
             console.log(this.data.item);
             // loadPage(this);
-           this.play();
+            this.play();
           } else if (res.data.songList) {
             var newplayed_list = res.data.songList;
             for (let i = 0; i < newplayed_list.length; i++) {
@@ -357,7 +394,12 @@ Page({
               item: this.data.played_list[this.data.playIndex],
             });
             console.log(this.data.item);
-            this.play();
+            clearTimeout(outTime);
+            let that=this;
+            outTime=setTimeout(function(){
+              that.play();
+            },1000);
+            
             // loadPage(this);
           }
 
@@ -381,7 +423,10 @@ Page({
           this.setData({
             item: res.data,
           });
-          this.play();
+          let that = this;
+          outTime = setTimeout(function () {
+            that.play();
+          }, 1000);
         }
         else {
           util.showError(res.msg);
@@ -432,7 +477,7 @@ Page({
       url: '/pages/index/addToSheet?songid=' + id,
     })
   },
-  play:function() {
+  play: function () {
     wx.playBackgroundAudio({
       dataUrl: this.data.item.music,
       success: function (res) {
@@ -440,23 +485,24 @@ Page({
           position: this.data.current,
         });
       }.bind(this)
-    })
-    // this.audioCtx = wx.createAudioContext('myAudio');
-    // this.audioCtx.setSrc(this.data.item.music);
+    });
+
     this.setData({
       isPlaying: true,
     })
     clearInterval(time);
-    let page=this;
-  time = setInterval(function () {
-    playing(page);
-  }, 2000);
-    // this.audioCtx.play();
-    // const backgroundAudioManager = wx.getBackgroundAudioManager();
-    // backgroundAudioManager.src =this.data.item.music;
-    // backgroundAudioManager.play();
+    let page = this;
+    time = setInterval(function () {
+      playing(page);
+    }, 2000);
     loadLyr(this);
-}
+    let playInfo=JSON.stringify(this.data.item.name);
+    clearTimeout(getTimesOut);
+    getTimesOut=setTimeout(function(){
+      countRecentTime(page);
+      wx.setStorageSync('playName', playInfo);
+    },5000);
+  }
 });
 
 // function play(page) {
@@ -468,13 +514,13 @@ Page({
 //   setTimeout(function(){
 //     page.audioCtx.play();
 //   },2000);
-  
+
 // }
 
 //播放中
 function playing(page) {
   console.log("playing执行吃书");
-  
+
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       if (!page.data.duration) {
@@ -516,11 +562,11 @@ function playing(page) {
 //   记录播放状态
 //   playing(page);
 //   clearInterval(time);
-  
+
 //   time = setInterval(function () {
 //     playing(page);
 //   }, 2000);
- 
+
 
 //   wx.setNavigationBarTitle({
 //     title: page.data.item.name,

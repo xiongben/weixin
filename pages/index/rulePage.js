@@ -65,7 +65,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '嘿吼音乐',
+      path: '/pages/index/rulePage',
+      success: function (data) {
+
+      },
+    }
   },
 
   /**

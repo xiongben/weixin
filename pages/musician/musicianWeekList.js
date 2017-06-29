@@ -1,5 +1,6 @@
 // pages/musician/musicianWeekList.js
 var util = require('../../utils/util.js');
+var backTime;
 Page({
 
   /**
@@ -37,9 +38,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (!this.data.src) {
-      util.getBackMusic(this);
-    }
+    clearInterval(backTime);
+    wx.getBackgroundAudioPlayerState({
+      success: function (res) {
+        let page = this;
+        if (res && res.status == 1) {
+          backTime = setInterval(function () {
+            util.lookBackMusicStatus(page);
+          }, 5000);
+
+        }
+      }.bind(this)
+    })
   },
 
   /**
@@ -80,11 +90,7 @@ Page({
       success: function (res) {
         console.log("分享成功");
       },
-      fail: function (res) {
-        wx.showToast({
-          title: '分享失败',
-        });
-      }
+      
     }
   },
 
@@ -104,6 +110,10 @@ Page({
   onPullDownRefresh: function () {
     this.getRankingInfo('week');
     this.getRankingInfo('month');
+    this.setData({
+      limit: 5,
+      start: 0,
+    })
     this.getMusicianList();
   },
   bindChange: function (e) {
@@ -129,19 +139,28 @@ Page({
           if (param == "week") {
             this.setData({
               weekrankInfo: res.data.list
+            });
+            let imglist = this.data.weekrankInfo;
+            for (let j = 0; j < imglist.length; j++) {
+              imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+            }
+            this.setData({
+              weekrankInfo: imglist,
             })
           } else if (param == "month") {
             this.setData({
               monthrankInfo: res.data.list
+            });
+            let imglist = this.data.monthrankInfo;
+            for (let j = 0; j < imglist.length; j++) {
+              imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
+            }
+            this.setData({
+              monthrankInfo: imglist,
             })
           }
-          let imglist = this.data.monthrankInfo;
-          for (let j = 0; j < imglist.length; j++) {
-            imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
-          }
-          this.setData({
-            monthrankInfo: imglist,
-          })
+         
+          
         }
         else {
           util.showError(res.msg);
@@ -165,7 +184,7 @@ Page({
       success: function (res) {
         wx.hideLoading();
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           if (!!more) {
             wx.hideLoading();
@@ -224,7 +243,7 @@ Page({
       });
       wx.getBackgroundAudioPlayerState({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
         }
       });
     } else if (this.data.status == 0) {
@@ -236,7 +255,7 @@ Page({
         success: function (res) {
           wx.getBackgroundAudioPlayerState({
             success: function (res) {
-              console.log(res);
+              // console.log(res);
             }
           });
         }

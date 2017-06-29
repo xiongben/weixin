@@ -26,15 +26,13 @@ Page({
     
   },
   onShow: function () {
-    // if (!this.data.src){
-    //   util.getBackMusic(this);
-    // }
     clearInterval(backTime);
     wx.getBackgroundAudioPlayerState({
       success: function (res) {
+        let page=this;
         if(res && res.status == 1){
           backTime=setInterval(function(){
-            util.lookBackMusicStatus(this);
+            util.lookBackMusicStatus(page);
           },5000) ;
           
         }
@@ -53,23 +51,32 @@ Page({
   */
   onShareAppMessage: function (res){
     let that = this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (data) {
-        console.log('/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid);
-        util.sharefn(res.target.dataset.songid);
-      },
-      fail: function (data) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if (res.from === 'button'){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
+        success: function (data) {
+          console.log(res.target.dataset.songid);
+          util.sharefn(res.target.dataset.songid);
+        },
+        fail: function (data) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/index/index',
       }
     }
+    
   },
   searchMusic: function () {
     let id = "1";
     wx.navigateTo({ url: '/pages/index/selectPage?id=' + id });
+    // util.sharefn(68);
   },
   getRecommendInfo: function (type) {
     let typeArr = {
@@ -113,7 +120,7 @@ Page({
   },
   moreInfo: function (e) {
     let type = e.currentTarget.dataset.type;
-    console.log(type);
+    // console.log(type);
     let typeArr = {
       recommendSong: '/pages/list/recommendSongs?id=recommendSong',
       newSong: '/pages/list/recommendSongs?id=newSong',
@@ -136,7 +143,7 @@ Page({
     let listsrc = JSON.stringify('/program/pro_song_info/new_start_song_list');
     // wx.setStorageSync('playlist', songlist);
     // wx.setStorageSync('listsrc', listsrc);
-    console.log(listsrc);
+    // console.log(listsrc);
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
@@ -182,11 +189,7 @@ Page({
       this.setData({
         status: 0,
       });
-      wx.getBackgroundAudioPlayerState({
-        success: function (res) {
-          console.log(res);
-        }
-      });
+      
     } else if (this.data.status == 0) {
       this.setData({
         status: 1,
@@ -194,16 +197,17 @@ Page({
       wx.playBackgroundAudio({
         dataUrl: this.data.src,
         success: function (res) {
-          wx.getBackgroundAudioPlayerState({
-            success: function (res) {
-              console.log(res);
-            }
-          });
+          
         }
       })
     }
 
   },
-  
- 
+  bannnerUrl:function(e){
+    let url = e.currentTarget.dataset.src;
+    wx.navigateTo({
+      url: url,
+    });
+  }
+   
 })

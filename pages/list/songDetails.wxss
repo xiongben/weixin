@@ -111,6 +111,12 @@
   margin-top:17rpx;
   float:left;
 }
+.playAllArea{
+  width:250rpx;
+  height:80rpx;
+  float:left;
+  /*background: red;*/
+}
 .moreicon{
   height:28rpx;
   width:28rpx;

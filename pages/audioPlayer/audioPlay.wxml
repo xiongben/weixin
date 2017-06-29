@@ -2,13 +2,13 @@
 <view class="container">
    <!--<audio poster="{{item.cover}}" name="{{item.name}}"  id="myAudio" controls loop bindtimeupdate="timechange" bindended="songEnd"></audio>-->
   
-
+  <view class="palySongName {{!is_show_lyr?'':'hide' }}">{{item.name}}</view>
   <view class="singerName {{!is_show_lyr?'':'hide' }}">{{item.singerName}}</view>
-  <view class="backImg" style="background:url({{item.cover}})"></view>
+  <!--<view class="backImg" style="background:url({{item.cover}})"></view>-->
   <image src="../../static/images/btn_playlist_nor.png" class="songListBtn" bindtap="showPlayed" wx:if="{{showControl}}"></image>
   <view class="songPic {{!is_show_lyr?'':'hide' }}" bindtap="showLyr">
     <image src="../../static/images/cm2_play_disc.png" class="discBack"></image>
-    <image src="{{item.cover}}" class="cover coverActive" ></image>
+    <image src="{{item.cover?item.cover:'../../static/images/preplay.png'}}" class="cover coverActive" ></image>
   </view>
   <view class="songshare {{!is_show_lyr?'':'hide' }}">
     <image src="../../static/images/{{item.isLike?'btn_collect_hl_nor':'btn_love_nor_play'}}.png" class="menuIcon" data-id="{{item.id}}" catchtap="loveSong"></image>
@@ -22,7 +22,7 @@
   <view class="songContrl">
     <view class="cur_time">{{cur_time}}</view>
     <view class="total_time">{{total_time}}</view>
-    <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" />
+    <slider bindchange="slider4change" min="0" max="{{duration}}" class="playProgress" selected-color="#e5d1a1" backgroundColor="#fff" value="{{current}}" bindchange="changeSongPross" disabled="true"/>
     <view class="controlBtnArea">
       <image src="../../static/images/btn_reverse_nor.png" class="controlIcon" bindtap="prevSong" wx:if="{{showControl}}"></image>
       <image src="../../static/images/btn_{{isPlaying?'pause':'play'}}_room_nor.png" class="controlPauseIcon" bindtap="playSong"></image>
@@ -31,17 +31,17 @@
   </view>
 
   <view class="played_list {{is_show_played?'':'hide' }}">
-    <scroll-view scroll-y="true">
-      <view class="played_tt">
+  <view class="played_tt">
         播放列表
-        <!--<text bindtap="delAllSong">删除</text>-->
+        <text bindtap="backList" class="outListText">退出</text>
       </view>
+    <scroll-view scroll-y="true">
       <block wx:for="{{played_list}}" wx:for-item="ceil" wx:key="{{index}}">
         <view bindtap="changeSong" class="played_item {{ceil.id==item.id?'active':''}}" data-id="{{ceil.id}}">
-          <text class="played_id">{{index+1}}</text>
+          <!--<text class="played_id">{{index+1}}</text>-->
           <view class="played_core">
-            <view class="played_name">{{ceil.name}}</view>
-            <view class="played_author">{{ceil.singerName}}</view>
+            <view class="played_name">{{ceil.name}} - {{ceil.singerName}}</view>
+            <!--<view class="played_author">{{ceil.singerName}}</view>-->
           </view>
           <view catchtap="delOneSong" data-id="{{ceil.id}}" class="played_del"></view>
         </view>

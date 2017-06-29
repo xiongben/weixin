@@ -90,17 +90,27 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this;
-    return {
-      title: '打榜歌曲',
-      path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
-      success: function (data) {
-        console.log("分享成功");
-        util.sharefn(res.target.dataset.songid);
-      },
-      fail: function (data) {
-        wx.showToast({
-          title: '打榜失败',
-        });
+    if (res.from === 'button'){
+      return {
+        title: '打榜歌曲',
+        path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
+        success: function (data) {
+          console.log("分享成功");
+          util.sharefn(res.target.dataset.songid);
+        },
+        fail: function (data) {
+          wx.showToast({
+            title: '打榜失败',
+          });
+        }
+      }
+    }else{
+      return {
+        title: '嘿吼音乐',
+        path: '/pages/musician/musicianDetail?singerid=' + this.data.singerId,
+        success: function (data) {
+
+        },
       }
     }
   },
@@ -166,7 +176,7 @@ Page({
           for (let j = 0; j < imglist.length; j++) {
             imglist[j].cover = util.calcCenterImg(imglist[j].cover, 0.8, 0.8);
           }
-          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 1, 1);
+          imgBanner.cover = util.calcCenterImg(imgBanner.cover, 2, 2);
           this.setData({
             songList: imglist,
             songerInfo: imgBanner
@@ -181,11 +191,11 @@ Page({
   playAll:function(){
     //  let playlist = this.data.songList;
     //  playlist = JSON.stringify(playlist);
-     let listsrc = JSON.stringify(this.data.urlArr[this.data.type]+'?singerId=' + this.data.singerId);
+     let listsrc = JSON.stringify(this.data.urlArr[this.data.type]);
     //  wx.setStorageSync('playlist', playlist);
     //  wx.setStorageSync('listsrc', listsrc);
      wx.navigateTo({
-       url: '/pages/audioPlayer/audioPlay?id=all&index=0'+ '&url=' + listsrc,
+       url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc+'&singerId=' + this.data.singerId,
      })
   },
   
@@ -193,7 +203,7 @@ Page({
     let index = e.currentTarget.dataset.index;
     // let songinfo = this.data.songList;
     // songinfo = JSON.stringify(songinfo);
-    let listsrc = JSON.stringify('/program/pro_list/singer_index_view');
+    let listsrc = JSON.stringify(this.data.urlArr[this.data.type]);
     // wx.setStorageSync('playlist', songinfo);
     // wx.setStorageSync('listsrc', listsrc);
     console.log(listsrc);
