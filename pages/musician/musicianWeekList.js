@@ -22,9 +22,11 @@ Page({
     wx.showLoading({
       title: '正在加载',
     });
+    util.setStorageUserInfo(function () {
     this.getRankingInfo('week');
     this.getRankingInfo('month');
     this.getMusicianList();
+    }.bind(this));
   },
 
   /**
@@ -124,7 +126,7 @@ Page({
   getRankingInfo: function (param) {
     let type = param;
     util.request('/program/pro_list/singer_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         type: type,
@@ -175,7 +177,7 @@ Page({
       })
     }
     util.request('/program/pro_list/singer_index', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: this.data.start,
@@ -187,7 +189,6 @@ Page({
         // console.log(res);
         if (res.ret == 0) {
           if (!!more) {
-            wx.hideLoading();
             if (res.data == "") {
               wx.showToast({
                 title: '没有更多了',

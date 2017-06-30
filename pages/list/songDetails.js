@@ -6,79 +6,82 @@ Page({
    * 页面的初始数据
    */
   data: {
-    start:0,
-    limit:8,
-    sheetId:"",
-    showheader:true,
-    loveSongIf:false,
-    manageSheet:false,
-    showDelet:false,
+    start: 0,
+    limit: 8,
+    sheetId: "",
+    showheader: true,
+    loveSongIf: false,
+    manageSheet: false,
+    showDelet: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if(options){
-      console.log(options);
-      let sheetType=options.type;
-      if (sheetType == "favoriteList"){
-        this.setData({
-          type: "favoriteList",
-          manageSheet: true,
-          showheader:false,
-        });
-        wx.setNavigationBarTitle({
-          title: "我喜欢"
-        });
-        this.getSheetInfo(this.data.sheetId,this.data.type);
-      }else if(sheetType == "mycreat"){
-        this.setData({
-          type: "mycreat",
-          sheetId:options.id,
-          manageSheet:true,
-        });
-        this.getSheetInfo(this.data.sheetId, this.data.type);
-      }
-      else{
-        this.setData({
-          sheetId: options.id,
-          type: "common",
-          manageSheet: false,
-        });
-        this.getSheetInfo(this.data.sheetId,this.data.type);
-      }
-     
+    if (options) {
+      wx.showLoading({
+        title: '正在加载',
+      });
+      util.setStorageUserInfo(function () {
+        let sheetType = options.type;
+        if (sheetType == "favoriteList") {
+          this.setData({
+            type: "favoriteList",
+            manageSheet: true,
+            showheader: false,
+          });
+          wx.setNavigationBarTitle({
+            title: "我喜欢"
+          });
+          this.getSheetInfo(this.data.sheetId, this.data.type);
+        } else if (sheetType == "mycreat") {
+          this.setData({
+            type: "mycreat",
+            sheetId: options.id,
+            manageSheet: true,
+          });
+          this.getSheetInfo(this.data.sheetId, this.data.type);
+        }
+        else {
+          this.setData({
+            sheetId: options.id,
+            type: "common",
+            manageSheet: false,
+          });
+          this.getSheetInfo(this.data.sheetId, this.data.type);
+        }
+      }.bind(this));
     }
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
@@ -94,7 +97,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this
-    if (res.from === 'button'){
+    if (res.from === 'button') {
       if (this.data.type == 'favoriteList') {
         let userInfo = wx.getStorageSync('userInfo');
         userInfo = JSON.parse(userInfo);
@@ -115,13 +118,13 @@ Page({
           }
         }
       }
-    }else{
+    } else {
       return {
         title: '嘿吼音乐',
         path: '/pages/index/index',
       }
     }
-      
+
   },
 
   /**
@@ -131,7 +134,7 @@ Page({
     wx.showLoading({
       title: '加载更多',
     });
-    this.getSheetInfo(this.data.sheetId,this.data.type,"more");
+    this.getSheetInfo(this.data.sheetId, this.data.type, "more");
 
   },
 
@@ -139,21 +142,25 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
-  },
-  getSheetInfo:function(id,type,more){
-    let urlArr={
-      favoriteList:'pro_song_info/get_like_song_list',
-      common:'pro_song_info/get_info_song_list',
-      mycreat:'pro_song_info/get_info_song_list'
-    }
-    let url = '/program/'+urlArr[type];
     this.setData({
-      url:url
+      start: 0,
+      limit: 8,
+    });
+    this.getSheetInfo(this.data.sheetId, this.data.type);
+  },
+  getSheetInfo: function (id, type, more) {
+    let urlArr = {
+      favoriteList: 'pro_song_info/get_like_song_list',
+      common: 'pro_song_info/get_info_song_list',
+      mycreat: 'pro_song_info/get_info_song_list'
+    }
+    let url = '/program/' + urlArr[type];
+    this.setData({
+      url: url
     });
     if (!!more) {
       this.setData({
-        start: this.data.start + 5,
+        start: this.data.start + 8,
       })
     }
     util.request(this.data.url, {
@@ -166,31 +173,31 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
+          wx.hideLoading();
           wx.stopPullDownRefresh();
           if (!!more) {
-            wx.hideLoading();
-            if (res.data) {
+            if (res.data.songList && res.data.songList.length != 0) {
+              let moreMusicianList = this.data.musicianList.concat(res.data.songList);
+              this.setData({
+                musicianList: moreMusicianList,
+              });
+            } else {
               wx.showToast({
                 title: '没有更多了',
                 icon: 'success',
                 duration: 2000
               })
-            }else{
-            let moreMusicianList = this.data.musicianList.concat(res.data.songList);
-            this.setData({
-              musicianList: moreMusicianList,
-            });
             }
           } else {
             this.setData({
               musicianList: res.data.songList,
-              sheetInfo:res.data,
-              singerId:res.data.id,
+              sheetInfo: res.data,
+              singerId: res.data.id,
               loveSongIf: res.data.isCollect ? true : false,
             });
-            
+
           }
           let imglist = this.data.musicianList;
           let imgBanner = this.data.sheetInfo;
@@ -210,44 +217,44 @@ Page({
       }.bind(this)
     })
   },
-  playSong:function(e){
+  playSong: function (e) {
     let index = e.currentTarget.dataset.index;
     let listsrc = JSON.stringify(this.data.url);
     wx.navigateTo({
-      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&sheetId=' + this.data.singerId+'&url=' + listsrc,
+      url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&sheetId=' + this.data.singerId + '&url=' + listsrc,
     })
   },
-  playAll:function(){
+  playAll: function () {
     // console.log(this.data.musicianList);
-    if (this.data.musicianList && this.data.musicianList.length != 0){
+    if (this.data.musicianList && this.data.musicianList.length != 0) {
       let listsrc = JSON.stringify(this.data.url);
       wx.navigateTo({
         url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc + '&sheetId=' + this.data.singerId,
       })
-    }else{
+    } else {
       wx.showToast({
         title: '没有歌曲可以播放',
         icon: 'success',
         duration: 2000
       })
     }
-    
+
   },
   loveSong: function (e) {
-    if (this.data.type == "favoriteList"){
+    if (this.data.type == "favoriteList") {
       return false;
     }
     this.setData({
       loveSongIf: !this.data.loveSongIf
     });
-    console.log(this.data.loveSongIf);
+    // console.log(this.data.loveSongIf);
     let url;
     if (!this.data.loveSongIf) {
       url = '/program/pro_song/delete_song_collect';
     } else {
       url = '/program/pro_song/add_song_collect';
     }
-    console.log(this.data.sheetInfo);
+    // console.log(this.data.sheetInfo);
     util.request(url, {
       withToken: true,
       method: 'POST',
@@ -257,7 +264,6 @@ Page({
       success: function (res) {
         res = res.data;
         if (res.ret == 0) {
-          console.log("loveSongChange");
           this.getSheetInfo(this.data.sheetId, this.data.type);
         }
         else {
@@ -266,7 +272,7 @@ Page({
       }.bind(this)
     })
   },
-  shareSheetFn:function(id){
+  shareSheetFn: function (id) {
     request('/program/pro_song/add_song_share', {
       withToken: true,
       method: 'POST',
@@ -298,33 +304,34 @@ Page({
       content: '是否确认删除歌曲',
       success: function (res) {
         if (res.confirm) {
-          if (this.data.type == 'favoriteList'){
+          if (this.data.type == 'favoriteList') {
             this.deleteLoveSong(id);
-          }else{
+          } else {
             this.deleteSongFn(id);
           }
-          
+
         } else if (res.cancel) {
           console.log('用户点击取消');
         }
       }.bind(this)
     })
   },
-  deleteSongFn:function(id){
+  deleteSongFn: function (id) {
     util.request('/program/pro_song/delete_song_info_collect', {
       withToken: true,
       method: 'POST',
       data: {
-        songId:this.data.sheetId,
+        songId: this.data.sheetId,
         songInfoId: id
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
         if (res.ret == 0) {
-          // this.getSheetList(this.data.type);
+          this.setData({
+            start: 0,
+            limit: 8,
+          });
           this.getSheetInfo(this.data.sheetId, this.data.type);
-          console.log("删除歌曲成功");
         }
         else {
           util.showError(res.msg);
@@ -332,7 +339,7 @@ Page({
       }.bind(this)
     })
   },
-  deleteLoveSong:function(id){
+  deleteLoveSong: function (id) {
     util.request('/program/pro_song_info/delete_song_like', {
       withToken: true,
       method: 'POST',
@@ -341,10 +348,13 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
+          this.setData({
+            start: 0,
+            limit: 8,
+          });
           this.getSheetInfo(this.data.sheetId, this.data.type);
-          console.log("删除love歌曲成功");
         }
         else {
           util.showError(res.msg);

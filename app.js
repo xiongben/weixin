@@ -1,9 +1,11 @@
 //app.js
+var util = require('utils/util.js');
 App({
   onLaunch: function () {
     //调用API从本地缓存中获取数据
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
+    var logs = wx.getStorageSync('logs') || [];
+    logs.unshift(Date.now());
+    //util.setStorageUserInfo();
   },
   getUserInfo: function (cb) {
     var that = this

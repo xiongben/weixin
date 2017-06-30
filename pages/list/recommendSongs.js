@@ -6,9 +6,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    start:0,
-    limit:10,
-    showShare:true,
+    start: 0,
+    limit: 10,
+    showShare: true,
   },
 
   /**
@@ -16,26 +16,29 @@ Page({
    */
   onLoad: function (options) {
     if (options) {
-      let id = options.id;
-      if (id == 'recentlyList') {
-        this.setData({
-          showShare: false
-        })
-      }
-      this.setData({
-        type:id
-      })
-      let data = {
-        'recentlyList': '最近播放',
-        'recommendSong':'推荐歌曲',
-        'newSong':'新歌发布'
-      };
-      
-      wx.setNavigationBarTitle({
-        title: data[id]
+      wx.showLoading({
+        title: '正在加载',
       });
-      this.getSongList(this.data.type);
-      
+      util.setStorageUserInfo(function () {
+        let id = options.id;
+        if (id == 'recentlyList') {
+          this.setData({
+            showShare: false
+          })
+        }
+        this.setData({
+          type: id
+        })
+        let data = {
+          'recentlyList': '最近播放',
+          'recommendSong': '推荐歌曲',
+          'newSong': '新歌发布'
+        };
+        wx.setNavigationBarTitle({
+          title: data[id]
+        });
+        this.getSongList(this.data.type);
+      }.bind(this));
     }
 
   },
@@ -51,7 +54,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    
+
   },
 
   /**
@@ -81,7 +84,7 @@ Page({
    */
   onShareAppMessage: function (res) {
     let that = this;
-    if(res.from){
+    if (res.from) {
       return {
         title: '打榜歌曲',
         path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
@@ -95,26 +98,26 @@ Page({
           });
         }
       }
-    }else{
+    } else {
       return {
         title: '嘿吼音乐',
-        path: '/pages/list/recommendSheet?id='+this.data.type,
+        path: '/pages/list/recommendSheet?id=' + this.data.type,
         success: function (data) {
 
         },
       }
     }
-    
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-     wx.showLoading({
-       title: '加载更多',
-     });
-     this.getSongList(this.data.type,'more');
+    wx.showLoading({
+      title: '加载更多',
+    });
+    this.getSongList(this.data.type, 'more');
   },
 
   /**
@@ -123,20 +126,20 @@ Page({
   onPullDownRefresh: function () {
 
   },
-  getSongList: function (type,more) {
+  getSongList: function (type, more) {
     if (!!more) {
       this.setData({
         start: this.data.start + 10,
       })
     }
-    let urlArr={
+    let urlArr = {
       'recentlyList': 'pro_song_info/get_play_song_list',
-      'recommendSong':'pro_song_info/recommend_song_list',
-      'newSong':'pro_song_info/new_start_song_list'
+      'recommendSong': 'pro_song_info/recommend_song_list',
+      'newSong': 'pro_song_info/new_start_song_list'
     };
-    let url ='/program/'+urlArr[type];
+    let url = '/program/' + urlArr[type];
     this.setData({
-       url:url
+      url: url
     });
     util.request(url, {
       withToken: true,
@@ -147,23 +150,22 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        // console.log(res);
+        wx.hideLoading();
         if (res.ret == 0) {
           if (!!more) {
-            wx.hideLoading();
             if (res.data == "" || res.data == []) {
               wx.showToast({
                 title: '没有更多了',
                 icon: 'success',
                 duration: 2000
               })
-            }else{
+            } else {
               let moreMusicianList = this.data.musicianList.concat(res.data.list);
               this.setData({
                 musicianList: moreMusicianList,
               });
             }
-            
+
             // console.log(this.data.musicianList);
           } else {
             this.setData({
@@ -177,7 +179,7 @@ Page({
       }.bind(this)
     })
   },
-  
+
   toAudioPlay: function (e) {
     let index = e.currentTarget.dataset.index;
     // let playlist = this.data.musicianList;
@@ -189,7 +191,7 @@ Page({
       url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
   },
-  playAll:function(){
+  playAll: function () {
     // let playlist = this.data.musicianList;
     // playlist = JSON.stringify(playlist);
     let listsrc = JSON.stringify(this.data.url);

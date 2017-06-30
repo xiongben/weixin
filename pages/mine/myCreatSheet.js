@@ -36,6 +36,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    this.setData({
+      start: 0,
+      limit: 10,
+    });
     this.getSheetList(this.data.type);
   },
 
@@ -110,11 +114,11 @@ Page({
         res = res.data;
         // console.log(res);
         if (res.ret == 0) {
+          wx.hideLoading();
           this.setData({
             sheetTotal:res.data.total
           });
           if (!!more) {
-            wx.hideLoading();
             if (res.data.list == "") {
               wx.showToast({
                 title: '没有更多了',
@@ -186,6 +190,10 @@ Page({
         res = res.data;
         // console.log(res);
         if (res.ret == 0) {
+          this.setData({
+            start: 0,
+            limit: 10,
+          });
           this.getSheetList(this.data.type);
         }
         else {

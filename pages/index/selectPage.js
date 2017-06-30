@@ -106,7 +106,7 @@ Page({
   },
   getHotSearch:function(){
     util.request('/program/search/hot_word_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start:0,

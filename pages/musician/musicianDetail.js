@@ -22,8 +22,8 @@ Page({
     wx.showLoading({
       title: '正在加载',
     });
+    util.setStorageUserInfo(function () {
     if(options){
-      console.log(options);
       if(options.type){
         this.setData({
           type:'singerDetail',
@@ -39,8 +39,8 @@ Page({
         });
       }
     }
-    wx.showLoading();
     this.getMusicianInfo(this.data.type);
+    }.bind(this));
   },
 
   /**
@@ -129,7 +129,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+     this.setData({
+       limit: 5,
+       start: 0,
+     });
+     this.getMusicianInfo(this.data.type);
   },
   getMusicianInfo:function(type,more){
     if(!!more){
@@ -140,7 +144,7 @@ Page({
     
     let url = this.data.urlArr[type];
     util.request(url, {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         singerId:this.data.singerId,
@@ -149,11 +153,11 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
+        wx.stopPullDownRefresh();
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
           if(!!more){
-            wx.hideLoading();
             if (res.data.list == ""){
               wx.showToast({
                 title: '没有更多了',
@@ -189,14 +193,18 @@ Page({
     })
   },
   playAll:function(){
-    //  let playlist = this.data.songList;
-    //  playlist = JSON.stringify(playlist);
-     let listsrc = JSON.stringify(this.data.urlArr[this.data.type]);
-    //  wx.setStorageSync('playlist', playlist);
-    //  wx.setStorageSync('listsrc', listsrc);
-     wx.navigateTo({
-       url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc+'&singerId=' + this.data.singerId,
-     })
+    if (this.data.songList && this.data.songList.length != 0){
+      let listsrc = JSON.stringify(this.data.urlArr[this.data.type]);
+      wx.navigateTo({
+        url: '/pages/audioPlayer/audioPlay?id=all&index=0' + '&url=' + listsrc + '&singerId=' + this.data.singerId,
+      })
+     }else{
+      wx.showToast({
+        title: '没有歌曲可以播放',
+        icon: 'success',
+        duration: 2000
+      })
+     }
   },
   
   playSingle:function(e){

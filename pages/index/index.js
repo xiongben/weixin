@@ -18,23 +18,23 @@ Page({
     wx.showLoading({
       title: '正在加载',
     });
-    this.getBannerImg();
-    this.getRecommendInfo("newSong");
-    this.getRecommendInfo("recommendSong");
-    this.getRecommendInfo("recommendList");
-    util.setStorageUserInfo();
-    
+    util.setStorageUserInfo(function(){
+      this.getBannerImg();
+      this.getRecommendInfo("newSong");
+      this.getRecommendInfo("recommendSong");
+      this.getRecommendInfo("recommendList");
+    }.bind(this));
   },
   onShow: function () {
     clearInterval(backTime);
     wx.getBackgroundAudioPlayerState({
       success: function (res) {
-        let page=this;
-        if(res && res.status == 1){
-          backTime=setInterval(function(){
+        let page = this;
+        if (res && res.status == 1) {
+          backTime = setInterval(function () {
             util.lookBackMusicStatus(page);
-          },5000) ;
-          
+          }, 5000);
+
         }
       }.bind(this)
     })
@@ -49,9 +49,9 @@ Page({
   /**
   * 用户点击右上角分享
   */
-  onShareAppMessage: function (res){
+  onShareAppMessage: function (res) {
     let that = this;
-    if (res.from === 'button'){
+    if (res.from === 'button') {
       return {
         title: '打榜歌曲',
         path: '/pages/audioPlayer/audioPlay?id=' + res.target.dataset.songid,
@@ -65,13 +65,13 @@ Page({
           });
         }
       }
-    }else{
+    } else {
       return {
         title: '嘿吼音乐',
         path: '/pages/index/index',
       }
     }
-    
+
   },
   searchMusic: function () {
     let id = "1";
@@ -86,7 +86,7 @@ Page({
     };
     let url = '/program/' + typeArr[type];
     util.request(url, {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: 0,
@@ -147,7 +147,7 @@ Page({
     wx.navigateTo({
       url: '/pages/audioPlayer/audioPlay?id=all&index=' + index + '&url=' + listsrc,
     })
-   
+
   },
   toRecommendSong: function (e) {
     let index = e.currentTarget.dataset.index;
@@ -162,7 +162,7 @@ Page({
   },
   getBannerImg: function () {
     util.request('/program/pro_banner/get_banner_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         type: 1,
@@ -189,7 +189,7 @@ Page({
       this.setData({
         status: 0,
       });
-      
+
     } else if (this.data.status == 0) {
       this.setData({
         status: 1,
@@ -197,17 +197,17 @@ Page({
       wx.playBackgroundAudio({
         dataUrl: this.data.src,
         success: function (res) {
-          
+
         }
       })
     }
 
   },
-  bannnerUrl:function(e){
+  bannnerUrl: function (e) {
     let url = e.currentTarget.dataset.src;
     wx.navigateTo({
       url: url,
     });
   }
-   
+
 })

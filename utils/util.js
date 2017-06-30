@@ -1,5 +1,5 @@
 var config = require('config.js');
-var Q=require('../templates/q.js');
+var Q = require('../templates/q.js');
 
 function formatTime(date) {
   var year = date.getFullYear()
@@ -16,21 +16,36 @@ function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
 }
-function setStorageUserInfo(){
-  Q.when(getUserInfo()).then(function(res){
-    // let userInfo = config.storageKeys.userInfo;
-    res=JSON.stringify(res);
-    wx.setStorageSync('userInfo', res);
-    
-  })
+function setStorageUserInfo(cb) {
+  let userInfo = wx.getStorageSync('userInfo');
+  // userInfo = JSON.parse(userInfo);
+  console.log(userInfo);
+  if (userInfo && userInfo !=""){
+    console.log("有信息，不再请求");
+    // userInfo = JSON.parse(userInfo);
+    // wx.setStorageSync('userInfo', userInfo);
+    if (typeof cb == 'function') {
+      cb();
+    }  
+  }else{
+    Q.when(getUserInfo()).then(function (res) {
+      // let userInfo = config.storageKeys.userInfo;
+      res = JSON.stringify(res);
+      wx.setStorageSync('userInfo', res);
+      if (typeof cb == 'function') {
+        cb();
+      }
+    })
+  }
+  
 }
 
 function request(url, params) {
   if (params.withToken) {
-    let userInfo=wx.getStorageSync('userInfo');
-    userInfo=JSON.parse(userInfo);
+    let userInfo = wx.getStorageSync('userInfo');
+    userInfo = JSON.parse(userInfo);
     params.data = params.data || {};
-    if (userInfo.id !="" && userInfo.token !="") {
+    if (userInfo.id != "" && userInfo.token != "") {
       params.data.uid = userInfo.id;
       params.data.token = userInfo.token;
     }
@@ -355,7 +370,7 @@ function getUserInfo() {
           success: function (res) {
             res = res.data;
             console.log(res);
-            let openid=res.data.openid;
+            let openid = res.data.openid;
             if (res.ret == 0) {
               wx.getUserInfo({
                 success: function (res) {
@@ -363,16 +378,16 @@ function getUserInfo() {
                     method: 'POST',
                     data: {
                       encryptedData: res.encryptedData,
-                      iv:res.iv,
-                      openid:openid
+                      iv: res.iv,
+                      openid: openid
                     },
-                    success: function (res,userinfofn) {
+                    success: function (res, userinfofn) {
                       res = res.data;
                       console.log(res);
                       if (res.ret == 0) {
-                        let userInfo={
-                          id:res.data.id,
-                          token:res.data.token
+                        let userInfo = {
+                          id: res.data.id,
+                          token: res.data.token
                         }
                         dtd.resolve(userInfo);
                       }
@@ -579,31 +594,31 @@ var timeToSeconds = time => {
   return parseInt(arr[0]) * 60 + parseFloat(arr[1])
 }
 
-function sharefn(id){
+function sharefn(id) {
   let userInfo = wx.getStorageSync('userInfo');
   userInfo = JSON.parse(userInfo);
-     request('/program/pro_list/add_share_score', {
-        // withToken: true,
-        method: 'POST',
-        data: {
-          songInfoId: id,
-          uid: userInfo.id,
-          token: userInfo.token
-        },
-        success: function (res) {
-          if (res.ret == 0) {
-            console.log("分享成功");
-          }
-          else {
-            wx.showToast(res.msg);
-          }
-        }
-      })
+  request('/program/pro_list/add_share_score', {
+    // withToken: true,
+    method: 'POST',
+    data: {
+      songInfoId: id,
+      uid: userInfo.id,
+      token: userInfo.token
+    },
+    success: function (res) {
+      if (res.ret == 0) {
+        console.log("分享成功");
+      }
+      else {
+        wx.showToast(res.msg);
+      }
+    }
+  })
 }
 
 
 
-function lookBackMusicStatus(page){
+function lookBackMusicStatus(page) {
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
       // console.log("后台有音乐哦");

@@ -1,6 +1,7 @@
 module.exports = {
-  api: 'https://api2.heyhou.com',
-  tapi: 'https://tapi.heyhou.com',
+  // api: 'https://api2.heyhou.com',
+  // tapi: 'https://tapi.heyhou.com',
+  tapi: 'https://api2.heyhou.com',
   // tapi: 'https://sapi.heyhou.com',
   //tapi: 'http://192.168.1.130',
   // tapi: 'http://ttjh.f3322.net:82',

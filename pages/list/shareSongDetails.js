@@ -21,9 +21,10 @@ Page({
    */
   onLoad: function (options) {
     if(options){
-      // let userInfo = wx.getStorageSync('userInfo');
-      // userInfo = JSON.parse(userInfo);
-      // console.log(userInfo);
+      wx.showLoading({
+        title: '正在加载',
+      });
+      util.setStorageUserInfo(function () {
       let uid = options.id;
       let token = options.token;
       this.setData({
@@ -31,6 +32,7 @@ Page({
         token:token
       });
       this.getSheetInfo();
+      }.bind(this));
     }
   },
 
@@ -92,7 +94,7 @@ Page({
       })
     }
     util.request('/program/pro_song_info/get_like_song_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         id: this.data.sheetId,
@@ -105,8 +107,8 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
+          wx.hideLoading();
           if (!!more) {
-            wx.hideLoading();
             if (res.data) {
               wx.showToast({
                 title: '没有更多了',

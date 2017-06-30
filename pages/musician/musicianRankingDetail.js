@@ -19,14 +19,15 @@ Page({
     wx.showLoading({
       title: '正在加载',
     });
+    util.setStorageUserInfo(function () {
     if (options) {
       console.log(options);
       this.setData({
         singerId: options.singerid,
       });
     }
-    wx.showLoading();
     this.getMusicianInfo();
+    }.bind(this));
   },
 
   /**
@@ -115,7 +116,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      limit: 5,
+      start: 0,
+    });
+    this.getMusicianInfo();
   },
   getMusicianInfo: function (more) {
     if (!!more) {
@@ -125,7 +130,7 @@ Page({
     }
 
     util.request('/program/pro_list/singer_list_view', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         singerId: this.data.singerId,
@@ -134,11 +139,10 @@ Page({
       },
       success: function (res) {
         wx.hideLoading();
+        wx.stopPullDownRefresh();
         res = res.data;
-        console.log(res);
         if (res.ret == 0) {
           if (!!more) {
-            wx.hideLoading();
             if (res.data.list == "") {
               wx.showToast({
                 title: '没有更多了',

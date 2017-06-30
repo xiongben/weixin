@@ -20,8 +20,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    });
+    util.setStorageUserInfo(function () {
     this.getTypeInfo(this.data.currentTab);
     this.getTypeInfo(this.data.currentTab+1);
+    }.bind(this));
   },
 
   /**
@@ -156,7 +161,7 @@ Page({
   },
   getTypeInfo: function (currentTab,more){
     util.request('/program/pro_category/get_all', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         type:3
@@ -189,7 +194,7 @@ Page({
     }
     // console.log(this.data.startArr[currentTab]);
     util.request('/program/pro_list/song_info_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         categoryId: id,
@@ -199,11 +204,11 @@ Page({
       success: function (res) {
         res = res.data;
         if (res.ret == 0) {
+          wx.hideLoading();
           wx.stopPullDownRefresh();
           let data = res.data.list;
           if(data !=""){
             if(!!more){
-              wx.hideLoading();
               let newList = this.data.list;
               newList[currentTab] = newList[currentTab].concat(data);
               this.setData({

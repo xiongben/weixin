@@ -13,7 +13,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    });
+    util.setStorageUserInfo(function () {
     this.getListInfo();
+    }.bind(this));
   },
 
   /**
@@ -89,7 +94,7 @@ Page({
       })
     }
     util.request('/program/pro_song/recommend_song_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         start: this.data.start,
@@ -99,8 +104,8 @@ Page({
         res = res.data;
         console.log(res);
         if (res.ret == 0) {
+          wx.hideLoading();
           if (!!more) {
-            wx.hideLoading();
             if (res.data.list == "" || !res.data.list) {
               wx.showToast({
                 title: '没有更多了',

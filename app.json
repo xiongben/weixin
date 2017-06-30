@@ -15,13 +15,12 @@
     "pages/musician/musicianRankingList",
     "pages/musician/musicianRankingDetail",
     "pages/list/monthWeekList",
-    "pages/mine/shareSongs",
     "pages/musician/musicianDetail",
     "pages/index/addToSheet",
     "pages/index/rulePage"
   ],
   "window":{
-    "backgroundTextStyle":"light",
+    "backgroundTextStyle":"dark",
     "navigationBarBackgroundColor": "#222",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle":"#fff",

@@ -110,7 +110,7 @@ Page({
       success: function (res) {
         wx.stopPullDownRefresh();
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           if (res.data.MySongCount == 0){
             this.setData({
@@ -166,7 +166,7 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           if(type == "mycreat"){
             this.setData({
@@ -213,7 +213,7 @@ Page({
       });
       wx.getBackgroundAudioPlayerState({
         success: function (res) {
-          console.log(res);
+          // console.log(res);
         }
       });
     } else if (this.data.status == 0) {
@@ -225,7 +225,7 @@ Page({
         success: function (res) {
           wx.getBackgroundAudioPlayerState({
             success: function (res) {
-              console.log(res);
+              // console.log(res);
             }
           });
         }

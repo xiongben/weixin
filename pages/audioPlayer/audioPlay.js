@@ -74,7 +74,8 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function (e) {
-    
+    let that=this;
+    util.setStorageUserInfo(function () {
     if (this.data.option.id == "all") {
       let index = this.data.option.index;
       let listsrc = this.data.option.url;
@@ -95,9 +96,9 @@ Page({
       this.getMoreList(listsrc);
     }
     else {
-      // this.audioCtx = wx.createAudioContext('myAudio');
       this.getIdSong(this.data.option.id);
     }
+    }.bind(that));
   },
 
   /**
@@ -419,14 +420,18 @@ Page({
       },
       success: function (res) {
         res = res.data;
+        console.log(res);
         if (res.ret == 0) {
           this.setData({
             item: res.data,
+            isPlaying:false
           });
-          let that = this;
-          outTime = setTimeout(function () {
-            that.play();
-          }, 1000);
+          // console.log(this.data.item);
+          // clearTimeout(outTime);
+          // let that = this;
+          // outTime = setTimeout(function () {
+          //   that.play();
+          // }, 1000);
         }
         else {
           util.showError(res.msg);
@@ -480,11 +485,19 @@ Page({
   play: function () {
     wx.playBackgroundAudio({
       dataUrl: this.data.item.music,
+      title:"music",
       success: function (res) {
+        console.log("开始播放");
         wx.seekBackgroundAudio({
           position: this.data.current,
         });
-      }.bind(this)
+      }.bind(this),
+      fail:function(res){
+        console.log(res);
+      },
+      complete:function(res){
+        console.log(res);
+      }
     });
 
     this.setData({
@@ -519,10 +532,11 @@ Page({
 
 //播放中
 function playing(page) {
-  console.log("playing执行吃书");
+  // console.log("playing执行吃书");
 
   wx.getBackgroundAudioPlayerState({
     success: function (res) {
+      // console.log(res);
       if (!page.data.duration) {
         page.setData({
           duration: parseInt(res.duration),

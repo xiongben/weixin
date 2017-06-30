@@ -15,6 +15,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.showLoading({
+      title: '正在加载',
+    });
+    util.setStorageUserInfo(function () {
     if (options) {
       let typeid = options.id;
       this.setData({
@@ -22,6 +26,7 @@ Page({
       });
     }
     this.getListInfo(this.data.type);
+    }.bind(this));
   },
 
   /**
@@ -94,7 +99,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      limit: 10,
+      start: 0,
+    });
+    this.getListInfo(this.data.type);
   },
   getListInfo: function (type, more) {
     if (!!more) {
@@ -103,7 +112,7 @@ Page({
       })
     }
     util.request('/program/pro_list/singer_list', {
-      withToken: false,
+      withToken: true,
       method: 'GET',
       data: {
         type: this.data.type,
@@ -112,10 +121,11 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
+          wx.hideLoading();
+          wx.stopPullDownRefresh();
           if (!!more) {
-            wx.hideLoading();
             if (res.data.list == "") {
               wx.showToast({
                 title: '没有更多了',
