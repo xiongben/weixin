@@ -39,33 +39,11 @@ Page({
    */
   onLoad: function (options) {
     if (options) {
-      console.log(options);
+      // console.log(options);
       this.setData({
         option: options
       })
-      // if (options.id == "all") {
-      //   let index = options.index;
-      //   let listsrc = options.url;
-      //   listsrc = JSON.parse(listsrc);
-      //   if (options.singerId) {
-      //     listsrc = listsrc + "?singerId=" + options.singerId;
-      //   } else if (options.sheetId) {
-      //     listsrc = listsrc + "?id=" + options.sheetId;
-      //   } else if (options.categoryId){
-      //     listsrc = listsrc + "?categoryId=" + options.categoryId;
-      //   }
-
-      //   this.setData({
-      //     showControl: true,
-      //     playIndex: index
-      //   });
-
-      //   this.getMoreList(listsrc);
-      // }
-      // else {
-      //   // this.audioCtx = wx.createAudioContext('myAudio');
-      //   this.getIdSong(options.id);
-      // }
+      
     }
 
   },
@@ -352,8 +330,8 @@ Page({
   songEnd: function () {
     this.nextSong();
   },
-  getMoreList: function (url, list) {
-    console.log(this.audioCtx);
+  //列表播放，先请求列表信息，再依次播放
+  getMoreList: function (url, list) {       
     let limit = 100;
     util.request(url, {
       withToken: true,
@@ -364,25 +342,26 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           if (res.data.list) {
-            // var newplayed_list = this.data.played_list.concat(res.data.list);
             var newplayed_list = res.data.list;
             for (let i = 0; i < newplayed_list.length; i++) {
-              newplayed_list[i].indexNum = i;
-              newplayed_list[i].cover = util.calcCenterImg(newplayed_list[i].cover, 1, 1);
+              newplayed_list[i].indexNum = i; //给歌曲标记序号，切换时所用
+              newplayed_list[i].cover = util.calcCenterImg(newplayed_list[i].cover, 2, 2);  //图片裁剪
             }
             this.setData({
-              played_list: newplayed_list
+              played_list: newplayed_list   //歌曲列表赋值
             })
             this.setData({
-              item: this.data.played_list[this.data.playIndex],
+              item: this.data.played_list[this.data.playIndex],   //当前播放歌曲信息赋值
             });
-            console.log(this.data.item);
-            // loadPage(this);
-            this.play();
-          } else if (res.data.songList) {
+            clearTimeout(outTime);
+            let that = this;
+            outTime = setTimeout(function () {
+              that.play();
+            }, 1000);
+          } else if (res.data.songList) {   //针对不同json，字段名不同
             var newplayed_list = res.data.songList;
             for (let i = 0; i < newplayed_list.length; i++) {
               newplayed_list[i].indexNum = i;
@@ -394,7 +373,7 @@ Page({
             this.setData({
               item: this.data.played_list[this.data.playIndex],
             });
-            console.log(this.data.item);
+            // console.log(this.data.item);
             clearTimeout(outTime);
             let that=this;
             outTime=setTimeout(function(){
@@ -411,6 +390,7 @@ Page({
       }.bind(this)
     })
   },
+  //单曲播放，手动点击启动播放
   getIdSong: function (id) {
     util.request('/program/pro_song_info/get_song_info', {
       withToken: false,
@@ -420,18 +400,13 @@ Page({
       },
       success: function (res) {
         res = res.data;
-        console.log(res);
+        // console.log(res);
         if (res.ret == 0) {
           this.setData({
             item: res.data,
             isPlaying:false
           });
-          // console.log(this.data.item);
-          // clearTimeout(outTime);
-          // let that = this;
-          // outTime = setTimeout(function () {
-          //   that.play();
-          // }, 1000);
+          
         }
         else {
           util.showError(res.msg);
@@ -487,7 +462,6 @@ Page({
       dataUrl: this.data.item.music,
       title:"music",
       success: function (res) {
-        console.log("开始播放");
         wx.seekBackgroundAudio({
           position: this.data.current,
         });
@@ -495,9 +469,7 @@ Page({
       fail:function(res){
         console.log(res);
       },
-      complete:function(res){
-        console.log(res);
-      }
+      
     });
 
     this.setData({
@@ -505,30 +477,20 @@ Page({
     })
     clearInterval(time);
     let page = this;
-    time = setInterval(function () {
+    time = setInterval(function () {  //定时获取播放信息
       playing(page);
     }, 2000);
     loadLyr(this);
     let playInfo=JSON.stringify(this.data.item.name);
     clearTimeout(getTimesOut);
-    getTimesOut=setTimeout(function(){
+    getTimesOut=setTimeout(function(){           //记录歌曲播放次数并给浮窗所需信息存值 
       countRecentTime(page);
       wx.setStorageSync('playName', playInfo);
     },5000);
   }
 });
 
-// function play(page) {
-//   page.audioCtx = wx.createAudioContext('myAudio');
-//   page.audioCtx.setSrc(this.data.item.music);
-//   page.setData({
-//     isPlaying: true,
-//   })
-//   setTimeout(function(){
-//     page.audioCtx.play();
-//   },2000);
 
-// }
 
 //播放中
 function playing(page) {
@@ -567,25 +529,7 @@ function playing(page) {
   })
 }
 
-// function loadPage(page) {
-//   console.log("loadpage执行吃书");
-//   countRecentTime(page)
-//   播放
-//   play(page);
-//   loadLyr(page);
-//   记录播放状态
-//   playing(page);
-//   clearInterval(time);
 
-//   time = setInterval(function () {
-//     playing(page);
-//   }, 2000);
-
-
-//   wx.setNavigationBarTitle({
-//     title: page.data.item.name,
-//   })
-// }
 
 function animation(page) {
   var angle = page.data.angle + 1;
